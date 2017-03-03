@@ -1,0 +1,8 @@
+@charset "utf-8";
+.right_cont_top {min-width: 958px;padding-right: 36px;}
+.new_cont {padding-top: 25px;}
+#add_order {color: #000;text-align: center;}
+#add_order .add_order_tab {background: url(../../images/green_tab.png)  no-repeat left top;display: inline-block;height: 202px;margin: 0 40px;width: 304px;}
+#add_order .add_order_tab .title {color: #ffffff;display: block;font-size: 14px;font-weight: bold;height: 43px;line-height: 43px;}
+#add_order .add_order_tab .text {display: block;height: 73px;padding: 15px 5px;}
+#add_order .add_order_tab.ornage {background: url(../../images/orange_tab.png) no-repeat left top;}

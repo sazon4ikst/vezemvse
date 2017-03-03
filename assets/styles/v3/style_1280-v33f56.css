@@ -1,0 +1,103 @@
+@media screen and (min-width: 1254px) {
+	#content .wr_contain{
+		width:1170px;
+		}
+	.wr_contain{
+	width:1228px;
+	}
+.contain .in_contain {
+	width:912px;
+}
+	
+.detail_table .titleCols p.hum {
+	display:inline-block;
+	text-align: center;
+	width:55px;
+}
+.detail_table .detailRow .hum {
+	display:inline-block;
+	width:50px;
+}
+.detail_table .detailRow .hum.null{
+	font-weight:bold;
+	}
+.detail_table .titleCols p.imageCategory {
+	display:inline-block;
+}
+.detail_table .detailRow .imageCategory {
+	display:inline-block;
+	vertical-align:middle;
+}
+.detail_table .titleCols p.name {
+	width:205px;
+}
+.detail_table .detailRow .name {
+	width: 305px;
+}
+.detail_table .detailRow .name .order_info{
+	display:inline-block;
+	vertical-align:middle;
+	width:205px;
+	}
+.detail_table .detailRow .where_from {
+	width: 150px;
+}
+.detail_table .detailRow .where_from .regionName {
+	width: 108px;
+}
+.detail_table .titleCols p.where_from {
+	width: 150px;
+}
+.detail_table .titleCols p.where {
+	width: 150px;
+}
+.detail_table .detailRow .where {
+	width: 150px;
+}
+.detail_table .detailRow .where .regionName {
+	width: 108px;
+}
+.detail_table .titleCols p.where_from {
+    width: 150px;
+}
+.detail_table .titleCols p.date {
+	padding-right:0;
+    width:100px;
+}
+.detail_table .detailRow .date {
+	width:95px;
+	}
+.detail_table .detailRow .imageCategory{
+	margin-left:-5px;
+	width:90px;
+	}
+.detail_table .detailRow .imageCategory .id{
+	display:block;
+	font-size:11px;
+	padding-top:2px;
+	text-align:center;
+	}
+.detail_table .detailRow .imageCategory .categoryItem {
+	display:block;
+	height:41px;
+	margin:0px auto 0px auto;
+	position:relative;
+	text-align:center;
+	width:74px;
+	}
+
+.detail_table .detailRow .length .money , .detail_table .detailRow .length .money-gray{
+	display:none;
+	}
+.detail_table .detailRow .length .category_img{
+	display:none;
+	}
+.dis_1200-hidden{
+	display:none;
+	
+	}	
+.new_detalizacia .chech_col .info_block{
+	display:block !important;
+	}	
+
+}

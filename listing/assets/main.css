@@ -1,0 +1,72 @@
+body {
+	padding: 0;
+	margin: 0;
+	font: 300 16px/1.3 "Helvetica","Arial",sans-serif;
+}
+
+#listing_table {
+	width: 100%;
+	background: #fff;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.28);
+	-moz-box-shadow: 0 1px 4px rgba(0,0,0,.28);
+	box-shadow: 0 1px 4px rgba(0,0,0,.28);
+	padding: 15px 20px;
+	font-family: Open Sans,sans-serif;
+    font-size: 13px;
+}
+
+@media (min-width: 481px) {
+	#listing_table {
+		width: 1252px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+#listing_table th {
+	text-align: left;
+	padding: 15px 10px;
+	font: 400 14px/1.3 "Roboto", "Helvetica", "Arial", sans-serif;
+	color: #a0a4a5;
+}
+
+#listing_table td {
+	padding: 13px 10px;
+}
+
+#listing_table tr {	
+    border-bottom: 1px solid #e0e0e0;
+    border-collapse: collapse;
+}
+
+#listing_table tr td:first-child {
+    padding-left: 25px;
+}
+
+#listing_table tr th:first-child {
+    padding-left: 25px;
+}
+
+#listing_table tr td:last-child {
+    padding-right: 25px;
+	text-align: right;
+}
+
+#listing_table tr th:last-child {
+    padding-right: 25px;
+	text-align: right;
+}
+
+#listing_table tr:hover {
+	cursor: pointer;
+	background: #fafafa;
+}
+
+#listing_table tr:first-child:hover {
+	cursor: default;
+	background: none;
+}
+
+#listing_table tr:last-child {
+    border-bottom: none;
+}

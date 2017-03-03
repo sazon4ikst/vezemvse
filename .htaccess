@@ -1,0 +1,27 @@
+DirectorySlash Off
+RewriteEngine On
+
+RewriteBase /
+
+# browser requests HTML
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.html
+RewriteRule ^/?(.*)\.html$ /$1 [L,R=301]
+
+# check to see if the request is for a HTML file:
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^/?(.*)$ /$1.html [L]
+
+# browser requests PHP
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.php
+RewriteRule ^/?(.*)\.php$ /$1 [L,R=301]
+
+# check to see if the request is for a PHP file:
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^/?(.*)$ /$1.php [L]
+
+RewriteCond %{REQUEST_URI} !^/$ [NC]
+RewriteCond %{REQUEST_URI} !/send_mail.php$ [NC]
+RewriteCond %{REQUEST_URI} !/index.html [NC]
+RewriteCond %{REQUEST_URI} !/soon [NC]
+RewriteCond %{REQUEST_URI} !\.(jpeg|png|gif|webm|mp4) [NC]
+#RewriteRule .* /soon [R=302,L]
