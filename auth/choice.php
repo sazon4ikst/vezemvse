@@ -7,16 +7,15 @@
     <meta name="keywords"    content="грузовые перевозки, информационная система грузоперевозок, компании грузоперевозок, онлайн грузоперевозки, онлайн-сервис грузоперевозок, сайт грузоперевозок, сайт перевозки грузов">
     <meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Везём Всё. Каталог компаний">
     <meta name="author" content="Dmytro Sheiko">    
-    <link rel="shortcut icon" href="assets/styles/images/favicon.ico">
+    <link rel="shortcut icon" href="../assets/styles/images/favicon.ico">
 	<meta property="og:title" content="Везём Всё - онлайн-сервис по грузоперевозкам." />
 	<meta property="og:description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="index.html" />
 	<meta property="og:image" content="assets/images/other/social_logo.jpg" />
-	<meta property="og:site_name" content="vezemvse.com.ua" />
+	<meta property="og:site_name" content="../vezemvse.com.ua" />
 	<meta itemprop="name" content="Везём Всё - онлайн-сервис по грузоперевозкам." />
 	<meta itemprop="description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
-	<meta itemprop="image" content="assets/images/other/social_logo.jpg" />
+	<meta itemprop="image" content="../assets/images/other/social_logo.jpg" />
 	<meta itemprop="address" content="02000, Киев, Днепровская Наебержная 14Б, 1603" />
 	<meta itemprop="telephone" content="+38-095-029-29-03" />
 	<title>Доставка груза по Украине. Стоимость доставки груза - онлайн-аукцион сайт грузоперевозок по Украине «Везём Всё»</title>

@@ -38,7 +38,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <body style="background:#f9f8f3" class="body_below_header">
-	<div style="text-align:center">	
+	<div style="text-align:center; height:calc(100% - 54px)">	
 		<header class="layout__header _fixed">
 		  <div class="layout__header-row _viewport_mobile">
 			<div class="layout__title">
@@ -75,16 +75,8 @@
                 <div class="row">
                     <div class="span12 r2">
                         <div class="anc1 mr15">
-                            <h1 class="pustoi1 auth_title" style="font-size:30px; margin-bottom:30px; margin-left:43px">Заполните все поля:</h1>
-                            <div class="s-itog11 x-auth-input-block">
-                                <div class="pustoi7">
-                                    <input type="text" class="pustoi1 x-auth-validate" placeholder="Имя" name="firstName">
-
-                                    <div class="pustoi3"></div>
-                                    <div class="pustoi4"></div>
-                                    <span class="pustoi6"></span>
-                                </div>
-                            </div>
+                            <h1 class="pustoi1 auth_title" style="font-size:32px; margin-left:43px; padding-top:20px">Авторизация:</h1>
+							<p class="text" style="margin-left:43px; margin-bottom:30px">Для входа в систему введите e-mail и пароль</p>
 							
                             <div class="s-itog11 varning x-auth-input-block">
                                 <div class="pustoi7">
@@ -96,37 +88,6 @@
                                 </div>
                             </div>
 
-                            <div class="s-itog11 phone x-auth-input-block">
-                                <div class="pustoi7">
-                                    <div class="phone-block">
-                                        <span class="phone-prefix x-phone-code-show" style="margin-left:2px; font-weight:400">+38</span>
-                                        <input type="text" style="width: 250px" class="x-auth-validate x-input" placeholder="Мобильный телефон" name="mobilePhone" data-tip="mobilePhone">
-                                    </div>
-                                    <div class="pustoi3"></div>
-                                    <div class="pustoi4"></div>
-                                    <span class="pustoi6"></span>
-                                </div>
-                            </div>
-
-
-                            <div class="s-itog11 x-auth-input-block">
-                                <div class="pustoi7">
-                                    <input type="hidden" class="x-ac-related x-ac-country x-country-id" name="country" data-ac-related-id="769827340" data-ac-related-name="country_id" value="1">
-
-                                    <input type="text" class="pustoi1 x-ac-related x-ac-input x-ac-city x-auth-validate x-input" placeholder="Город" data-ac-related-name="city_id" data-ac-related="769827340" name="city" data-tip="city" autocomplete="none">
-                                    <input type="hidden" class="x-ac-result-id" name="city_id">
-
-                                    <div class="pustoi3"></div>
-                                    <div class="pustoi4"></div>
-                                    <span class="pustoi6"></span>
-                                </div>
-                                <div class="hover-img2 x-tip" data-tip="city">
-                                    <div class="triangle"><div class="hover-img2__triangle-figure"></div></div>
-                                    <div class="hover-img__text" style="margin-left:20px">Укажите основной город вашей работы. Это необходимо для уведомлений по маршрутам</div>
-                                </div>
-                            </div>
-
-
                             <div class="s-itog11 x-auth-input-block">
                                 <div class="pustoi7">
                                     <span class="x-auth-show-password-input">
@@ -137,27 +98,11 @@
                                     <span class="pustoi2"></span>
                                     <span class="pustoi6"></span>
                                 </div>
-                                <div class="hover-img2 x-tip" data-tip="password">
-                                    <div class="triangle"><div class="hover-img2__triangle-figure"></div></div>
-                                    <div class="hover-img__text" style="margin-left:20px">Придумайте надёжный пароль для входа на сервис (не менее 6 символов)</div>
-                                </div>
-                            </div>
-                            <div class="s-itog11 x-auth-input-block" style="display: none;">
-                                <div class="pustoi7">
-                                    <span class="x-auth-show-confirm-password-input">
-                                        <input id="auth-confirm-password" type="password" class="pustoi1 x-auth-validate" data-related-name="password" placeholder="Подтвердите пароль" name="confirmPassword">
-                                    </span>
-                                    <span class="pustoi2"></span>
-
-                                    <div class="pustoi3"></div>
-                                    <div class="pustoi4"></div>
-                                    <span class="pustoi6"></span>
-                                </div>
                             </div>
                             <div class="linia6"></div>
                             <div class="reg-but" style="margin-bottom:100px; padding-top:26px;">
                                 <div>
-                                    <button type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px">Зарегистрироваться</button>
+                                    <button type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px" >Войти на сайт</button>
                                 </div>
                                 <!--<a target="_blank" href="../condition" class="sog">Пользовательское соглашение</a>-->
                             </div>
