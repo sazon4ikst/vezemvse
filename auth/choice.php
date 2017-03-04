@@ -17,7 +17,6 @@
 	<meta itemprop="description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
 	<meta itemprop="image" content="../assets/images/other/social_logo.jpg" />
 	<meta itemprop="address" content="02000, Киев, Днепровская Наебержная 14Б, 1603" />
-	<meta itemprop="telephone" content="+38-095-029-29-03" />
 	<title>Доставка груза по Украине. Стоимость доставки груза - онлайн-аукцион сайт грузоперевозок по Украине «Везём Всё»</title>
 	<link type="text/css" rel="stylesheet" href="../listing/assets/main.css" media="screen" />
 	<link type="text/css" rel="stylesheet" href="assets/style.css" media="screen" />
@@ -48,7 +47,7 @@
 				</div>
 				<div class="header__support header__item">
 				  <span class="header__support-link contact x-open-support-box">Служба поддержки</span><br>
-				  <a class="header__support-phone" href="tel:0950292903">0 (095) 029-29-03</a><br/>
+				  <a class="header__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a><br/>
 				  Работаем круглосуточно
 				</div>
 			  </div>

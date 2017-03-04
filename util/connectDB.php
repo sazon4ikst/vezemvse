@@ -1,8 +1,11 @@
-<?
+<?php
 
-$host = "vezemvse.mysql.ukraine.com.ua";
+/*$host = "vezemvse.mysql.ukraine.com.ua";
 $username = "vezemvse_db";
-$password = "eY62xfNe";
+$password = "eY62xfNe";*/
+$host = "localhost";
+$username = "root";
+$password = "";
 $db_name = "vezemvse_db";
 
 $con = mysqli_connect($host, $username, $password, $db_name);

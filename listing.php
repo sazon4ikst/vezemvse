@@ -25,8 +25,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <body style="background:#f9f8f3">
-	<div style="min-height:calc(100% - 54px); position:relative; padding: 130px 0 40px 0">
-	
+	<div style="min-height:calc(100% - 54px); position:relative; padding: 130px 0 40px 0">	
     <header class="layout__header _fixed">
       <div class="layout__drawer-button x-drawer-button"></div>
       <div class="layout__header-row _viewport_mobile">
@@ -70,38 +69,39 @@
 			<th style="width:100px; text-align:right">Ставок</th>
 			<th style="width:170px">Оплата</th>
 		</tr>
-		<?
+		<?php
 		require("util/connectDB.php");
 		global $con;
 		$freight_query = mysqli_query($con, "SELECT title, address_from, address_to, weight, volume, price, time FROM freight") or die (mysqli_error($con));
 		while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 			<tr>
 				<td>
-					<? echo date('j.m',strtotime($freight_result["time"])) ?>
+					<?php echo date('j.m',strtotime($freight_result["time"])) ?>
 				</td>
 				<td>
-					<? echo $freight_result["address_from"] ?>
+					<?php echo $freight_result["address_from"] ?>
 				</td>
 				<td>
-					<? echo $freight_result["address_to"] ?>
+					<?php echo $freight_result["address_to"] ?>
 				</td>
 				<td>
-					<? echo $freight_result["title"] ?>
+					<?php echo $freight_result["title"] ?>
 				</td>
 				<td style="text-align:right">
-					<? echo empty($freight_result["weight"]) ? "—" : $freight_result["weight"] ?>
+					<?php echo empty($freight_result["weight"]) ? "—" : $freight_result["weight"] ?>
 				</td>
 				<td style="text-align:right">
-					<? echo empty($freight_result["volume"]) ? "—" : $freight_result["volume"] ?>
+					<?php echo empty($freight_result["volume"]) ? "—" : $freight_result["volume"] ?>
 				</td>
 				<td style="text-align:right">
-					<? echo 0 ?>
+					<?php echo 0 ?>
 				</td>
 				<td>
-					<? echo empty($freight_result["price"]) ? "—" : $freight_result["price"] ?>
+					<?php echo empty($freight_result["price"]) ? "—" : $freight_result["price"] ?>
 				</td>
 			</tr>
-		<?}	
+		<?php
+		}	
 		?>
 	</table>
 	</div>
