@@ -15,6 +15,10 @@
 	font-size: 20px;
 }
 
+.body_below_header {
+	padding-top: 100px;
+}
+
 @media (min-width: 481px) {
     #soon_input {
         width: 400px;
