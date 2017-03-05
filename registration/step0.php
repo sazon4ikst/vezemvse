@@ -37,7 +37,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <body style="background:#f9f8f3" class="body_below_header">
-	<div style="text-align:center">	
+	<div style="text-align:center; min-height:calc(100% - 54px)">	
 		<header class="layout__header _fixed">
 		  <div class="layout__header-row _viewport_mobile">
 			<div class="layout__title">
@@ -77,7 +77,7 @@
 									<h1 class="pustoi1 auth_title" style="font-size:30px; margin-bottom:30px; margin-left:43px">Заполните все поля:</h1>
 									<div class="s-itog11 x-auth-input-block">
 										<div class="pustoi7">
-											<input id="name" type="text" class="pustoi1 x-auth-validate" placeholder="Имя" name="firstName">
+											<input id="name" type="text" class="pustoi1 x-auth-validate" placeholder="Имя" name="firstName" autocomplete="name">
 
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>
@@ -87,7 +87,7 @@
 									
 									<div class="s-itog11 varning x-auth-input-block">
 										<div class="pustoi7">
-											<input id="email" type="text" data-tip="email" class="pustoi1 x-input x-auth-validate" placeholder="Электронная почта" name="email">
+											<input id="email" type="text" data-tip="email" class="pustoi1 x-input x-auth-validate" placeholder="Электронная почта" name="email" autocomplete="email">
 											<span class="pustoi2"></span>
 											<div class="pustoi3"></div>
 											<div class="pustoi4 x-auth-status-correct"></div>
@@ -99,7 +99,7 @@
 										<div class="pustoi7">
 											<div class="phone-block">
 												<span class="phone-prefix x-phone-code-show" style="margin-left:2px; font-weight:400">+38</span>
-												<input id="phone" type="text" style="width: 250px" class="x-auth-validate x-input" placeholder="Мобильный телефон" name="mobilePhone" data-tip="mobilePhone">
+												<input id="phone" type="text" style="width: 250px" class="x-auth-validate x-input" placeholder="Мобильный телефон" name="mobilePhone" data-tip="mobilePhone" autocomplete="tel">
 											</div>
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>
@@ -110,10 +110,7 @@
 
 									<div class="s-itog11 x-auth-input-block">
 										<div class="pustoi7">
-											<input type="hidden" class="x-ac-related x-ac-country x-country-id" name="country" data-ac-related-id="769827340" data-ac-related-name="country_id" value="1">
-
-											<input id="city" type="text" class="pustoi1 x-ac-related x-ac-input x-ac-city x-auth-validate x-input" placeholder="Город" data-ac-related-name="city_id" data-ac-related="769827340" name="city" data-tip="city" autocomplete="none">
-											<input type="hidden" class="x-ac-result-id" name="city_id">
+											<input id="city" type="text" class="pustoi1 x-ac-related x-ac-input x-ac-city x-auth-validate x-input" placeholder="Город" name="city" data-tip="city" autocomplete="shipping locality">
 
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>
@@ -154,9 +151,9 @@
 										</div>
 									</div>
 									<div class="linia6"></div>
-									<div class="reg-but" style="margin-bottom:100px; padding-top:26px;">
+									<div class="reg-but" style="margin-bottom:80px; padding-top:26px;">
 										<div>
-											<button type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px">Зарегистрироваться</button>
+											<button id="register_button" type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px">Зарегистрироваться</button>
 										</div>
 										<!--<a target="_blank" href="../condition" class="sog">Пользовательское соглашение</a>-->
 									</div>
@@ -183,12 +180,31 @@
 	}
 	
 	$("#registration_form").submit(function(event){
+		event.preventDefault();
+		
 		var name = $("#name").val();
 		var email = $("#email").val();
 		var phone = $("#phone").val();
 		var city = $("#city").val();
 		var password = $("#password").val();
-		event.preventDefault();
+		
+		$("#register_button").html("Загрузка...");
+		
+		$.ajax({
+			type: "POST",
+			url: '../api/user/register',
+            data: {
+				"name": name,
+				"email": email,
+				"phone": phone,
+				"city": city,
+				"password": password
+			},
+            success: function(data){
+				if (data!="") alert(data);
+				$("#register_button").html("Зарегистрироваться");
+            }
+        });
 	});
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCncHq_o9gZVaJDpnuOdq7hVwJo6-7Nc7I&libraries=places&callback=initMap&language=ru&region=ua" async defer></script>
