@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -147,7 +152,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 			</div>
 			<div class="layout__header-row _viewport_desktop">
 				<div class="header">
-
+					<?php require("util/session_header.php") ?>
 
 					<div class="header__content">
 						<div class="header__item header__title">
@@ -163,23 +168,29 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								<br/>на перевозку груза
 							</a>
 						</div>
-						<div class="header__item header__carriers">
-							<a class="header__link" href="carrier_landing.html">Для частных перевозчиков</a>
-							<br/>
-							<a class="header__link" href="how_to_work.html">Транспортным компаниям</a>
-							<br/>
-							<a class="header__link" href="listing.html">Поиск грузов</a>
-						</div>
-						<div class="header__item">
-							<div class="_regblock">
-								<a href="/auth/choice" class="header__link header__register">Регистрация</a>
-								<br>
-								<span class="x-open-login-box">
-									<a href="/auth/login" class="header__link header__login x-open-login-box">Войти</a>
-									<svg class="header__login-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-473 275 21 21"><path d="M-468 289v4c0 1.7 1.3 3 3 3h10c1.7 0 3-1.1 3-3v-15c0-1.7-1.3-3-3-3h-10c-1.7 0-3 1.3-3 3v4h2v-4c0-.5.5-1 1-1h10c.6 0 1 .4 1 1v15c0 .6-.5 1-1 1h-10c-.5 0-1-.5-1-1v-4h-2z"></path><path d="M-458 285.5l-5-3.5v2.5h-10v2h10v2.5"></path></svg>
-								</span>
+						<?php
+						if(!isset($_SESSION['user_id'])){
+							echo '
+							<div class="header__item header__carriers">
+								<a class="header__link" href="carrier_landing.html">Для частных перевозчиков</a>
+								<br/>
+								<a class="header__link" href="how_to_work.html">Транспортным компаниям</a>
+								<br/>
+								<a class="header__link" href="listing.html">Поиск грузов</a>
 							</div>
-						</div>
+							<div class="header__item">
+								<div class="_regblock">
+									<a href="/auth/choice" class="header__link header__register">Регистрация</a>
+									<br>
+									<span class="x-open-login-box">
+										<a href="/auth/login" class="header__link header__login x-open-login-box">Войти</a>
+										<svg class="header__login-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-473 275 21 21"><path d="M-468 289v4c0 1.7 1.3 3 3 3h10c1.7 0 3-1.1 3-3v-15c0-1.7-1.3-3-3-3h-10c-1.7 0-3 1.3-3 3v4h2v-4c0-.5.5-1 1-1h10c.6 0 1 .4 1 1v15c0 .6-.5 1-1 1h-10c-.5 0-1-.5-1-1v-4h-2z"></path><path d="M-458 285.5l-5-3.5v2.5h-10v2h10v2.5"></path></svg>
+									</span>
+								</div>
+							</div>
+							';
+						}
+						?>
 						<div class="header__support header__item">
 							<span class="header__support-link contact x-open-support-box">Служба поддержки</span>
 							<br>
