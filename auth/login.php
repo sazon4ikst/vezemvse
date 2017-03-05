@@ -68,52 +68,82 @@
 		
 		<section id="content" style="text-align:left">
 		<div class="x-auth-steps">
-    <form method="POST">
-        <div class="sub-content rff ">
-            <div id="x-registration-step0" class="container x-ac2">
-                <div class="row">
-                    <div class="span12 r2">
-                        <div class="anc1 mr15">
-                            <h1 class="pustoi1 auth_title" style="font-size:32px; margin-left:43px; padding-top:20px">Авторизация:</h1>
-							<p class="text" style="margin-left:43px; margin-bottom:30px">Для входа в систему введите e-mail и пароль</p>
-							
-                            <div class="s-itog11 varning x-auth-input-block">
-                                <div class="pustoi7">
-                                    <input type="text" data-tip="email" class="pustoi1 x-input x-auth-validate" placeholder="Электронная почта" name="email">
-                                    <span class="pustoi2"></span>
-                                    <div class="pustoi3"></div>
-                                    <div class="pustoi4 x-auth-status-correct"></div>
-                                    <span class="pustoi6"></span>
-                                </div>
-                            </div>
+			<form id="login_form">
+				<div class="sub-content rff ">
+					<div id="x-registration-step0" class="container x-ac2">
+						<div class="row">
+							<div class="span12 r2">
+								<div class="anc1 mr15">
+									<h1 class="pustoi1 auth_title" style="font-size:32px; margin-left:43px; padding-top:20px">Авторизация:</h1>
+									<p class="text" style="margin-left:43px; margin-bottom:30px">Для входа в систему введите e-mail и пароль</p>
+									
+									<div class="s-itog11 varning x-auth-input-block">
+										<div class="pustoi7">
+											<input id="email" type="text" class="pustoi1 x-input x-auth-validate" placeholder="Электронная почта" name="email" data-tip="email" autocomplete="email" required>
+											<span class="pustoi2"></span>
+											<div class="pustoi3"></div>
+											<div class="pustoi4 x-auth-status-correct"></div>
+											<span class="pustoi6"></span>
+										</div>
+									</div>
 
-                            <div class="s-itog11 x-auth-input-block">
-                                <div class="pustoi7">
-                                    <span class="x-auth-show-password-input">
-                                        <input id="auth-password" type="text" class="pustoi1 x-auth-validate x-input" placeholder="Пароль" name="password" data-tip="password">
-                                    </span>
-                                    <div class="pustoi3"></div>
-                                    <div class="pustoi4"></div>
-                                    <span class="pustoi2"></span>
-                                    <span class="pustoi6"></span>
-                                </div>
-                            </div>
-                            <div class="linia6"></div>
-                            <div class="reg-but" style="margin-bottom:100px; padding-top:26px;">
-                                <div>
-                                    <button type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px" >Войти на сайт</button>
-                                </div>
-                                <!--<a target="_blank" href="../condition" class="sog">Пользовательское соглашение</a>-->
-                            </div>
-                        </div>
-                        <div class="anc2"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-	</div></section>
+									<div class="s-itog11 x-auth-input-block">
+										<div class="pustoi7">
+											<span class="x-auth-show-password-input">
+												<input id="password" type="password" class="pustoi1 x-auth-validate x-input" placeholder="Пароль" name="password" data-tip="password" required>
+											</span>
+											<div class="pustoi3"></div>
+											<div class="pustoi4"></div>
+											<span class="pustoi2"></span>
+											<span class="pustoi6"></span>
+										</div>
+									</div>
+									<div class="linia6"></div>
+									<div class="reg-but" style="margin-bottom:100px; padding-top:26px;">
+										<div>
+											<button id="login_button" type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px" >Войти на сайт</button>
+										</div>
+										<!--<a target="_blank" href="../condition" class="sog">Пользовательское соглашение</a>-->
+									</div>
+								</div>
+								<div class="anc2"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>	
+	$("#login_form").submit(function(event){
+		event.preventDefault();
+		
+		var email = $("#email").val();
+		var password = $("#password").val();
+		
+		$("#login_button").html("Загрузка...");
+		
+		$.ajax({
+			type: "POST",
+			url: '../api/user/login',
+            data: {
+				"email": email,
+				"password": password
+			},
+            success: function(data){
+				if (data != "") {
+					$("#login_button").html("Зарегистрироваться");
+					alert(data);
+				} else {
+					window.open('../listing', '_self', false);
+				}
+            }
+        });
+	});
+</script>
 </body>
 <footer>
 	<article class="footer">

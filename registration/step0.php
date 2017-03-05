@@ -77,7 +77,7 @@
 									<h1 class="pustoi1 auth_title" style="font-size:30px; margin-bottom:30px; margin-left:43px">Заполните все поля:</h1>
 									<div class="s-itog11 x-auth-input-block">
 										<div class="pustoi7">
-											<input id="name" type="text" class="pustoi1 x-auth-validate" placeholder="Имя" name="firstName" autocomplete="name">
+											<input id="name" type="text" class="pustoi1 x-auth-validate" placeholder="Имя" name="firstName" autocomplete="name" required>
 
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>
@@ -87,7 +87,7 @@
 									
 									<div class="s-itog11 varning x-auth-input-block">
 										<div class="pustoi7">
-											<input id="email" type="text" data-tip="email" class="pustoi1 x-input x-auth-validate" placeholder="Электронная почта" name="email" autocomplete="email">
+											<input id="email" type="text" data-tip="email" class="pustoi1 x-input x-auth-validate" placeholder="Электронная почта" name="email" autocomplete="email" required>
 											<span class="pustoi2"></span>
 											<div class="pustoi3"></div>
 											<div class="pustoi4 x-auth-status-correct"></div>
@@ -99,7 +99,7 @@
 										<div class="pustoi7">
 											<div class="phone-block">
 												<span class="phone-prefix x-phone-code-show" style="margin-left:2px; font-weight:400">+38</span>
-												<input id="phone" type="text" style="width: 250px" class="x-auth-validate x-input" placeholder="Мобильный телефон" name="mobilePhone" data-tip="mobilePhone" autocomplete="tel">
+												<input id="phone" type="text" style="width: 250px" class="x-auth-validate x-input" placeholder="Мобильный телефон" name="mobilePhone" data-tip="mobilePhone" autocomplete="tel" required>
 											</div>
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>
@@ -110,7 +110,7 @@
 
 									<div class="s-itog11 x-auth-input-block">
 										<div class="pustoi7">
-											<input id="city" type="text" class="pustoi1 x-ac-related x-ac-input x-ac-city x-auth-validate x-input" placeholder="Город" name="city" data-tip="city" autocomplete="shipping locality">
+											<input id="city" type="text" class="pustoi1 x-ac-related x-ac-input x-ac-city x-auth-validate x-input" placeholder="Город" name="city" data-tip="city" autocomplete="shipping locality" required>
 
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>
@@ -126,7 +126,7 @@
 									<div class="s-itog11 x-auth-input-block">
 										<div class="pustoi7">
 											<span class="x-auth-show-password-input">
-												<input id="password" type="text" class="pustoi1 x-auth-validate x-input" placeholder="Пароль" name="password" data-tip="password">
+												<input id="password" type="password" class="pustoi1 x-auth-validate x-input" placeholder="Пароль" name="password" data-tip="password" required>
 											</span>
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>
@@ -136,18 +136,6 @@
 										<div class="hover-img2 x-tip" data-tip="password">
 											<div class="triangle"><div class="hover-img2__triangle-figure"></div></div>
 											<div class="hover-img__text" style="margin-left:20px">Придумайте надёжный пароль для входа на сервис (не менее 6 символов)</div>
-										</div>
-									</div>
-									<div class="s-itog11 x-auth-input-block" style="display: none;">
-										<div class="pustoi7">
-											<span class="x-auth-show-confirm-password-input">
-												<input id="auth-confirm-password" type="password" class="pustoi1 x-auth-validate" data-related-name="password" placeholder="Подтвердите пароль" name="confirmPassword">
-											</span>
-											<span class="pustoi2"></span>
-
-											<div class="pustoi3"></div>
-											<div class="pustoi4"></div>
-											<span class="pustoi6"></span>
 										</div>
 									</div>
 									<div class="linia6"></div>
@@ -201,8 +189,12 @@
 				"password": password
 			},
             success: function(data){
-				if (data!="") alert(data);
-				$("#register_button").html("Зарегистрироваться");
+				if (data != "") {
+					$("#register_button").html("Зарегистрироваться");
+					alert(data);
+				} else {
+					window.open('../listing', '_self', false);
+				}
             }
         });
 	});

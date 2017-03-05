@@ -25,7 +25,6 @@ $phone = mysqli_real_escape_string($con, $phone);
 $city = mysqli_real_escape_string($con, $city);
 $password = mysqli_real_escape_string($con, $password);
 
-//mysqli_query($con, "INSERT INTO user(name, email, phone, city, password) VALUES ($name, $email, $phone, $city, $password)") or die("Ошибка сервера, не можем создать пользователя.");
+mysqli_query($con, "INSERT INTO user(name, email, phone, city, password) VALUES ($name, $email, $phone, $city, $password)") or die(mysqli_error($con));
 
-mysqli_query($con, "INSERT INTO user(name, email, phone, city, password) VALUES ('$name', '$email', '$phone', '$city', '$password')") or die(mysqli_error($con));
 ?>
