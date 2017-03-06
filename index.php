@@ -99,7 +99,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 					<input name="subject" class="input x-subject" value="" type="text" id="support_subject">
 				</div>
 				<div class="row">
-					<label>E-mail<sup>*</sup>
+					<label>Ваш электронный адрес<sup>*</sup>
 					</label>
 					<input name="email" class="input x-email" value="" type="text" id="support_email">
 				</div>
@@ -168,16 +168,16 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								<br/>на перевозку груза
 							</a>
 						</div>
+						<div class="header__item header__carriers">
+							<a class="header__link" href="carrier_landing">Для частных перевозчиков</a>
+							<br/>
+							<a class="header__link" href="how_to_work">Транспортным компаниям</a>
+							<br/>
+							<a class="header__link" href="listing">Поиск грузов</a>
+						</div>
 						<?php
 						if(!isset($_SESSION['user_id'])){
 							echo '
-							<div class="header__item header__carriers">
-								<a class="header__link" href="carrier_landing.html">Для частных перевозчиков</a>
-								<br/>
-								<a class="header__link" href="how_to_work.html">Транспортным компаниям</a>
-								<br/>
-								<a class="header__link" href="listing.html">Поиск грузов</a>
-							</div>
 							<div class="header__item">
 								<div class="_regblock">
 									<a href="/auth/choice" class="header__link header__register">Регистрация</a>
@@ -428,7 +428,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 					</header>
 
 					<div class="description__features">
-						<a class="description__feature" href="booking/category/moving.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/flat.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -441,7 +441,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/vehicle.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/cars.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -454,7 +454,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/water_transport.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/water.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -467,7 +467,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/passing.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/way.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -480,7 +480,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/liquid.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/liquid.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -493,7 +493,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/loose.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/granulars.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -506,7 +506,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/building.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/build.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -519,7 +519,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/food.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/food.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -532,7 +532,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/animals.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/animals.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -545,7 +545,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/agricultural.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/agro.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -558,7 +558,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/rubbish.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/garbage.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -571,7 +571,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/containers_and_railway.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/rails.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -584,7 +584,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/outsized.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/oversize.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -597,7 +597,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/people.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/passengers.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -610,7 +610,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking/category/book_separate_car.html">
+						<a class="description__feature" href="booking">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/order-car.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -663,7 +663,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 						</div>
 						<div class="advantages__item _tracking">
 							<div class="advantages__title">Отслеживание маршрута перевозки</div>
-							<div class="advantages__text"><a href="tracking_promo.html">Система отслеживания</a> покажет где ваш груз</div>
+							<div class="advantages__text">Система отслеживания покажет где ваш груз</div>
 						</div>
 						<div class="advantages__item _insurance">
 							<div class="advantages__title">Страхование грузов</div>

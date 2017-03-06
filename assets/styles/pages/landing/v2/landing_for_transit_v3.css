@@ -1,0 +1,370 @@
+.vv-container {
+  width: 1170px;
+  margin: 0 auto; }
+
+.CheckboxControl {
+  min-height: 0;
+  padding-left: 0;
+  margin: 0;
+  color: #7d7d7d;
+  cursor: default;
+  height: 18px;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .CheckboxControl-label {
+    display: inline-block;
+    padding: 0 0 0 8px;
+    vertical-align: top;
+    margin-top: 2px;
+    line-height: 18px;
+    font-size: 14px;
+    font-family: Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    -webkit-transition: color 0.1s ease-out;
+    transition: color 0.1s ease-out; }
+  .CheckboxControl-label.-sublabled {
+    margin-top: 3px;
+    line-height: 1; }
+  .CheckboxControl-sublabel {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 1px;
+    font-size: 12px;
+    font-style: italic;
+    -webkit-transition: color 0.1s ease-out;
+    transition: color 0.1s ease-out; }
+  .CheckboxControl-input {
+    opacity: 0;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer; }
+  .CheckboxControl-input:checked ~ .CheckboxControl-box {
+    background: #30c161 url("https://www.vezetvsem.ru/assets/styles/images/check_yes.svg") center center no-repeat;
+    border-color: #30c161; }
+  .CheckboxControl-input:checked ~ .CheckboxControl-label {
+    color: #4b4b4b; }
+  .CheckboxControl-input:disabled ~ .CheckboxControl-box {
+    border-color: #e4e4e4;
+    cursor: default; }
+  .CheckboxControl-input:disabled ~ .CheckboxControl-label,
+  .CheckboxControl-input:disabled ~ .CheckboxControl-sublabel {
+    color: #cccccc;
+    cursor: default; }
+  .CheckboxControl-box {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #bab8b8;
+    background: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-transition: background-color 0.2s ease-out, border-color 0.1s ease-out;
+    transition: background-color 0.2s ease-out, border-color 0.1s ease-out; }
+
+body .CheckboxControl-input {
+  margin: 0; }
+
+body .Parameters {
+  margin-top: 26px;
+  margin-bottom: 50px; }
+  body .Parameters__title {
+    font-size: 26px;
+    margin-bottom: 17px; }
+  body .Parameters__wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+  body .Parameters__input {
+    box-sizing: border-box;
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    margin: 7px 0 0 0;
+    line-height: 40px;
+    border: solid 1px #e0e0e0;
+    font-size: 20px;
+    color: #555555;
+    border-radius: 0; }
+  body .Parameters__input-label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 110px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    font-size: 20px;
+    margin-right: 20px;
+    margin-bottom: 0;
+    line-height: normal; }
+  body .Parameters__volume {
+    margin-top: 7px;
+    font-size: 20px;
+    line-height: 42px;
+    cursor: default; }
+    body .Parameters__volume > span {
+      max-width: 100%;
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden; }
+  body .Parameters__volume-block {
+    position: relative;
+    padding-left: 35px;
+    font-size: 20px;
+    width: 90px; }
+    body .Parameters__volume-block:before {
+      display: inline-block;
+      content: '=';
+      position: absolute;
+      left: 0;
+      top: 32px;
+      font-size: 36px; }
+  body .Parameters__hint {
+    position: relative; }
+  body .Parameters__hint:before {
+    display: inline-block;
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #E3E3E3;
+    position: absolute;
+    top: 55px;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    left: calc(100% + 6px);
+    cursor: help; }
+  body .Parameters__hint:after {
+    content: attr(data-hint);
+    display: inline-block;
+    box-sizing: border-box;
+    width: 500px;
+    padding: 12px 10px 19px 23px;
+    background: #E3E3E3;
+    border-radius: 6px;
+    font-size: 16px;
+    font-style: italic;
+    position: absolute;
+    top: 2px;
+    left: calc(100% + 15px);
+    cursor: help; }
+
+.Checkboxes {
+  max-width: 870px; }
+  .Checkboxes__all {
+    position: relative;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 6px;
+    padding: 26px 70px 30px 40px; }
+  .Checkboxes__all-title {
+    font-size: 26px;
+    margin-bottom: 23px; }
+  .Checkboxes__all-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+  .Checkboxes__all-wrapper ul {
+    margin-left: 0; }
+  .Checkboxes__list {
+    list-style-type: none; }
+  .Checkboxes__list li {
+    margin-bottom: 28px; }
+    .Checkboxes__list li:first-child .CheckboxControl-label {
+      font-weight: bold; }
+    .Checkboxes__list li:last-child {
+      margin-bottom: 0; }
+  .Checkboxes__main-title {
+    font-size: 26px;
+    margin-bottom: 20px; }
+  .Checkboxes__main-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
+  .Checkboxes__main-wrapper .CheckboxControl {
+    margin-right: 28px;
+    margin-bottom: 30px; }
+  .Checkboxes .Checkboxes__all {
+    display: none; }
+  .Checkboxes__show-input:checked ~ .Checkboxes__all {
+    display: block; }
+  .Checkboxes__show-input:checked + .Checkboxes__show {
+    display: none; }
+  .Checkboxes__show {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    color: #5F7AC4;
+    border-bottom: 1px dotted #5F7AC4;
+    font-size: 22px;
+    -webkit-transition: border-color 0.1s ease-out;
+    transition: border-color 0.1s ease-out;
+    text-decoration: none; }
+    .Checkboxes__show:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      width: 16px;
+      height: 10px;
+      margin-left: 9px;
+      left: 100%;
+      top: 6px;
+      background: url("https://www.vezetvsem.ru/assets/styles/images/arrow_down_blue.svg") no-repeat; }
+    .Checkboxes__show:hover {
+      border-color: transparent; }
+    .Checkboxes__show:hover, .Checkboxes__show:focus, .Checkboxes__show:active {
+      text-decoration: none;
+      color: #5F7AC4; }
+    .Checkboxes__show--hide:after {
+      -webkit-transform: rotate(180deg);
+              transform: rotate(180deg); }
+  .Checkboxes__close {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 21px;
+    height: 21px;
+    background: url("https://www.vezetvsem.ru/assets/styles/images/exit_grey.svg") no-repeat; }
+
+.war3__error {
+  display: none;
+  overflow: hidden;
+  max-width: 100%;
+  margin-top: 3px;
+  color: #d87456;
+  font-size: 14px; }
+
+.war3 .war3__error {
+  display: block; }
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+  .vv-container {
+    width: 724px; }
+
+  body .Parameters__hint:before {
+    top: calc(100% + 6px);
+    left: 45px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #E3E3E3; }
+
+  body .Parameters__hint:after {
+    top: calc(100% + 15px);
+    left: -330px;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 12px; }
+
+  .Checkboxes__all-wrapper {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+
+  .Checkboxes__all-wrapper ul:last-child {
+    margin-top: -304px;
+    margin-left: 220px; }
+
+  .Checkboxes__all-wrapper ul {
+    margin-right: 0; } }
+
+@media (min-width: 768px) {
+
+  .CheckboxControl:hover .CheckboxControl-label {
+    color: #4b4b4b; }
+
+  .CheckboxControl:hover .CheckboxControl-box {
+    border-color: #30c161; }
+
+  .CheckboxControl-input:focus ~ .CheckboxControl-box {
+    border-color: #30c161; }
+
+  .CheckboxControl-input:focus ~ .CheckboxControl-label {
+    color: #4b4b4b; } }
+
+@media (min-width: 980px) and (max-width: 1199px) {
+
+  .vv-container {
+    width: 940px; }
+
+  body .Parameters__hint:after {
+    width: 260px;
+    top: -30px; } }
+
+@media (max-width: 767px) {
+
+  .vv-container {
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 320px;
+    padding: 0 15px; }
+
+  .vv-container--no-padding {
+    padding: 0; }
+
+  body .Parameters {
+    padding-bottom: 160px; }
+
+  body .Parameters__title {
+    font-size: 18px; }
+
+  body .Parameters__wrapper {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+
+  body .Parameters__input {
+    font-size: 16px; }
+
+  body .Parameters__input-label {
+    width: 30%;
+    font-size: 16px;
+    margin-right: 3%;
+    margin-bottom: 17px; }
+
+  body .Parameters__volume {
+    font-size: 30px;
+    line-height: 35px;
+    margin-top: 12px; }
+
+  body .Parameters__volume-block:before {
+    display: none; }
+
+  body .Parameters__volume-block {
+    font-size: 16px;
+    padding-left: 0; }
+
+  body .Parameters__hint:before {
+    top: calc(100% + 6px);
+    left: 36px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #E3E3E3; }
+
+  body .Parameters__hint:after {
+    width: 300px;
+    top: calc(100% + 15px);
+    left: -100px; }
+
+  .Checkboxes {
+    display: none; }
+
+  .Checkboxes__all-title {
+    font-size: 18px; }
+
+  .Checkboxes__main-title {
+    font-size: 18px; } }
+
+/*# sourceMappingURL=landing_for_transit_v3.css.map */

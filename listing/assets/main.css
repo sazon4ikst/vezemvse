@@ -11,8 +11,7 @@ body {
 	-moz-box-shadow: 0 1px 4px rgba(0,0,0,.28);
 	box-shadow: 0 1px 4px rgba(0,0,0,.28);
 	padding: 15px 20px;
-	font-family: Open Sans,sans-serif;
-    font-size: 13px;
+	font: 400 14px/1.3 "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 @media (min-width: 481px) {
@@ -57,11 +56,6 @@ body {
 	text-align: right;
 }
 
-#listing_table tr:hover {
-	cursor: pointer;
-	background: #fafafa;
-}
-
 #listing_table tr:first-child:hover {
 	cursor: default;
 	background: none;
@@ -69,4 +63,22 @@ body {
 
 #listing_table tr:last-child {
     border-bottom: none;
+}
+
+.table_row:hover {
+	cursor: pointer;
+	background: #eff2f9;
+}
+
+.table_row_selected {
+	background: #dfe6f5;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.table_row_selected:hover {
+	cursor: pointer;
+}
+
+.listing_button {
+	font: 400 14px/1.3 "Roboto", "Helvetica", "Arial", sans-serif;
 }
