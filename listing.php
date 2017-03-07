@@ -77,37 +77,46 @@
 							<?php
 								require("util/connectDB.php");
 								global $con;
-								$freight_query = mysqli_query($con, "SELECT title, address_from, area_from, address_to, area_to, weight, volume, price, time FROM freight") or die (mysqli_error($con));
+								$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, time FROM freight") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
-									<a href="https://www.vezetvsem.ru/pereezd/moskva_moskva_ofisnyj_pereezd_deshevo_307665" class="orders_inner_item_link"></a>
+									<a href="#" class="orders_inner_item_link"></a>
 									<table>
 										<colgroup>
-											<col width="29%">
+											<col width="4%">
+											<col width="26.5%">
 											<col width="15%">
 											<col width="11%">
-											<col width="20%">
+											<col width="19%">
 											<col width="25%">
 										</colgroup>
 										<tbody>
 											<tr>
 												<td>
+													<span><?php	$date = new DateTime("@".$freight_result["time"]);
+																echo $date->format('d.m') ?></span>
+												</td>
+												<td>
 													<span><?php echo $freight_result["title"] ?></span>
 												</td>
 												<td>
 													<span><?php echo $freight_result["address_from"] ?></span>
-													<?php echo $freight_result["area_from"] ?>                                    
+													<?php echo $freight_result["area_from"] ?>                         
 												</td>
 												<td>
-													<span class="blue-arrow">6 км</span>
+													<span class="blue-arrow"><?php echo $freight_result["distance"] ?></span>
 												</td>
 												<td>
 													<span><?php echo $freight_result["address_to"] ?></span>
 													<?php echo $freight_result["area_to"] ?>                                    
-												</td>
+												</td>												
 												<td>
 													Последнее предложение:
-													<span><?php echo $freight_result["price"] ?> <b class="rub-icon" style="margin-bottom:2px">₴</b></span>
+													<?php if(!empty($freight_result["price"])){ ?>
+														<span><?php echo number_format($freight_result["price"], 0, ".", " ") ?> <b class="rub-icon" style="margin-bottom:2px">₴</b></span>
+													<?php } else { ?>
+														<span style="margin-right: 2px">—</span>
+													<?php } ?>
 												</td>
 											</tr>
 										</tbody>
