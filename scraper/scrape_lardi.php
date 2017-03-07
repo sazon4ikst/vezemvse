@@ -16,6 +16,9 @@ $url = "http://localhost/scraper/fake_lordi.html";
 $html = new simple_html_dom();
 
 $web = new WebBrowser();
+
+require "set_cookies.php";
+
 $result = $web->Process($url);
 	
 if (!$result["success"]){
@@ -40,7 +43,9 @@ if (!$result["success"]){
 		$address_to = explode("(", $freight->find("td", 6)->plaintext)[0];
 		$area_to = substr(explode("(", $freight->find("td", 6)->plaintext)[1], 0, -1);
 		$price = parsePrice($freight->find("td", 8)->plaintext);
-		$distance = getDistance($id);
+		//$distance = getDistance($id);
+		$distance = "0 km";
+		$phone = $freight->find("td", 9)->find(".uiFirmContScroolBlock", 0)->find("span", 0)->plaintext;
 		if ($distance == null) continue;
 	
 		array_push($freights_json, array(
@@ -53,6 +58,7 @@ if (!$result["success"]){
 			"area_to" => $area_to,
 			"price" => $price,
 			"distance" => $distance,
+			"phone" => $phone
 		));
 		
 		$id = mysqli_real_escape_string($con, $id);
@@ -63,6 +69,7 @@ if (!$result["success"]){
 		$address_to = mysqli_real_escape_string($con, $address_to);
 		$area_to = mysqli_real_escape_string($con, $area_to);
 		$distance = mysqli_real_escape_string($con, $distance);
+		$phone = mysqli_real_escape_string($con, $phone);
 		if ($price != null) $price = mysqli_real_escape_string($con, $price);
 		
 		$freight_query = mysqli_query($con, "SELECT freight_id FROM freight WHERE freight_id='$id'");
