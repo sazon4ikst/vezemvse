@@ -31,7 +31,7 @@
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 	</head>
 	<body style="background:#f9f8f3">
-		<div style="min-height:calc(100% - 54px); position:relative; padding: 130px 0 40px 0">
+		<div style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
 			<header class="layout__header _fixed">
 				<div class="layout__drawer-button x-drawer-button"></div>
 				<div class="layout__header-row _viewport_mobile">
@@ -80,7 +80,7 @@
 								$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, time FROM freight") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
-									<a href="#" class="orders_inner_item_link"></a>
+									<a href="gruz?id=<?php echo $freight_result["freight_id"] ?>" class="orders_inner_item_link"></a>
 									<table>
 										<colgroup>
 											<col width="4%">
