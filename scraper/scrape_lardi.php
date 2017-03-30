@@ -43,10 +43,39 @@ if (!$result["success"]){
 		$address_to = explode("(", $freight->find("td", 6)->plaintext)[0];
 		$area_to = substr(explode("(", $freight->find("td", 6)->plaintext)[1], 0, -1);
 		$price = parsePrice($freight->find("td", 8)->plaintext);
-		//$distance = getDistance($id);
-		$distance = "0 km";
+		
+		getDistance($id);
+		
 		$phone = $freight->find("td", 9)->find(".uiFirmContScroolBlock", 0)->find("span", 0)->plaintext;
+		
+		$start = translateMonth($start_time).' 00:00:00';
+		$new_date = DateTime::createFromFormat('d F H:i:s', $start);
+		$start_time = $new_date->getTimestamp();
+		
 		if ($distance == null) continue;
+		
+		$id = mysqli_real_escape_string($con, $id);
+		$time = mysqli_real_escape_string($con, $time);		
+		$title = mysqli_real_escape_string($con, $title);
+		$address_from = mysqli_real_escape_string($con, $address_from);
+		$area_from = mysqli_real_escape_string($con, $area_from);
+		$address_to = mysqli_real_escape_string($con, $address_to);
+		$area_to = mysqli_real_escape_string($con, $area_to);
+		$distance = mysqli_real_escape_string($con, $distance);
+		$phone = mysqli_real_escape_string($con, $phone);
+		$volume = mysqli_real_escape_string($con, $volume);
+		$weight = mysqli_real_escape_string($con, $weight);
+		$description = mysqli_real_escape_string($con, $description);
+		$start_time = mysqli_real_escape_string($con, $start_time);
+		$end_time = $start_time;
+		if ($price != null) $price = mysqli_real_escape_string($con, $price);
+		
+		$freight_query = mysqli_query($con, "SELECT freight_id FROM freight WHERE freight_id='$id'");
+		if (mysqli_num_rows($freight_query) == 0){
+			mysqli_query($con, "INSERT INTO freight(freight_id, time, title, address_from, area_from, address_to, area_to, distance, price, volume, weight, description, start_time, end_time) VALUES('$id', '$time', '$title', '$address_from', '$area_from', '$address_to', '$area_to', '$distance', '$price', '$volume', '$weight', '$description', '$start_time', '$end_time')") or die(mysqli_error($con));
+		} else {
+			mysqli_query($con, "UPDATE freight SET time='$time', title='$title', address_from='$address_from', area_from='$area_from', address_to='$address_to', area_to='$area_to', distance='$distance', price='$price', volume='$volume', weight='$weight', description='$description', start_time='$start_time', end_time='$end_time' WHERE freight_id='$id'") or die(mysqli_error($con));
+		}	
 	
 		array_push($freights_json, array(
 			"id" => $id,
@@ -58,32 +87,36 @@ if (!$result["success"]){
 			"area_to" => $area_to,
 			"price" => $price,
 			"distance" => $distance,
-			"phone" => $phone
+			"phone" => $phone,
+			"volume" => $volume,
+			"weight" => $weight,
+			"description" => $description,
+			"start_time" => $start_time,
+			"start_time" => $start_time,
 		));
-		
-		$id = mysqli_real_escape_string($con, $id);
-		$time = mysqli_real_escape_string($con, $time);		
-		$title = mysqli_real_escape_string($con, $title);
-		$address_from = mysqli_real_escape_string($con, $address_from);
-		$area_from = mysqli_real_escape_string($con, $area_from);
-		$address_to = mysqli_real_escape_string($con, $address_to);
-		$area_to = mysqli_real_escape_string($con, $area_to);
-		$distance = mysqli_real_escape_string($con, $distance);
-		$phone = mysqli_real_escape_string($con, $phone);
-		if ($price != null) $price = mysqli_real_escape_string($con, $price);
-		
-		$freight_query = mysqli_query($con, "SELECT freight_id FROM freight WHERE freight_id='$id'");
-		if (mysqli_num_rows($freight_query) == 0){
-			mysqli_query($con, "INSERT INTO freight(freight_id, time, title, address_from, area_from, address_to, area_to, distance, price) VALUES('$id', '$time', '$title', '$address_from', '$area_from', '$address_to', '$area_to', '$distance', '$price')") or die(mysqli_error($con));
-		} else {
-			mysqli_query($con, "UPDATE freight SET time='$time', title='$title', address_from='$address_from', area_from='$area_from', address_to='$address_to', area_to='$area_to', distance='$distance', price='$price' WHERE freight_id='$id'") or die(mysqli_error($con));
-		}
 	}
 }
 
-function getDistance($id){
-	$url = "https://ru.lardi-trans.com/gruz/view/".$id;
+function translateMonth($month){
+	$month = str_replace("января", "January", $month);
+	$month = str_replace("февраля", "February", $month);
+	$month = str_replace("марта", "March", $month);
+	$month = str_replace("апреля", "April", $month);
+	$month = str_replace("мая", "May", $month);
+	$month = str_replace("июня", "June", $month);
+	$month = str_replace("июля", "July", $month);
+	$month = str_replace("августа", "August", $month);
+	$month = str_replace("сентября", "September", $month);
+	$month = str_replace("октября", "October", $month);
+	$month = str_replace("ноября", "November", $month);
+	$month = str_replace("декабря", "December", $month);
+	return $month;
+}
 
+function getDistance($id){
+	//$url = "https://ru.lardi-trans.com/gruz/view/".$id;
+	$url = "http://localhost/scraper/fake_lordi_details.html";
+	
 	$html = new simple_html_dom();
 
 	$web = new WebBrowser();
@@ -94,10 +127,24 @@ function getDistance($id){
 	if ($infos != null){
 		foreach ($infos as $info){
 			if ($info->find("td", 0)->plaintext == "Расстояние"){
-				return $info->find("td", 1)->plaintext;
+				global $distance;
+				$distance = $info->find("td", 1)->plaintext;
+			} else if ($info->find("td", 0)->plaintext == "Объем"){
+				global $volume;
+				$volume = $info->find("td", 1)->plaintext;
+				$volume = str_replace("м3", " м3", $volume);
+			} else if ($info->find("td", 0)->plaintext == "Масса"){
+				global $weight;
+				$weight = $info->find("td", 1)->plaintext;
+				$weight = str_replace("т", " т", $weight);
+			} else if ($info->find("td", 0)->plaintext == "Тип кузова"){
+				global $description;
+				$description = $info->find("td", 1)->plaintext;
+			} else if ($info->find("td", 0)->plaintext == "Дата загрузки"){
+				global $start_time;
+				$start_time = $info->find("td", 1)->plaintext;
 			}
 		}
-		return null;
 	}
 }
 
