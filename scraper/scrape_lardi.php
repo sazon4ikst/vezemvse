@@ -140,6 +140,9 @@ function getDistance($id){
 			} else if ($info->find("td", 0)->plaintext == "Тип кузова"){
 				global $description;
 				$description = $info->find("td", 1)->plaintext;
+			} else if ($info->find("td", 0)->plaintext == "Загрузка"){
+				global $description;
+				$description = $description.", загрузка ".$info->find("td", 1)->plaintext;
 			} else if ($info->find("td", 0)->plaintext == "Дата загрузки"){
 				global $start_time;
 				$start_time = $info->find("td", 1)->plaintext;

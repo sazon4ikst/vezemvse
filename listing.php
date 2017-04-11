@@ -113,7 +113,7 @@
 												<td>
 													Последнее предложение:
 													<?php if(!empty($freight_result["price"])){ ?>
-														<span><?php echo number_format($freight_result["price"], 0, ".", " ") ?> <b class="rub-icon" style="margin-bottom:2px">₴</b></span>
+														<span><?php echo number_format($freight_result["price"], 0, ".", " ") ?> грн</span>
 													<?php } else { ?>
 														<span style="margin-right: 2px">—</span>
 													<?php } ?>
