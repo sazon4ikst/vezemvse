@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set("Europe/Kiev");
+
 /*$host = "vezemvse.mysql.ukraine.com.ua";
 $username = "vezemvse_db";
 $password = "eY62xfNe";*/

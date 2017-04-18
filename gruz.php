@@ -1,4 +1,7 @@
 <?php
+	session_start();
+	$session_user_id = @$_SESSION['user_id'];
+	
 	require("util/connectDB.php");
 	global $con;
 								
@@ -8,8 +11,20 @@
 		$id = str_replace("/gruz/", "", $_SERVER['REQUEST_URI']);
 	}
 				
-	$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, time, start_time, end_time, volume, weight, description FROM freight WHERE freight_id='$id'") or die ("Груз не найден.");
+	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, time, start_time, end_time, volume, weight, description FROM freight WHERE freight_id='$id'") or die ("Груз не найден.");
 	$freight_result = mysqli_fetch_assoc($freight_query);
+	$freight_owner_id = $freight_result["user_id"];
+	
+	// Check if user already submitted an offer
+	$my_offer_query = mysqli_query($con, "SELECT offer_id FROM offer WHERE freight_id='$id' AND user_id='$session_user_id'");
+	$already_have_offer = mysqli_fetch_assoc($my_offer_query) !== null;
+	
+	if ($session_user_id != null){
+		// Get user type
+		$session_user_query = mysqli_query($con, "SELECT type FROM user WHERE user_id='$session_user_id'");
+		$session_user_result = mysqli_fetch_assoc($session_user_query);
+		$type = $session_user_result["type"];
+	}
 	?>
 <html>
 	<head>
@@ -103,9 +118,18 @@
 							</div>
 						</div>
 						<div class="det_button">
-							<a style="font-weight:400; padding-bottom:12px" class="_button prdelajit_cenu_255 x-make-proposal-button" href="#bid" data-intro="Предложите свою цену на перевозку с помощью оранжевой кнопки" data-step="1">
-							Предложить свою цену
-							</a>
+							<?php
+							if (!empty($session_user_id) and !$already_have_offer and $type=="0"){
+								if ($session_user_id != null) { ?>
+								<a id="bid_button" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500; font-size:18px; padding: 20px 23px 21px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2); width:320px" class="_button prdelajit_cenu_255 x-make-proposal-button" data-intro="Предложите свою цену на перевозку с помощью оранжевой кнопки" data-step="1">
+									ПРЕДЛОЖИТЬ СВОЮ ЦЕНУ
+								</a>
+							<?php } else { ?>
+								<a class="vi_perevozchik" href="/how_to_work" style="font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
+									Вы перевозчик?<br>Узнайте как с нами работать!
+								</a>
+							<?php }
+							} ?>
 						</div>
 						<div class="breaker"></div>
 						<div class="x-tip-merchant-main">
@@ -193,7 +217,7 @@
 							<div class="breaker"></div>
 						</div>
 						<div class="wr_predlojenie x-detail-suggestions x-detail-realtime-suggestions ">
-							<?php $offers_query = mysqli_query($con, "SELECT offer_id, user_id, price, message, status, time FROM offer ORDER BY status ASC, time DESC") or die(mysqli_error($con)); ?>
+							<?php $offers_query = mysqli_query($con, "SELECT offer_id, user_id, price, message, status, time FROM offer WHERE freight_id='$id' ORDER BY status ASC, time DESC") or die(mysqli_error($con)); ?>
 							<div class="subsidiary-block">
 								<div class="subsidiary-block__left">
 									<div class="blue_bg_button2 show_predl">
@@ -211,9 +235,9 @@
 									</div>
 									<?php
 										while ($offers_result = mysqli_fetch_assoc($offers_query)){ ?>
-									<div class="row_all x-suggestion x-hidden suggestion" data-orderid="414419" data-id="2351367" id="suggestion-2351367" style="display: block;">
+									<div class="row_all x-suggestion x-hidden suggestion" data-orderid="414419" style="display: block;">
 										<!-- detail-main--declined detail-main--performed или удалить -->
-										<section class=" x-suggestion-title x-suggestion-main detail-main <?php echo $offers_result["status"] == 2 ? "detail-main--declined" : ($offers_result["status"] == 1 ? "" : "detail-main--performed")?> x-tip-merchant-second  ">
+										<section  id="suggestion-<?php echo $offers_result["offer_id"]?>" class="x-suggestion-title x-suggestion-main detail-main <?php echo $offers_result["status"] == 2 ? "detail-main--declined" : ($offers_result["status"] == 1 ? "" : "detail-main--performed")?> x-tip-merchant-second">
 											<div class="detail-main__top">
 												<div class="detail-main__block-alpha">
 													<div class="detail-main__name-wrapper">
@@ -221,9 +245,12 @@
 														<?php
 															// Get user from the database
 															$user_id = $offers_result["user_id"];
-															$user_query = mysqli_query($con, "SELECT name FROM user WHERE user_id='$user_id'") or die(mysqli_error($con));
+															$user_query = mysqli_query($con, "SELECT name, time FROM user WHERE user_id='$user_id'") or die(mysqli_error($con));
 															$user_result = mysqli_fetch_assoc($user_query);
 															echo $user_result["name"];
+															if ($user_id == $session_user_id){
+																echo " (Вы)";
+															}
 															?>
 														</a>
 														<div class="detail-main__date-order">
@@ -258,15 +285,94 @@
 												</div>
 												<div class="detail-main__block-date" style="width:500px">
 													<div class="detail-main__date" style="line-height: 1.5em">
-														<?php echo nl2br($offers_result["message"]) ?>
+														<?php echo !empty($offers_result["message"]) ? nl2br($offers_result["message"]) : "<i>Водитель согласился с условиями перевозки.</i>" ?>
 													</div>
 												</div>
 												<div class="detail-main__block-controls" style="width: 650px;">
-													<div class="vv-button vv-button--green detail-main__watch x-sugg-detail-button" style="width:280px; position:absolute; bottom:0; right:0; margin:30px">
+													<div class="details_button vv-button vv-button--green detail-main__watch x-sugg-detail-button" style="width:280px; position:absolute; bottom:0; right:0; margin:30px">
+														<span id="details_arrow" style="padding-top:7px" class="detail-main__watch-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7"><defs><style>.a{fill:#fff}</style></defs><path class="a" d="M6 6.707L.646 1.354l.708-.708L6 5.293 10.646.646l.708.708L6 6.707z"></path></svg></span>
 													</div>
 												</div>
 											</div>
 										</section>
+										<div class="opened_row x-suggestion-body x-tip-merchant-third hide details_block" style="display: block;">
+											<div class="right">
+												<div class="info_perevozchik">
+													<p class="gl-title">Информация о перевозчике</p>
+													<div class="in_pervozchik" style="border-top:none">
+														<span class="wr_border d_none-1024 hidden-tablet hidden-phone">
+														<span class="img">
+														<img alt="" src="/assets/styles/images/v3/perevozchik.svg" height="90px" width="90px" >
+														</span>
+														</span>
+														<span class="info x-tip-suggestion-i0">
+															<span class="bold">Перевозчик:</span>
+															<div class="tail_wr info-tailWr">
+																<a class="infoUsername" href="https://www.vezetvsem.ru/profile?id=344" target="_blank"><?php echo $user_result["name"] ?></a>
+																<span class="tail info-tailUsername">
+																<?php echo $user_result["name"] ?>                             </span>
+															</div>
+															<br>
+															<div style="padding-top:5px"><span class="bold">Дата регистрации:</span> <?php echo date("d.m.Y", strtotime($user_result["time"])) ?> <br></div>
+															<div style="padding-top:10px"><a href="https://www.vezetvsem.ru/profile?id=344" target="_blank">Посмотреть профиль</a></div>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="left">
+												<section class="chat x-suggestion-chat">
+													<div class="chat__content" style="margin-top:0">
+														<header class="chat__header">
+															<span class="chat__header-info">Переписка с перевозчиком</span>
+														</header>
+														<div class="chat__list x-chat-list" offer_id="<?php echo $offers_result["offer_id"] ?>" style="padding-bottom:7px">
+															<?php
+															$messages_query = mysqli_query($con, "SELECT user_id, message, time FROM message WHERE offer_id='".$offers_result["offer_id"]."' ORDER BY time ASC") or die(mysqli_error($con));
+															while ($messages_result = mysqli_fetch_assoc($messages_query)){
+																$message_user_id = $messages_result["user_id"];
+																$message_user_query = mysqli_query($con, "SELECT name, type FROM user WHERE user_id='$message_user_id'") or die(mysqli_error($con));
+																$message_user_result = mysqli_fetch_assoc($message_user_query);
+															
+																?>
+																	<div class="chat-message chat-message<?php echo $message_user_result["type"]==0?"--carrier":"--merchant" ?>">
+																		<span class="chat-message__time"><?php echo date("d.m в H:i", strtotime($messages_result["time"])) ?></span>
+																		<div class="chat-message__name">
+																			<span class="chat-message__nickname"><?php echo $message_user_result["name"] ?></span>
+																			<?php if ($message_user_result["type"]==0){ ?>
+																				<span> (перевозчик):</span>
+																			<?php } ?>
+																		</div>
+																		<span class="chat-message__text"><?php echo $messages_result["message"] ?></span>
+																	</div>
+																<?php
+															}
+															?>
+														</div>
+														<div class="x-chat-wrapper">
+															<?php if ($session_user_id == null or ($session_user_id != $freight_owner_id and $session_user_id != $offers_result["user_id"])){ ?>
+																<div class="chat__warning" style="border-top:none; padding:0"></div>
+															<?php } else if (false){ ?>
+																<div class="chat__warning">Заказ не активен. Переписка закрыта</div>
+															<?php } else { ?>
+																<div class="chat__warning" style="padding:0">
+																	<table style="width:100%">
+																		<tr>
+																			<td style="width:100%">
+																				<input offer_id="<?php echo $offers_result["offer_id"] ?>"class="message_text" type="text" placeholder="Ваше сообщение…" style="width:100%; border: none; margin-top:2px; padding: 15px 13px; height:57px"/>
+																			</td>
+																			<td>
+																				<button style="margin:13px" class="message_send_button">Отправить</button>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+															<?php } ?>
+														</div>
+													</div>
+												</section>
+											</div>
+											<div class="breaker"></div>
+										</div>
 									</div>
 									<?php
 										}				
@@ -274,6 +380,10 @@
 								</div>
 							</div>
 						</div>
+						<?php						
+						
+						if (!empty($session_user_id) and !$already_have_offer and $type=="0"){
+						?>
 						<div id="bid" style="margin-top:100px">
 							<div data-reactroot="" class="bf-bid-form" id="bf">
 								<div class="bf-title">
@@ -285,15 +395,11 @@
 									<div class="bf-bid-form__block-hint"><span class="bf-bid-form__required">Обязательно к&nbsp;заполнению</span>
 									</div>
 									<div class="bf-bid-form__block-title bf-bid-form__required">Стоимость перевозки</div>
-									<article class="bf-price__row">
+									<article class="bf-price__row" style="margin-bottom:0">
 										<div class="bf-price__col bf-price__col--bid">
 											<div class="bf-price__el">
 												<div class="Input Input--label-left">
-													<input type="text" name="bid" value="" id="2" class="Input-control Input-control--left bf-price__price bf-price__price--fat">
-													<!-- react-text: 15 -->
-													<!-- /react-text -->
-													<!-- react-text: 16 -->
-													<!-- /react-text -->
+													<input type="text" name="bid" value="" id="price" class="Input-control Input-control--left bf-price__price bf-price__price--fat">
 												</div>
 												<div class="SelectControl SelectControl--default SelectControl--top bf-price__currency-select" style="width:46px">
 													<div class="Select bf-price__currency-select bf-price__currency-select--fat Select--single has-value" style="width:46px">
@@ -312,269 +418,39 @@
 										<div class="bf-price__col bf-price__col--manual"></div>
 									</article>
 								</section>
-								<section class="bf-bid-form__block bf-bid-form__block--required bf-dates" id="bf-date">
-									<div class="bf-bid-form__block-hint"><span class="bf-bid-form__required">Обязательно к&nbsp;заполнению</span>
-									</div>
-									<div class="bf-bid-form__block-title">Сроки исполнения</div>
-									<!-- react-empty: 39 -->
-									<div class="bf-datetime__content">
-										<div class="bf-datetime__col bf-datetime__col--from">
-											<div class="Datepicker Datepicker--labelleft bf-datetime__el">
-												<div class="Datepicker-title -greyText"><span class="bf-datetime__point">Погрузка</span>
-												</div>
-												<div class="Datepicker-wrapper">
-													<div class="Datepicker-input">
-														<p class="-greyText">Выберите дату</p>
-													</div>
-													<div class="Datepicker-daypickerWrapper Datepicker-daypickerWrapper--bottom-right">
-														<div class="DayPicker DayPicker--ru" role="application" tabindex="0">
-															<div class="DayPicker-NavBar"><span role="button" class="DayPicker-NavButton DayPicker-NavButton--prev"></span><span role="button" class="DayPicker-NavButton DayPicker-NavButton--next"></span>
-															</div>
-															<div class="DayPicker-Month">
-																<div class="DayPicker-Caption" role="heading">март 2017</div>
-																<div class="DayPicker-Weekdays" role="rowgroup">
-																	<div class="DayPicker-WeekdaysRow" role="columnheader">
-																		<div class="DayPicker-Weekday"><abbr title="понедельник">пн</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="вторник">вт</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="среда">ср</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="четверг">чт</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="пятница">пт</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="суббота">сб</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="воскресенье">вс</abbr>
-																		</div>
-																	</div>
-																</div>
-																<div class="DayPicker-Body" role="grid">
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--outside DayPicker-Day--disabled"></div>
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--outside DayPicker-Day--disabled"></div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="0" role="gridcell" aria-label="ср 1 мар. 2017 г." aria-disabled="true" aria-selected="false">1</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="чт 2 мар. 2017 г." aria-disabled="true" aria-selected="false">2</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="пт 3 мар. 2017 г." aria-disabled="true" aria-selected="false">3</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="сб 4 мар. 2017 г." aria-disabled="true" aria-selected="false">4</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 5 мар. 2017 г." aria-disabled="true" aria-selected="false">5</div>
-																	</div>
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="пн 6 мар. 2017 г." aria-disabled="true" aria-selected="false">6</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="вт 7 мар. 2017 г." aria-disabled="true" aria-selected="false">7</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="ср 8 мар. 2017 г." aria-disabled="true" aria-selected="false">8</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="чт 9 мар. 2017 г." aria-disabled="true" aria-selected="false">9</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="пт 10 мар. 2017 г." aria-disabled="true" aria-selected="false">10</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="сб 11 мар. 2017 г." aria-disabled="true" aria-selected="false">11</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 12 мар. 2017 г." aria-disabled="true" aria-selected="false">12</div>
-																	</div>
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="пн 13 мар. 2017 г." aria-disabled="true" aria-selected="false">13</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="вт 14 мар. 2017 г." aria-disabled="true" aria-selected="false">14</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="ср 15 мар. 2017 г." aria-disabled="true" aria-selected="false">15</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="чт 16 мар. 2017 г." aria-disabled="true" aria-selected="false">16</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="пт 17 мар. 2017 г." aria-disabled="true" aria-selected="false">17</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="сб 18 мар. 2017 г." aria-disabled="true" aria-selected="false">18</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 19 мар. 2017 г." aria-disabled="true" aria-selected="false">19</div>
-																	</div>
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="пн 20 мар. 2017 г." aria-disabled="true" aria-selected="false">20</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="вт 21 мар. 2017 г." aria-disabled="true" aria-selected="false">21</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="ср 22 мар. 2017 г." aria-disabled="true" aria-selected="false">22</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="чт 23 мар. 2017 г." aria-disabled="true" aria-selected="false">23</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="пт 24 мар. 2017 г." aria-disabled="true" aria-selected="false">24</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="сб 25 мар. 2017 г." aria-disabled="true" aria-selected="false">25</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 26 мар. 2017 г." aria-disabled="true" aria-selected="false">26</div>
-																	</div>
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="пн 27 мар. 2017 г." aria-disabled="true" aria-selected="false">27</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="вт 28 мар. 2017 г." aria-disabled="true" aria-selected="false">28</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="ср 29 мар. 2017 г." aria-disabled="true" aria-selected="false">29</div>
-																		<div class="DayPicker-Day DayPicker-Day--disabled" tabindex="-1" role="gridcell" aria-label="чт 30 мар. 2017 г." aria-disabled="true" aria-selected="false">30</div>
-																		<div class="DayPicker-Day DayPicker-Day--today" tabindex="-1" role="gridcell" aria-label="пт 31 мар. 2017 г." aria-disabled="false" aria-selected="false">31</div>
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--outside DayPicker-Day--sunday"></div>
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--outside DayPicker-Day--sunday"></div>
-																	</div>
-																</div>
-															</div>
-															<div class="DayPicker-Month">
-																<div class="DayPicker-Caption" role="heading">апрель 2017</div>
-																<div class="DayPicker-Weekdays" role="rowgroup">
-																	<div class="DayPicker-WeekdaysRow" role="columnheader">
-																		<div class="DayPicker-Weekday"><abbr title="понедельник">пн</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="вторник">вт</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="среда">ср</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="четверг">чт</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="пятница">пт</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="суббота">сб</abbr>
-																		</div>
-																		<div class="DayPicker-Weekday"><abbr title="воскресенье">вс</abbr>
-																		</div>
-																	</div>
-																</div>
-																<div class="DayPicker-Body" role="grid">
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--outside DayPicker-Day--disabled"></div>
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--outside DayPicker-Day--disabled"></div>
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--outside DayPicker-Day--disabled"></div>
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--outside DayPicker-Day--disabled"></div>
-																		<div role="gridcell" aria-disabled="true" class="DayPicker-Day DayPicker-Day--today DayPicker-Day--outside"></div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="0" role="gridcell" aria-label="сб 1 апр. 2017 г." aria-disabled="false" aria-selected="false">1</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 2 апр. 2017 г." aria-disabled="false" aria-selected="false">2</div>
-																	</div>
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="пн 3 апр. 2017 г." aria-disabled="false" aria-selected="false">3</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="вт 4 апр. 2017 г." aria-disabled="false" aria-selected="false">4</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="ср 5 апр. 2017 г." aria-disabled="false" aria-selected="false">5</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="чт 6 апр. 2017 г." aria-disabled="false" aria-selected="false">6</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="пт 7 апр. 2017 г." aria-disabled="false" aria-selected="false">7</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="сб 8 апр. 2017 г." aria-disabled="false" aria-selected="false">8</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 9 апр. 2017 г." aria-disabled="false" aria-selected="false">9</div>
-																	</div>
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="пн 10 апр. 2017 г." aria-disabled="false" aria-selected="false">10</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="вт 11 апр. 2017 г." aria-disabled="false" aria-selected="false">11</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="ср 12 апр. 2017 г." aria-disabled="false" aria-selected="false">12</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="чт 13 апр. 2017 г." aria-disabled="false" aria-selected="false">13</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="пт 14 апр. 2017 г." aria-disabled="false" aria-selected="false">14</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="сб 15 апр. 2017 г." aria-disabled="false" aria-selected="false">15</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 16 апр. 2017 г." aria-disabled="false" aria-selected="false">16</div>
-																	</div>
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="пн 17 апр. 2017 г." aria-disabled="false" aria-selected="false">17</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="вт 18 апр. 2017 г." aria-disabled="false" aria-selected="false">18</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="ср 19 апр. 2017 г." aria-disabled="false" aria-selected="false">19</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="чт 20 апр. 2017 г." aria-disabled="false" aria-selected="false">20</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="пт 21 апр. 2017 г." aria-disabled="false" aria-selected="false">21</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="сб 22 апр. 2017 г." aria-disabled="false" aria-selected="false">22</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 23 апр. 2017 г." aria-disabled="false" aria-selected="false">23</div>
-																	</div>
-																	<div class="DayPicker-Week" role="gridcell">
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="пн 24 апр. 2017 г." aria-disabled="false" aria-selected="false">24</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="вт 25 апр. 2017 г." aria-disabled="false" aria-selected="false">25</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="ср 26 апр. 2017 г." aria-disabled="false" aria-selected="false">26</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="чт 27 апр. 2017 г." aria-disabled="false" aria-selected="false">27</div>
-																		<div class="DayPicker-Day" tabindex="-1" role="gridcell" aria-label="пт 28 апр. 2017 г." aria-disabled="false" aria-selected="false">28</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="сб 29 апр. 2017 г." aria-disabled="false" aria-selected="false">29</div>
-																		<div class="DayPicker-Day DayPicker-Day--sunday" tabindex="-1" role="gridcell" aria-label="вс 30 апр. 2017 г." aria-disabled="false" aria-selected="false">30</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<i class="Datepicker-exit" title="Закрыть календарь">
-															<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 9.88 9.876">
-																<defs>
-																	<style>.Datepicker-exitSvg{fill:#ccc;fill-rule:evenodd}</style>
-																</defs>
-																<path d="M9.89 8.473L8.474 9.887 4.94 6.352 1.403 9.887-.01 8.473l3.535-3.535L-.01 1.402 1.404-.012 4.94 3.524 8.474-.012 9.89 1.402 6.352 4.938 9.89 8.473z" class="Datepicker-exitSvg"></path>
-															</svg>
-														</i>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="bf-datetime__col bf-datetime__col--to">
-											<div class="bf-datetime__el bf-datetime__wrapper-ship-time">
-												<div class="Input Input--label-left bf-datetime__ship-from">
-													<label class="Input-label Input-label--normal Input-label--grey" for="4">
-														<span class="bf-bid-form__required">Перевозка займёт от</span>
-														<!-- react-text: 177 -->
-														<!-- /react-text -->
-														<!-- react-text: 178 -->
-														<!-- /react-text -->
-													</label>
-													<input type="text" value="" id="4" class="Input-control Input-control--left bf-datetime__ship-time">
-													<!-- react-text: 180 -->
-													<!-- /react-text -->
-													<!-- react-text: 181 -->
-													<!-- /react-text -->
-												</div>
-												<div class="Input Input--label-left bf-datetime__ship-to">
-													<label class="Input-label Input-label--normal Input-label--grey" for="5">
-														<!-- react-text: 184 -->до
-														<!-- /react-text -->
-														<!-- react-text: 185 -->
-														<!-- /react-text -->
-														<!-- react-text: 186 -->
-														<!-- /react-text -->
-													</label>
-													<input type="text" value="" id="5" class="Input-control Input-control--left bf-datetime__ship-time">
-													<!-- react-text: 188 -->
-													<!-- /react-text -->
-													<!-- react-text: 189 -->
-													<!-- /react-text -->
-												</div>
-												<div class="RadioGroup bf-datetime__radio-group">
-													<label class="Radio bf-datetime__ship-radio">
-													<input type="radio" class="Radio-input" name="shipping_period_type" value=""><span class="Radio-box"></span><span class="Radio-label">часы</span>
-													</label>
-													<label class="Radio bf-datetime__ship-radio">
-													<input type="radio" class="Radio-input" name="shipping_period_type" value="1"><span class="Radio-box"></span><span class="Radio-label">дни</span>
-													</label>
-												</div>
-											</div>
-										</div>
-									</div>
-								</section>
-								<section class="bf-bid-form__block bf-bid-form__block--required bf-payment" id="bf-payment">
-									<div class="bf-bid-form__block-hint"><span class="bf-bid-form__required">Обязательно к&nbsp;заполнению</span>
-									</div>
-									<div class="bf-bid-form__block-title bf-bid-form__required">Оплата</div>
-									<!-- react-empty: 339 -->
-									<div class="bf-payment__content">
-										<div class="bf-payment__row">
-											<label class="Checkbox Checkbox--standart bf-payment__el">
-												<input type="checkbox" class="Checkbox-input" name="cash" value="false" label="Наличный расчет">
-												<div class="Checkbox-box"></div>
-												<span class="Checkbox-label">Наличный расчет</span>
-											</label>
-											<label class="Checkbox Checkbox--standart bf-payment__el">
-												<input type="checkbox" class="Checkbox-input" name="card" value="false" label="На&nbsp;карту">
-												<div class="Checkbox-box"></div>
-												<span class="Checkbox-label">На&nbsp;карту</span>
-											</label>
-											<label class="Checkbox Checkbox--standart bf-payment__el">
-												<input type="checkbox" class="Checkbox-input" name="transfer" value="false" label="Денежный перевод">
-												<div class="Checkbox-box"></div>
-												<span class="Checkbox-label">Денежный перевод</span>
-											</label>
-										</div>
-									</div>
-								</section>
-								<section></section>
 								<section class="bf-bid-form__block bf-bid-form__block bf-bid-form__block--message bf-comment">
 									<div class="bf-bid-form__block-title">Сообщение заказчику</div>
 									<div class="bf-comment__content">
 										<div class="bf-comment__textarea Textarea">
-											<textarea class="Textarea-textarea--resize-vertical Textarea-textarea" rows="3" placeholder="Это сообщение будет показано заказчику в чате, где Вы сможете вести с ним переговоры по деталям перевозки, оплаты и т.п."></textarea>
+											<textarea id="message" class="Textarea-textarea--resize-vertical Textarea-textarea" rows="3" placeholder="Это сообщение будет показано заказчику в чате, где Вы сможете вести с ним переговоры по деталям перевозки, оплаты и т.п."></textarea>
 										</div>
 										<div class="bf-comment__attention">
 											<span style="padding-top:4px">
-												<b>ОБРАТИТЕ ВНИМАНИЕ!</b> Согласно правилам переписки, обмениваться контактными данными до&nbsp;заключения сделки запрещено.
+											<b>ОБРАТИТЕ ВНИМАНИЕ!</b> Согласно правилам переписки, обмениваться контактными данными до&nbsp;заключения сделки запрещено.
 											</span>
 										</div>
 									</div>
 								</section>
 								<section class="bf-bid-form__controls bf-controls">
 									<article class="bf-controls__block"  style="width:100%">
-										<button class="Button Button-forest Button-text Button-s bf-controls__big-button"><span class="bf-controls__add-suggestion-content" >Добавить предложение</span>
+										<button class="Button Button-forest Button-text Button-s bf-controls__big-button" id="add_button"><span class="bf-controls__add-suggestion-content" id="add_button_text" style="font-size:20px; font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:400;">ДОБАВИТЬ ПРЕДЛОЖЕНИЕ</span>
 										</button>
 									</article>
 								</section>
 								<div class="SpinnerContainer"></div>
 							</div>
 						</div>
+						<?php } else if (!$already_have_offer and isset($type) and $type=="0") { ?>
+						<div id="bid" style="margin:40px 0 20px 0">
+							Зарегистрируйтесь чтобы добавить заявку. Это бесплатно.
+						</div>
+						<?php } ?>
 					</div>
 				</div>
 			</section>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="assets/scripts/jQueryRotate.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVFLhJdzYyO3lSp-JUYITYBrWJ-Jy419I&callback=initMap&language=ru&region=UA" async defer></script>
 		<script>
 			var directionDisplay;
@@ -624,7 +500,144 @@
 			  totalDist = totalDist / 1000.
 			  $("#distance").text(Math.round(totalDist) + " км");
 			}
+			
+			$("#add_button").click(function() {
+				var freight_id = "<?php echo $id?>";
+				var user_id = "<?php echo $session_user_id ?>";
+				var price = $("#price").val();
+				var message = $("#message").val();
+				$("#add_button_text").text("Подождите...");
+				$.ajax({
+					type: "POST",
+					url: "api/offer/add_offer",
+					data: {
+						"freight_id": freight_id,
+						"user_id": user_id,
+						"price": price,
+						"message": message
+					},
+					success: function(data){
+						var offer_id = JSON.parse(data)["offer_id"];
+						$("#add_button_text").text("Предложение добавлено!");
+						window.open('?id='+freight_id+'&offer='+offer_id,"_self");
+					},
+					error: function(){
+						alert("Ошибка.");
+					}
+				});
+			});
+			
+			$("#bid_button").click(function() {
+				document.getElementById("bid").scrollIntoView(); 
+				window.scrollBy(0, -115);
+			});
+			
+			$(".details_button").click(function() {
+				var opened = $(this).find('#details_arrow').getRotateAngle() == 0;
+				if (opened){			
+					$(this).find('#details_arrow').rotate({
+						angle: 0,
+						animateTo: 180,
+						center: ["50%", "65%"],
+						duration:50,
+					});
+					$(this).parent().parent().parent().parent().find(".x-suggestion-title").addClass("opened");
+				} else {
+					$(this).find('#details_arrow').rotate({
+						angle: 180,
+						animateTo: 0,
+						center: ["50%", "65%"],
+						duration:50,
+					});
+					$(this).parent().parent().parent().parent().find(".x-suggestion-title").removeClass("opened");
+				}
+				if (opened){
+					$(this).parent().parent().parent().parent().find('.details_block').removeClass("hide");
+				} else {
+					$(this).parent().parent().parent().parent().find('.details_block').addClass("hide");
+				}
+			});	
+			
+			$(".message_send_button").click(function(event){				
+				var button = $(this);
+				var text_field = $(this).parent().parent().find('.message_text');
+				
+				var message = text_field.val();
+				var user_id = "<?php echo $session_user_id ?>";
+				var offer_id = text_field.attr("offer_id");
+				
+				button.html("Загрузка...");
+				
+				$.ajax({
+					type: "POST",
+					url: '../api/message/send_message',
+					data: {
+						"message": message,
+						"user_id": user_id,
+						"offer_id": offer_id
+					},
+					dataType: "json",
+					success: function(data){						
+						button.html("Отправить");
+						text_field.val("");
+						
+						var messages_layout = text_field.parent().parent().parent().parent().parent().parent().parent().find(".chat__list");
+						messages_layout.append("<div class='chat-message chat-message"+(data['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+data["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+data["name"]+"</span>"+(data['type']==0? "<span> (перевозчик):</span>" : "") +"</div><span class='chat-message__text'> "+message+"</span></div>");
+						messages_layout.scrollTop(messages_layout[0].scrollHeight);
+					},
+					error: function(data){
+						alert("Ошибка отправки сообщения.");
+						alert(JSON.stringify(data));
+					}
+				});
+			});
+			
+			(function(){
+				$(".chat__list").each(function(){
+					var messages_layout = $(this);
+					var visible = $(this).is(":visible");
+					if (visible){
+						var offer_id = $(this).attr("offer_id");
+						$.ajax({
+							type: "POST",
+							url: '../api/message/get_messages',
+							data: {
+								"offer_id": offer_id
+							},
+							dataType: "json",
+							success: function(data){
+								var scrolledBottom = false;
+								if (messages_layout[0].scrollHeight - messages_layout.scrollTop() == messages_layout.outerHeight()) {
+									scrolledBottom = true;
+								}
+								messages_layout.empty();
+								$.each(data, function(i, message) {
+									messages_layout.append("<div class='chat-message chat-message"+(message['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+message["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+message["name"]+"</span>"+(message['type']==0? "<span> (перевозчик):</span>" : "") +"</div><span class='chat-message__text'> "+message["message"]+"</span></div>");
+								});
+								if (scrolledBottom){
+									messages_layout.scrollTop(messages_layout[0].scrollHeight);
+								}
+							},
+							error: function(data){
+							}
+						});
+					}					
+				});
+				// do some stuff
+				setTimeout(arguments.callee, 10000);
+			})();
 		</script>
+		<?php
+			if (ISSET($_GET["offer"])){			
+				$offer = $_GET["offer"];
+				?>
+		<script>
+			document.getElementById("suggestion-<?php echo $offer ?>").scrollIntoView(); 
+			window.scrollBy(0, -115);
+		</script>
+		<?php
+			}
+			?>
 	</body>
 	<footer>
 		<article class="footer">

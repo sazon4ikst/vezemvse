@@ -104,6 +104,9 @@
 											<button id="login_button" type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px" >Войти на сайт</button>
 										</div>
 										<!--<a target="_blank" href="../condition" class="sog">Пользовательское соглашение</a>-->
+										<div style="margin-top:20px">
+											Еще нет аккаунта? <a href="/auth/choice">Зарегистрируйтесь</a>
+										</div>
 									</div>
 								</div>
 								<div class="anc2"></div>
