@@ -19,6 +19,6 @@ $price = mysqli_real_escape_string($con, $price);
 $message = mysqli_real_escape_string($con, $message);
 
 mysqli_query($con, "INSERT INTO offer(freight_id, user_id, price, message, status) VALUES ('$freight_id', '$user_id', '$price', '$message', '1')") or die (mysqli_error($con));
-echo json_encode(array("offer_id" => mysqli_insert_id($con)));
+echo json_encode(array("result" => "success"));
 
 ?>

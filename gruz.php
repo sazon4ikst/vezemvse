@@ -59,7 +59,7 @@
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
 	</head>
 	<body style="background:#f9f8f3">
-		<div style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
+		<div id="content_body" style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
 			<header class="layout__header _fixed">
 				<div class="layout__drawer-button x-drawer-button"></div>
 				<div class="layout__header-row _viewport_mobile">
@@ -69,6 +69,8 @@
 				</div>
 				<div class="layout__header-row _viewport_desktop">
 					<div class="header">
+						<?php require("util/session_header.php") ?>
+					
 						<div class="header__content">
 							<div class="header__item header__title">
 								<a href="/">
@@ -143,7 +145,7 @@
 													<span id="x-edit-cargo-button">
 													</span>
 												</div>
-												<div class="in_col column column-1024" style="height:375px; overflow-x:hidden; padding:12px 20px; background:#d5ecf7">
+												<div class="in_col column column-1024" style="height:375px; overflow-x:hidden; padding:12px 20px; background:#dfeaf5">
 													<div class="wr_row" style="font-family: 'Roboto', Helvetica, Arial, sans-serif">
 														<div class="row row_top" style="padding-bottom:20px;">
 															<p><b class="name"> </b></p>
@@ -182,7 +184,7 @@
 										<span id="x-edit-route-button">
 										</span>
 									</div>
-									<div class="info column column-ipad column-1024" id="editmap" style="height:375px; padding:20px 10px; color:#333; background:#d5ecf7">
+									<div class="info column column-ipad column-1024" id="editmap" style="height:375px; padding:20px 10px; color:#333; background:#dfeaf5">
 										<div class="top_dot">
 											<div class="big">
 												<h2 class="otkuda">
@@ -216,13 +218,17 @@
 							</div>
 							<div class="breaker"></div>
 						</div>
-						<div class="wr_predlojenie x-detail-suggestions x-detail-realtime-suggestions ">
-							<?php $offers_query = mysqli_query($con, "SELECT offer_id, user_id, price, message, status, time FROM offer WHERE freight_id='$id' ORDER BY status ASC, time DESC") or die(mysqli_error($con)); ?>
+						<?php
+						
+						$already_accepted_query = mysqli_query($con, "SELECT offer_id, user_id, price, message, status, time FROM offer WHERE freight_id='$id' AND status='0'");
+						$already_accepted = mysqli_fetch_assoc($already_accepted_query) != null;
+						
+						$offers_query = mysqli_query($con, "SELECT offer_id, user_id, price, message, status, time FROM offer WHERE freight_id='$id' ORDER BY status ASC, time DESC") or die(mysqli_error($con)); ?>
+							
+						<div class="wr_predlojenie x-detail-suggestions x-detail-realtime-suggestions "  style="display:<?php echo mysqli_num_rows($offers_query)>0 ? "block" : "none" ?>">
 							<div class="subsidiary-block">
 								<div class="subsidiary-block__left">
-									<div class="blue_bg_button2 show_predl">
-										<p style="border-bottom:none; text-shadow:none">Ценовые предложения: <span class="x-suggestions-count"><?php echo mysqli_num_rows($offers_query) ?></span></p>
-									</div>
+									<p class="blue_bg_button">Ценовые предложения: <span class="x-suggestions-count"><?php echo mysqli_num_rows($offers_query) ?></p>
 								</div>
 								<div class="subsidiary-block__right"></div>
 							</div>
@@ -237,7 +243,7 @@
 										while ($offers_result = mysqli_fetch_assoc($offers_query)){ ?>
 									<div class="row_all x-suggestion x-hidden suggestion" data-orderid="414419" style="display: block;">
 										<!-- detail-main--declined detail-main--performed или удалить -->
-										<section  id="suggestion-<?php echo $offers_result["offer_id"]?>" class="x-suggestion-title x-suggestion-main detail-main <?php echo $offers_result["status"] == 2 ? "detail-main--declined" : ($offers_result["status"] == 1 ? "" : "detail-main--performed")?> x-tip-merchant-second">
+										<section  id="suggestion-<?php echo $offers_result["offer_id"]?>" class="x-suggestion-title x-suggestion-main detail-main <?php echo $offers_result["status"] == 2 ? "detail-main--declined" : ($offers_result["status"] == 1 ? ($already_accepted ? "detail-main--declined" : "") : "detail-main--performed")?> x-tip-merchant-second">
 											<div class="detail-main__top">
 												<div class="detail-main__block-alpha">
 													<div class="detail-main__name-wrapper">
@@ -264,11 +270,13 @@
 													<span class="detail-main__status">
 													<?php
 														if ($offers_result["status"] == 2){
-															echo "Отклонен";
-														} else if ($offers_result["status"] == 1){
-															echo "Ожидает ответа";		
+															echo "Отклонён заказчиком";
+														} else if ($offers_result["status"] == 0){
+															echo "Торги завершены";		
+														} else if ($already_accepted){
+															echo "Не актуален";
 														} else {
-															echo "Торги завершены";											
+															echo "Ожидает ответа";											
 														}
 														
 														?>
@@ -289,7 +297,17 @@
 													</div>
 												</div>
 												<div class="detail-main__block-controls" style="width: 650px;">
-													<div class="details_button vv-button vv-button--green detail-main__watch x-sugg-detail-button" style="width:280px; position:absolute; bottom:0; right:0; margin:30px">
+													<?php if ($offers_result["status"] == 1 and !$already_accepted and $session_user_id == $freight_owner_id){ ?>
+														<div style="width:280px; position:absolute; bottom:45; right:0; margin:30px">
+															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="accept_button details_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; display:inline-block; padding-left:0; padding-right:0">
+																Согласиться
+															</div>
+															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="decline_button details_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; margin-left:5px; background:#f44336; display:inline-block; padding-left:0; padding-right:0">
+																Отклонить
+															</div>
+														</div>
+													<?php } ?>
+													<div class="details_button vv-button vv-button--green detail-main__watch x-sugg-detail-button" style="width:280px; position:absolute; bottom:0; right:0; margin:30px; background:#7194cc">
 														<span id="details_arrow" style="padding-top:7px" class="detail-main__watch-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7"><defs><style>.a{fill:#fff}</style></defs><path class="a" d="M6 6.707L.646 1.354l.708-.708L6 5.293 10.646.646l.708.708L6 6.707z"></path></svg></span>
 													</div>
 												</div>
@@ -452,6 +470,10 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="assets/scripts/jQueryRotate.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVFLhJdzYyO3lSp-JUYITYBrWJ-Jy419I&callback=initMap&language=ru&region=UA" async defer></script>
+		
+		<script>
+			$('#content_body').css('padding', ($('.header').height()+20)+"px 0 40px 0");
+		</script>
 		<script>
 			var directionDisplay;
 			var directionsService;
@@ -532,6 +554,57 @@
 				window.scrollBy(0, -115);
 			});
 			
+			// Mark offer as accepted
+			$(".accept_button").click(function() {
+				var offer_id = $(this).attr("offer_id");
+				var status = 0;				
+				
+				$.ajax({
+					type: "POST",
+					url: '../api/offer/set_offer_status',
+					data: {
+						"offer_id": offer_id,
+						"status": status
+					},
+					dataType: "json",
+					success: function(data){
+						alert("Вы согласились с предложением, в скором времени с Вами свяжется перевозчик!");
+						location.reload();
+					},
+					error: function(data){
+						alert("Ошибка сервера.");
+						alert(JSON.stringify(data));
+					}
+				});
+			});
+						
+			// Mark offer as declined
+			$(".decline_button").click(function() {
+				if (!confirm("Отклонить это предложение?")){
+					return;
+				}
+				
+				var offer_id = $(this).attr("offer_id");
+				var status = 2;				
+				
+				$.ajax({
+					type: "POST",
+					url: '../api/offer/set_offer_status',
+					data: {
+						"offer_id": offer_id,
+						"status": status
+					},
+					dataType: "json",
+					success: function(data){
+						location.reload();
+					},
+					error: function(data){
+						alert("Ошибка сервера.");
+						alert(JSON.stringify(data));
+					}
+				});
+			});
+			
 			$(".details_button").click(function() {
 				var opened = $(this).find('#details_arrow').getRotateAngle() == 0;
 				if (opened){			
@@ -558,7 +631,7 @@
 				}
 			});	
 			
-			$(".message_send_button").click(function(event){				
+			$(".message_send_button").click(function(event){			
 				var button = $(this);
 				var text_field = $(this).parent().parent().find('.message_text');
 				
@@ -587,7 +660,6 @@
 					},
 					error: function(data){
 						alert("Ошибка отправки сообщения.");
-						alert(JSON.stringify(data));
 					}
 				});
 			});

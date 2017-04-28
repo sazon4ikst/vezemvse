@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -31,7 +35,7 @@
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 	</head>
 	<body style="background:#f9f8f3">
-		<div style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
+		<div id="content_body" style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
 			<header class="layout__header _fixed">
 				<div class="layout__drawer-button x-drawer-button"></div>
 				<div class="layout__header-row _viewport_mobile">
@@ -40,7 +44,9 @@
 					</div>
 				</div>
 				<div class="layout__header-row _viewport_desktop">
-					<div class="header">
+					<div class="header">					
+						<?php require("util/session_header.php") ?>
+						
 						<div class="header__content">
 							<div class="header__item header__title">
 								<a href="/">
@@ -142,6 +148,9 @@
 		</div>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+		$('#content_body').css('padding', ($('.header').height()+40)+"px 0 40px 0");
+	</script>
 	<script>
 		$(".table_item").click(function(){
 			if ($(this).hasClass("table_row")){
