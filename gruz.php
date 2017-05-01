@@ -636,6 +636,8 @@
 				var text_field = $(this).parent().parent().find('.message_text');
 				
 				var message = text_field.val();
+				if (message == "") return;
+				
 				var user_id = "<?php echo $session_user_id ?>";
 				var offer_id = text_field.attr("offer_id");
 				
@@ -664,6 +666,15 @@
 				});
 			});
 			
+			// Send message when enter is clicked
+			$(".message_text").keypress(function (e) {
+				var key = e.which;
+				if (key == 13){
+					$(this).parent().parent().find(".message_send_button")[0].click();
+					return false;  
+				}
+			});
+						
 			
 	
 			window.addEventListener('load', function() {
