@@ -1,6 +1,8 @@
 DirectorySlash Off
 RewriteEngine On
 
+RewriteCond $1 !\.(gif|jpg|png|ico|css|js|swf|wav|mp3|less|cur) [OR]
+
 RewriteBase /
 
 # browser requests HTML

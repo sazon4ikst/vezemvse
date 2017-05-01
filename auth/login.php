@@ -138,7 +138,7 @@
 			},
             success: function(data){
 				if (data != "") {
-					$("#login_button").html("Зарегистрироваться");
+					$("#login_button").html("Войти на сайт");
 					alert(data);
 				} else {
 					window.open('../listing', '_self', false);

@@ -26,6 +26,7 @@
 		$type = $session_user_result["type"];
 	}
 	?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -343,7 +344,7 @@
 														<header class="chat__header">
 															<span class="chat__header-info">Переписка с перевозчиком</span>
 														</header>
-														<div class="chat__list x-chat-list" offer_id="<?php echo $offers_result["offer_id"] ?>" style="padding-bottom:7px">
+														<div class="chat__list x-chat-list" offer_id="<?php echo $offers_result["offer_id"] ?>" offer_user_id="<?php echo $offers_result["user_id"] ?>" style="padding-bottom:7px">
 															<?php
 															$messages_query = mysqli_query($con, "SELECT user_id, message, time FROM message WHERE offer_id='".$offers_result["offer_id"]."' ORDER BY time ASC") or die(mysqli_error($con));
 															while ($messages_result = mysqli_fetch_assoc($messages_query)){
@@ -369,8 +370,8 @@
 														<div class="x-chat-wrapper">
 															<?php if ($session_user_id == null or ($session_user_id != $freight_owner_id and $session_user_id != $offers_result["user_id"])){ ?>
 																<div class="chat__warning" style="border-top:none; padding:0"></div>
-															<?php } else if (false){ ?>
-																<div class="chat__warning">Заказ не активен. Переписка закрыта</div>
+															<?php } else if ($offers_result["status"] != 0 and ($offers_result["status"] == 2 or $already_accepted)){ ?>
+																<div class="chat__warning">Переписка закрыта</div>
 															<?php } else { ?>
 																<div class="chat__warning" style="padding:0">
 																	<table style="width:100%">
@@ -467,7 +468,6 @@
 				</div>
 			</section>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="assets/scripts/jQueryRotate.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVFLhJdzYyO3lSp-JUYITYBrWJ-Jy419I&callback=initMap&language=ru&region=UA" async defer></script>
 		
@@ -664,17 +664,32 @@
 				});
 			});
 			
-			(function(){
+			
+	
+			window.addEventListener('load', function() {
+				setInterval(function(){
+					refreshMessages();
+				}, 10000);
+			}, false);
+			function refreshMessages(){
 				$(".chat__list").each(function(){
 					var messages_layout = $(this);
 					var visible = $(this).is(":visible");
 					if (visible){
 						var offer_id = $(this).attr("offer_id");
+						var offer_user_id = $(this).attr("offer_user_id");
+						var user_id = "<?php echo $session_user_id ?>";
+						var mark_seen = false;
+						if (user_id !== "" && (user_id=="<?php echo $freight_owner_id ?>" || user_id==offer_user_id)){
+							mark_seen = true;
+						}
 						$.ajax({
 							type: "POST",
 							url: '../api/message/get_messages',
 							data: {
-								"offer_id": offer_id
+								"offer_id": offer_id,
+								"user_id": user_id,
+								"mark_seen": mark_seen
 							},
 							dataType: "json",
 							success: function(data){
@@ -689,25 +704,39 @@
 								if (scrolledBottom){
 									messages_layout.scrollTop(messages_layout[0].scrollHeight);
 								}
+								
+								refreshUnreadCount();
 							},
 							error: function(data){
 							}
 						});
 					}					
 				});
-				// do some stuff
-				setTimeout(arguments.callee, 10000);
-			})();
+			}
 		</script>
 		<?php
-			if (ISSET($_GET["offer"])){			
+			if (ISSET($_GET["offer"])){	
 				$offer = $_GET["offer"];
 				?>
-		<script>
-			document.getElementById("suggestion-<?php echo $offer ?>").scrollIntoView(); 
-			window.scrollBy(0, -115);
-		</script>
-		<?php
+				<script>					
+					document.getElementById("suggestion-<?php echo $offer ?>").scrollIntoView(); 
+					window.scrollBy(0, -200);
+				</script>
+				<?php
+			} else if (ISSET($_GET["open_offer"])){			
+				$offer = $_GET["open_offer"];
+				?>
+				<script>
+					$("#suggestion-<?php echo $offer ?> .details_button").click();
+					var messages_layout = $("#suggestion-<?php echo $offer ?>").parent().find(".chat__list");
+					messages_layout.scrollTop(messages_layout[0].scrollHeight);					
+						
+					messages_layout[0].scrollIntoView();
+					window.scrollBy(0, -300);
+					
+					refreshMessages();
+				</script>
+				<?php
 			}
 			?>
 	</body>

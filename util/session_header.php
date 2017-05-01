@@ -1,13 +1,15 @@
 <?php
 
-if(isset($_SESSION['user_id'])){
+if(isset($_SESSION['user_id'])){	
+	$session_user_id = @$_SESSION['user_id'];
+	
 	echo '
 	<div class="toolbar" style="padding:0">
 		<div class="toolbar">
 			<div class="toolbar__content">
 				<div class="toolbar__messages toolbar__link " style="margin-right:15px; margin-bottom:2px">
-                    <a class="toolbar__messages-link" href="/account"></a>
-                </div>
+					<div id="unread_count" style="margin-left:5px; border-radius: 10px; background-color: #e84e3c; height:14px; padding: 2px 4px 1px; position: absolute; bottom: 10px; right: -10px; line-height: 1; font-size: 10px; display:none"></div>
+				</div>
 
                 <!--<a class="toolbar__balance toolbar__link" href="/accountv2/billing" title="Баланс">0</a>-->
                 <!--<a class="toolbar__faq toolbar__link" href="/help" title="Помощь для заказчика"></a>-->
@@ -18,6 +20,68 @@ if(isset($_SESSION['user_id'])){
 		</div>
 	</div>
 	';
+	
+	?>	
+	<script src="./assets/scripts/util/jquery.min.js"></script>
+	<script src = "./assets/scripts/util/jquery.jrumble.1.3.js"></script>
+	<script>
+		var message_shaked = false;
+	
+		window.addEventListener('load', function() {
+			refreshUnreadCount();
+			setInterval(function(){
+				refreshUnreadCount();
+			}, 10000);
+		}, false);
+		
+		function refreshUnreadCount() {
+			var user_id = "<?php echo $session_user_id ?>";
+			$.ajax({
+				type: "POST",
+				url: "api/message/get_unread_count",
+				data: {
+					"user_id": user_id
+				},
+				success: function(data){
+					var messages = JSON.parse(data);
+					var unread_count = messages.length;
+					if (unread_count > 0){
+						$("#unread_count").html(unread_count);
+						$("#unread_count").show();
+
+						$('#unread_count').parent().css('cursor', 'pointer');
+
+						$('#unread_count').parent().click(function() {
+							window.location.href = "./gruz?id=239897625&open_offer="+messages[0]["offer_id"];
+						});													
+						
+						if (!message_shaked){
+							message_shaked = true;		
+															
+							setTimeout(function(){							
+								$('#unread_count').parent().jrumble({
+									x: 0,
+									y: 0,
+									rotation: 10,
+									speed: 100
+								});
+								$("#unread_count").parent().trigger('startRumble');
+
+								setTimeout(function(){							
+									$('#unread_count').trigger('stopRumble');
+								}, 1500);
+							}, 2000);
+						}
+					} else {
+						$("#unread_count").hide();
+					}
+				},
+				error: function(){
+				}
+			});
+		}
+	</script>
+	<?php
 }
 
 function parseFirstName($name){

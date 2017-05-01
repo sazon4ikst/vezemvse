@@ -147,7 +147,6 @@
 			</footer>
 		</div>
 	</body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
 		$('#content_body').css('padding', ($('.header').height()+40)+"px 0 40px 0");
 	</script>

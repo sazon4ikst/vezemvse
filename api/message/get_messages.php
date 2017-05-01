@@ -3,6 +3,8 @@
 require "../../util/connectDB.php";
 
 $offer_id = isset($_POST['offer_id']) ? $_POST["offer_id"] : null;
+$user_id = isset($_POST['user_id']) ? $_POST["user_id"] : null;
+$mark_seen = isset($_POST['mark_seen']) ? $_POST["mark_seen"] : false;
 
 if (empty($offer_id)){
 	die("Пожалуйста заполните все поля.");
@@ -11,6 +13,10 @@ if (empty($offer_id)){
 global $con;
 
 $offer_id = mysqli_real_escape_string($con, $offer_id);
+
+if ($mark_seen == true){
+	mysqli_query($con, "UPDATE message SET seen='1' WHERE offer_id='$offer_id' AND user_id<>'$user_id'") or die(mysqli_error($con));
+}
 
 $messages = array();
 
