@@ -309,7 +309,7 @@
 														</div>
 													<?php } ?>
 													<div class="details_button vv-button vv-button--green detail-main__watch x-sugg-detail-button" style="width:280px; position:absolute; bottom:0; right:0; margin:30px; background:#7194cc">
-														<span id="details_arrow" style="padding-top:7px" class="detail-main__watch-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7"><defs><style>.a{fill:#fff}</style></defs><path class="a" d="M6 6.707L.646 1.354l.708-.708L6 5.293 10.646.646l.708.708L6 6.707z"></path></svg></span>
+														<span id="details_arrow" style="margin-top:-1px" class="detail-main__watch-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7"><defs><style>.a{fill:#fff}</style></defs><path class="a" d="M6 6.707L.646 1.354l.708-.708L6 5.293 10.646.646l.708.708L6 6.707z"></path></svg></span>
 													</div>
 												</div>
 											</div>
@@ -611,7 +611,7 @@
 					$(this).find('#details_arrow').rotate({
 						angle: 0,
 						animateTo: 180,
-						center: ["50%", "65%"],
+						center: ["50%", "55%"],
 						duration:50,
 					});
 					$(this).parent().parent().parent().parent().find(".x-suggestion-title").addClass("opened");
@@ -619,7 +619,7 @@
 					$(this).find('#details_arrow').rotate({
 						angle: 180,
 						animateTo: 0,
-						center: ["50%", "65%"],
+						center: ["50%", "55%"],
 						duration:50,
 					});
 					$(this).parent().parent().parent().parent().find(".x-suggestion-title").removeClass("opened");
@@ -740,7 +740,7 @@
 			}
 			?>
 	</body>
-	<footer>
+	<footer style="margin-top:100px">
 		<article class="footer">
 			<div class="vv-container">
 				<div class="footer__copyright">
