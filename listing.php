@@ -36,42 +36,7 @@
 	</head>
 	<body style="background:#f9f8f3">
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
-			<header class="layout__header _fixed">
-				<div class="layout__drawer-button x-drawer-button"></div>
-				<div class="layout__header-row _viewport_mobile">
-					<div class="layout__title">
-						<img class="layout__logo" src="assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" />
-					</div>
-				</div>
-				<div class="layout__header-row _viewport_desktop">
-					<div class="header">					
-						<?php require("util/session_header.php") ?>
-						
-						<div class="header__content">
-							<div class="header__item header__title">
-								<a href="/">
-								<img class="header__title-logo" src="assets/images/home_v4/logo-white.png" alt="Сайт грузоперевозок «Везет Всем»">
-								<img class="header__title-logo _blue" src="assets/images/home_v4/logo-blue.png" alt="Сайт грузоперевозок «Везет Всем»">
-								</a>
-								<a class="header__title-link" href="#">Онлайн-сервис перевозок</a>
-							</div>
-							<div class="header__support header__item">
-								<span class="header__support-link contact x-open-support-box">Служба поддержки</span><br>
-								<a class="header__support-phone" href="tel:0950292903">0 (095) 029-29-03</a><br/>
-								Работаем круглосуточно
-							</div>
-							<div class="header__categories-button" style="display:none">
-								<svg class="header__categories-button-burger" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 30">
-									<path d="M0 0h36v6H0zM0 12h36v6H0zM0 24h36v6H0z"/>
-								</svg>
-								<svg class="header__categories-button-cross" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="29.688" height="29.688" viewBox="0 0 29.688 29.688">
-									<path d="M29.693 25.45l-4.243 4.243-10.606-10.607L4.237 29.693-.005 25.45 10.6 14.844-.004 4.237l4.24-4.242L14.846 10.6 25.45-.004l4.243 4.242-10.606 10.607L29.693 25.45z"/>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</div>
-			</header>
+			<?php require("./util/header.php") ?>
 			<div class="orders" style="padding-top:0">
 				<div class="container" style="width: 1250px;">
 					<div class="row">
@@ -83,7 +48,7 @@
 							<?php
 								require("util/connectDB.php");
 								global $con;
-								$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, time FROM freight") or die (mysqli_error($con));
+								$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, start_time FROM freight ORDER BY start_time DESC") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
 									<a href="gruz?id=<?php echo $freight_result["freight_id"] ?>" class="orders_inner_item_link"></a>
@@ -99,7 +64,7 @@
 										<tbody>
 											<tr>
 												<td>
-													<span><?php	$date = new DateTime("@".$freight_result["time"]);
+													<span><?php	$date = new DateTime("@".$freight_result["start_time"]);
 																echo $date->format('d.m') ?></span>
 												</td>
 												<td>

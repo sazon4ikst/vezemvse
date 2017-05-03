@@ -11,7 +11,7 @@
 		$id = str_replace("/gruz/", "", $_SERVER['REQUEST_URI']);
 	}
 				
-	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, time, start_time, end_time, volume, weight, description FROM freight WHERE freight_id='$id'") or die ("Груз не найден.");
+	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, posted_time, start_time, volume, weight, description FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
 	$freight_result = mysqli_fetch_assoc($freight_query);
 	$freight_owner_id = $freight_result["user_id"];
 	
@@ -61,42 +61,8 @@
 	</head>
 	<body style="background:#f9f8f3">
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
-			<header class="layout__header _fixed">
-				<div class="layout__drawer-button x-drawer-button"></div>
-				<div class="layout__header-row _viewport_mobile">
-					<div class="layout__title">
-						<img class="layout__logo" src="assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" />
-					</div>
-				</div>
-				<div class="layout__header-row _viewport_desktop">
-					<div class="header">
-						<?php require("util/session_header.php") ?>
-					
-						<div class="header__content">
-							<div class="header__item header__title">
-								<a href="/">
-								<img class="header__title-logo" src="assets/images/home_v4/logo-white.png" alt="Сайт грузоперевозок «Везет Всем»">
-								<img class="header__title-logo _blue" src="assets/images/home_v4/logo-blue.png" alt="Сайт грузоперевозок «Везет Всем»">
-								</a>
-								<a class="header__title-link" href="#">Онлайн-сервис перевозок</a>
-							</div>
-							<div class="header__support header__item">
-								<span class="header__support-link contact x-open-support-box">Служба поддержки</span><br>
-								<a class="header__support-phone" href="tel:0950292903">0 (095) 029-29-03</a><br/>
-								Работаем круглосуточно
-							</div>
-							<div class="header__categories-button" style="display:none">
-								<svg class="header__categories-button-burger" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 30">
-									<path d="M0 0h36v6H0zM0 12h36v6H0zM0 24h36v6H0z"/>
-								</svg>
-								<svg class="header__categories-button-cross" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="29.688" height="29.688" viewBox="0 0 29.688 29.688">
-									<path d="M29.693 25.45l-4.243 4.243-10.606-10.607L4.237 29.693-.005 25.45 10.6 14.844-.004 4.237l4.24-4.242L14.846 10.6 25.45-.004l4.243 4.242-10.606 10.607L29.693 25.45z"/>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</div>
-			</header>
+			
+			<?php require("./util/header.php") ?>
 			<section id="content">
 				<div data-cat-name="moving" data-id="414419" data-name="Переезд" data-distance="18" data-subcat-name="office" class="vv-container vv-container--no-padding x-detail">
 					<input type="hidden" id="order_id" value="414419">
@@ -150,23 +116,20 @@
 													<div class="wr_row" style="font-family: 'Roboto', Helvetica, Arial, sans-serif">
 														<div class="row row_top" style="padding-bottom:20px;">
 															<p><b class="name"> </b></p>
-															<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Дата перевозки:</b> <span class="date" style="margin-left:3px; font-weight:normal">
-																с 
+															<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Дата погрузки:</b> <span class="date" style="margin-left:3px; font-weight:normal">
 																<?php
 																	if (!empty($freight_result["start_time"])){
 																		$date = new DateTime("@".$freight_result["start_time"]); echo $date->format('d.m');
 																	}
-																	?>
-																по 
-																<?php
-																	if (!empty($freight_result["end_time"])){
-																		$date = new DateTime("@".$freight_result["end_time"]); echo $date->format('d.m');
-																	}
-																	?>
+																?>
 																</span>
 															</p>
-															<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Общий объем:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["volume"] ?></span></p>
-															<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Общий вес:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["weight"] ?></span></p>
+															<?php if (!empty($freight_result["volume"])){ ?>
+																<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Общий объем:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["volume"] ?></span></p>
+															<?php } 
+															if (!empty($freight_result["weight"])){ ?>													
+																<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Общий вес:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["weight"] ?></span></p>
+															<?php } ?>
 														</div>
 														<div class="row sposob_oplati" style="margin-top:10px; border:none; color:#333; font-weight:normal">
 															<b style="color:#333; font-weight:500">Комментарий заказчика:</b>

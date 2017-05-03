@@ -67,14 +67,13 @@ if (!$result["success"]){
 		$weight = mysqli_real_escape_string($con, $weight);
 		$description = mysqli_real_escape_string($con, $description);
 		$start_time = mysqli_real_escape_string($con, $start_time);
-		$end_time = $start_time;
 		if ($price != null) $price = mysqli_real_escape_string($con, $price);
 		
 		$freight_query = mysqli_query($con, "SELECT freight_id FROM freight WHERE freight_id='$id'");
 		if (mysqli_num_rows($freight_query) == 0){
-			mysqli_query($con, "INSERT INTO freight(freight_id, time, title, address_from, area_from, address_to, area_to, distance, price, volume, weight, description, start_time, end_time) VALUES('$id', '$time', '$title', '$address_from', '$area_from', '$address_to', '$area_to', '$distance', '$price', '$volume', '$weight', '$description', '$start_time', '$end_time')") or die(mysqli_error($con));
+			mysqli_query($con, "INSERT INTO freight(freight_id, posted_time, title, address_from, area_from, address_to, area_to, distance, price, volume, weight, description, start_time) VALUES('$id', '$time', '$title', '$address_from', '$area_from', '$address_to', '$area_to', '$distance', '$price', '$volume', '$weight', '$description', '$start_time')") or die(mysqli_error($con));
 		} else {
-			mysqli_query($con, "UPDATE freight SET time='$time', title='$title', address_from='$address_from', area_from='$area_from', address_to='$address_to', area_to='$area_to', distance='$distance', price='$price', volume='$volume', weight='$weight', description='$description', start_time='$start_time', end_time='$end_time' WHERE freight_id='$id'") or die(mysqli_error($con));
+			mysqli_query($con, "UPDATE freight SET posted_time='$time', title='$title', address_from='$address_from', area_from='$area_from', address_to='$address_to', area_to='$area_to', distance='$distance', price='$price', volume='$volume', weight='$weight', description='$description', start_time='$start_time' WHERE freight_id='$id'") or die(mysqli_error($con));
 		}	
 	
 		array_push($freights_json, array(
