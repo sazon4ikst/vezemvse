@@ -11,7 +11,7 @@
 		$id = str_replace("/gruz/", "", $_SERVER['REQUEST_URI']);
 	}
 				
-	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, posted_time, start_time, volume, weight, description FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
+	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, address_to, distance, weight, volume, price, posted_time, start_time, volume, weight, description FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
 	$freight_result = mysqli_fetch_assoc($freight_query);
 	$freight_owner_id = $freight_result["user_id"];
 	
@@ -153,7 +153,6 @@
 											<div class="big">
 												<h2 class="otkuda">
 													<span class="title" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500">Погрузка:</span><br>
-													<p style="font-family: 'Roboto', Helvetica, Arial, sans-serif; margin-top:4px"><?php echo $freight_result["area_from"] ?></p>
 													<p style="font-family: 'Roboto', Helvetica, Arial, sans-serif; margin-top:1px"><?php echo $freight_result["address_from"] ?></p>
 												</h2>
 											</div>
@@ -162,7 +161,6 @@
 											<div class="big">
 												<h2 class="kuda">
 													<span class="title" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500">Выгрузка:</span><br>
-													<p style="font-family: 'Roboto', Helvetica, Arial, sans-serif; margin-top:4px"><?php echo $freight_result["area_to"] ?></p>
 													<p style="font-family: 'Roboto', Helvetica, Arial, sans-serif; margin-top:1px"><?php echo $freight_result["address_to"] ?></p>
 												</h2>
 											</div>
@@ -174,7 +172,7 @@
 										<p class="blue_bg_button inline_block">
 											Расстояние: <span id="distance"></span>
 										</p>
-										<a href="https://maps.google.com?saddr=<?php echo urlencode($freight_result["area_from"].", ".$freight_result["address_from"]) ?>&daddr=<?php echo urlencode($freight_result["area_to"].", ".$freight_result["address_to"]) ?>&hl=ru" class="map__static-route pull-right" target="_blank">показать маршрут</a>
+										<a href="https://maps.google.com?saddr=<?php echo urlencode($freight_result["address_from"]) ?>&daddr=<?php echo urlencode($freight_result["address_to"]) ?>&hl=ru" class="map__static-route pull-right" target="_blank">показать маршрут</a>
 									</div>
 									<div class="map column column-ipad" id="map" style="height: 375px;">
 									</div>
@@ -460,9 +458,8 @@
 			function calcRoute() {
 			
 			  var request = {
-				// from: Blackpool to: Preston to: Blackburn
-				origin: "<?php echo $freight_result["area_from"].",".$freight_result["address_from"] ?>",
-				destination: "<?php echo $freight_result["area_to"].",".$freight_result["address_to"] ?>",
+				origin: "<?php echo $freight_result["address_from"] ?>",
+				destination: "<?php echo $freight_result["address_to"] ?>",
 				optimizeWaypoints: true,
 				travelMode: google.maps.DirectionsTravelMode.DRIVING
 			  };

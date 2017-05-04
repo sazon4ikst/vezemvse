@@ -48,7 +48,7 @@
 							<?php
 								require("util/connectDB.php");
 								global $con;
-								$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, area_from, address_to, area_to, distance, weight, volume, price, start_time FROM freight ORDER BY start_time DESC") or die (mysqli_error($con));
+								$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, address_to, distance, weight, volume, price, start_time FROM freight ORDER BY posted_time DESC") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
 									<a href="gruz?id=<?php echo $freight_result["freight_id"] ?>" class="orders_inner_item_link"></a>
@@ -64,22 +64,27 @@
 										<tbody>
 											<tr>
 												<td>
-													<span><?php	$date = new DateTime("@".$freight_result["start_time"]);
-																echo $date->format('d.m') ?></span>
+													<span>
+													<?php
+													if ($freight_result["start_time"]!=null){
+														$date = new DateTime("@".$freight_result["start_time"]);
+														echo $date->format('d.m');
+													} else {
+														echo "—&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+													}
+													?></span>
 												</td>
 												<td>
 													<span><?php echo $freight_result["title"] ?></span>
 												</td>
 												<td>
-													<span><?php echo $freight_result["address_from"] ?></span>
-													<?php echo $freight_result["area_from"] ?>                         
+													<span><?php echo $freight_result["address_from"] ?> </span>                        
 												</td>
 												<td>
 													<span class="blue-arrow"><?php echo $freight_result["distance"] ?></span>
 												</td>
 												<td>
-													<span><?php echo $freight_result["address_to"] ?></span>
-													<?php echo $freight_result["area_to"] ?>                                    
+													<span><?php echo $freight_result["address_to"] ?></span>                               
 												</td>												
 												<td>
 													Последнее предложение:

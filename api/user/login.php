@@ -4,8 +4,8 @@ session_start();
 
 require "../../util/connectDB.php";
 
-$email = $_POST["email"];
-$password = $_POST["password"];
+$email = ISSET($_POST["email"]) ? $_POST["email"] : null;
+$password = ISSET($_POST["password"]) ? $_POST["password"] : null;
 
 if (empty($email) or empty($password)){
 	die("Пожалуйста заполните все поля.");

@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	$session_user_id = @$_SESSION['user_id'];
+
+	require "./util/connectDB.php";
+?>
+
 <html class="gr__vezemvse_com_ua">
 
 <head>
@@ -1188,7 +1195,7 @@
                     <div class="Cargos" id="step1Layout">
                         <div class="Cargos-list" style="padding: 20px 0 30px 0">
 							<div class="InputControl">
-								<label class="InputControl-label InputControl-label--normal" for="name">Наименование<font color=red>*</font></label>
+								<label class="InputControl-label InputControl-label--normal" for="name">Наименование <font color=red>*</font></label>
 								<div>
 									<input type="text" value="" label="Наименование" id="name" placeholder="Введите название груза" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 								</div>
@@ -1224,7 +1231,7 @@
 					<!-------------------- PAGE 2 ------------------->
                     <div class="RouteScreen container" id="step2Layout" style="display:none; margin-left:0; margin-right:0; padding-left:0; padding-right:0; background:#ffffff">
 					   <div class="RouteScreen-from">
-						  <div class="RouteScreen-title">Откуда<font color=red>*</font></div>
+						  <div class="RouteScreen-title">Откуда <font color=red>*</font></div>
 						  <div class="Waypoint">
 							 <div class="Waypoint-line">
 								<div class="Waypoint-address">
@@ -1253,7 +1260,7 @@
 						  </div>
 					   </div>
 					   <div class="RouteScreen-to">
-						  <div class="RouteScreen-title">Куда<font color=red>*</font></div>
+						  <div class="RouteScreen-title">Куда <font color=red>*</font></div>
 						  <div class="Waypoint">
 							 <div class="Waypoint-line">
 								<div class="Waypoint-address">
@@ -1307,40 +1314,56 @@
 					<div class="ContactsScreen container" id="step3Layout" style="display:none; margin-left:0; margin-right:0; padding-left:0; padding-right:0; background:#fff">
 					   <div class="ContactsScreen-title">Куда отправить информацию о ценах?</div>
 					   <div class="ContactsScreen-contacts">
-						  <div class="ContactsScreen-mode">
-							 <label class="SwitchControl SwitchControl--middle">
-								<input type="checkbox" class="SwitchControl-input" name="" value="on" id="registerCheckbox"><!-- react-text: 718 --><!-- /react-text -->
-								<div class="SwitchControl-buttonwrapper"><span class="SwitchControl-track"></span><span class="SwitchControl-button"></span></div>
-								<span class="SwitchControl-label SwitchControl-label--m SwitchControl-label--middle">Я уже зарегистрирован</span>
-							 </label>
-						  </div>
+							<?php						
+							
+								$name = "";
+								$email = "";
+								$phone = "";
+								if ($session_user_id != null){		
+									$session_user_query = mysqli_query($con, "SELECT name, email, phone FROM user WHERE user_id='$session_user_id'");
+									$session_user_result = mysqli_fetch_assoc($session_user_query);
+									$name = $session_user_result["name"];
+									$email = $session_user_result["email"];
+									$phone = $session_user_result["phone"];									
+								} else {
+									?>									
+									  <div class="ContactsScreen-mode">
+										 <label class="SwitchControl SwitchControl--middle">
+											<input type="checkbox" class="SwitchControl-input" name="" value="on" id="registerCheckbox"><!-- react-text: 718 --><!-- /react-text -->
+											<div class="SwitchControl-buttonwrapper"><span class="SwitchControl-track"></span><span class="SwitchControl-button"></span></div>
+											<span class="SwitchControl-label SwitchControl-label--m SwitchControl-label--middle">Я уже зарегистрирован</span>
+										 </label>
+									  </div>
+									<?php
+								}
+							?>
 						  <div class="InputControl ContactsScreen-field" id="nameLayout">
 							 <label class="InputControl-label InputControl-label--normal" for="1">
 								<!-- react-text: 725 -->Ваше имя<!-- /react-text --><!-- react-text: 726 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
 							 </label>
-							 <input type="text" name="name" required="" label="Ваше имя" value="" id="full_name" class="InputControl-control InputControl-control--left">
+							 <input type="text" name="name" required="" label="Ваше имя" <?php echo $email==null?"":"disabled='false'" ?> value="<?php echo $name ?>" id="full_name" style="cursor:<?php echo $email==null?"default":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
 						  </div>
-						  <div class="InputControl ContactsScreen-field">
+						  <div class="InputControl ContactsScreen-field" style="margin-top:15px">
 							 <label class="InputControl-label InputControl-label--normal" for="1">
 								<!-- react-text: 731 -->Электронный адрес<!-- /react-text --><!-- react-text: 732 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
 							 </label>
-							 <input type="email" name="email" required="" label="Электронный адрес" value="" id="email" class="InputControl-control InputControl-control--left">
+							 <input type="email" name="email" required="" label="Электронный адрес" <?php echo $email==null?"":"disabled='false'" ?> value="<?php echo $email ?>" id="email" style="cursor:<?php echo $email==null?"default":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
 						  </div>
-						  <div class="InputControl--hidden" id="passwordLayout">
+						  <div class="InputControl--hidden" id="passwordLayout" style="margin-top:5px">
 							 <div class="InputControl ContactsScreen-field">
 								<label class="InputControl-label InputControl-label--normal" for="1">
 								   <!-- react-text: 738 -->Пароль<!-- /react-text --><!-- react-text: 739 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
 								</label>
-								<input type="password" name="password" required="" label="Пароль" value="" id="password" class="InputControl-control InputControl-control--left">
+								<input type="password" name="password" required="" label="Пароль" <?php echo $email==null?"":"disabled='false'" ?> value="" id="password" style="cursor:<?php echo $email==null?"default":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
 							 </div>
 						  </div>
-						  <div class="ContactsScreen-contactsPhones" id="phoneLayout">
+						  <div class="ContactsScreen-contactsPhones" id="phoneLayout" style="margin-top:5px">
 							 <div class="TelControl ContactsScreen-field ContactsScreen-phone">
 								<label class="TelControl-label TelControl-label--undefined" for="2">
-								   <!-- react-text: 747 -->Мобильный телефон<!-- /react-text --><!-- react-text: 748 --> <!-- /react-text --><!-- react-text: 749 --><!-- /react-text -->
+								   <!-- react-text: 747 -->Мобильный телефон<!-- /react-text --><!-- react-text: 748 --> <!-- /react-text --><!-- react-text: 749 --><!-- /react-text --><span class="InputControl-label-required">*</span>
 								</label>
 								<div class="react-tel-input">
-								   <input type="tel" class="form-control" style="padding:0 11px" autocomplete="tel" id="phone">
+								   <input type="tel" class="form-control" required="" style="padding:0 11px" autocomplete="tel" id="phone" <?php echo $email==null?"":"disabled='false'" ?> value="<?php echo $phone ?>" style="cursor:<?php echo $email==null?"default":"not-allowed" ?>" >
 								</div>
 							 </div>
 							 <div class="ContactsScreen-contactsTip" id="contactsTipLayout" style="margin-bottom:10px">
@@ -1447,6 +1470,18 @@
 		$("#address_to").bind('input', function() {	
 			updateNextVisibility();
 		});
+		$("#full_name").bind('input', function() {	
+			updateNextVisibility();
+		});
+		$("#email").bind('input', function() {	
+			updateNextVisibility();
+		});
+		$("#password").bind('input', function() {	
+			updateNextVisibility();
+		});
+		$("#phone").bind('input', function() {	
+			updateNextVisibility();
+		});
 		$('#address_from').keyup(function() {
 			delay(function(){
 				calcRoute();
@@ -1479,7 +1514,12 @@
 					$("#next_step").removeAttr("disabled");
 				}
 			} else {
-				$("#next_step").removeAttr("disabled");
+				if ((!$("#registerCheckbox").is(':checked') && ($("#full_name").val().length > 0 && $("#email").val().length > 0 && $("#phone").val().length > 0))
+					|| ($("#registerCheckbox").is(':checked') && ($("#email").val().length > 0 && $("#password").val().length > 0))){
+					$("#next_step").removeAttr("disabled");
+				} else {
+					$("#next_step").attr("disabled", "");
+				}
 			}
 		}
 		
@@ -1583,6 +1623,7 @@
 			var full_name = $("#full_name").val();
 			var email = $("#email").val();
 			var phone = $("#phone").val();
+			var password = $("#password").val();
 			
 			var time = null;
 			if ($("#dateCheckbox").is(':checked')){
@@ -1593,6 +1634,7 @@
 				type: "POST",
 				url: '../api/freight/add_freight',
 				data: {
+					"user_id": "<?php echo $session_user_id ?>",
 					"title": title,
 					"weight": weight,
 					"price": price,
@@ -1603,11 +1645,14 @@
 					"full_name": full_name,
 					"email": email,
 					"phone": phone,
+					"password": password,
 					"time": time,
 				},
 				dataType: "json",
 				success: function(data){
-					alert("posted");
+					if ('error' in data){
+						alert(data["error"]);
+					}
 				},
 				error: function(data){
 					alert(JSON.stringify(data));
@@ -1635,6 +1680,7 @@
 				$("#phoneLayout").show();
 				$("#passwordLayout").hide();
 			}
+			updateNextVisibility();
 		});
 		
 		var directionsService;
