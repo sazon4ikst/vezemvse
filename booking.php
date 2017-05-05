@@ -1203,20 +1203,20 @@
 							<div class="InputControl" style="margin-top:20px">
 								<label class="InputControl-label InputControl-label--normal" for="name">Желаемый бюджет</label>
 								<div>
-									<input type="text" value="" label="Желаемый бюджет" id="price" placeholder="грн" class="InputControl-control InputControl-control--left" style="max-width: 450px">
+									<input type="number" value="" label="Желаемый бюджет" id="price" placeholder="грн" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 								</div>
 							</div>
 							<div style="margin-top:20px">
 								<div class="InputControl" style="max-width:213px">
 									<label class="InputControl-label InputControl-label--normal" for="name">Общий вес</label>
 									<div>
-										<input type="text" value="" label="Общий вес" id="weight" placeholder="кг" class="InputControl-control InputControl-control--left" style="max-width: 450px">
+										<input type="number" value="" label="Общий вес" id="weight" placeholder="кг" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 									</div>
 								</div>
 								<div class="InputControl" style="max-width:213px; margin-left:20px">
 									<label class="InputControl-label InputControl-label--normal" for="name">Объем</label>
 									<div>
-										<input type="text" value="" label="Объем" id="weight" placeholder="м3" class="InputControl-control InputControl-control--left" style="max-width: 450px">
+										<input type="number" value="" label="Объем" id="weight" placeholder="м3" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 									</div>
 								</div>
 							</div>							
@@ -1341,20 +1341,20 @@
 							 <label class="InputControl-label InputControl-label--normal" for="1">
 								<!-- react-text: 725 -->Ваше имя<!-- /react-text --><!-- react-text: 726 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
 							 </label>
-							 <input type="text" name="name" required="" label="Ваше имя" <?php echo $email==null?"":"disabled='false'" ?> value="<?php echo $name ?>" id="full_name" style="cursor:<?php echo $email==null?"default":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
+							 <input type="text" name="name" required="" label="Ваше имя" <?php echo $name==null?"":"disabled='false'" ?> value="<?php echo $name ?>" id="full_name" style="cursor:<?php echo $name==null?"text":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
 						  </div>
 						  <div class="InputControl ContactsScreen-field" style="margin-top:15px">
 							 <label class="InputControl-label InputControl-label--normal" for="1">
 								<!-- react-text: 731 -->Электронный адрес<!-- /react-text --><!-- react-text: 732 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
 							 </label>
-							 <input type="email" name="email" required="" label="Электронный адрес" <?php echo $email==null?"":"disabled='false'" ?> value="<?php echo $email ?>" id="email" style="cursor:<?php echo $email==null?"default":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
+							 <input type="email" name="email" required="" label="Электронный адрес" <?php echo $email==null?"":"disabled='false'" ?> value="<?php echo $email ?>" id="email" style="cursor:<?php echo $email==null?"text":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
 						  </div>
 						  <div class="InputControl--hidden" id="passwordLayout" style="margin-top:5px">
 							 <div class="InputControl ContactsScreen-field">
 								<label class="InputControl-label InputControl-label--normal" for="1">
 								   <!-- react-text: 738 -->Пароль<!-- /react-text --><!-- react-text: 739 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
 								</label>
-								<input type="password" name="password" required="" label="Пароль" <?php echo $email==null?"":"disabled='false'" ?> value="" id="password" style="cursor:<?php echo $email==null?"default":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
+								<input type="password" name="password" required="" label="Пароль" <?php echo $password==null?"":"disabled='false'" ?> value="" id="password" style="cursor:<?php echo $password==null?"text":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
 							 </div>
 						  </div>
 						  <div class="ContactsScreen-contactsPhones" id="phoneLayout" style="margin-top:5px">
@@ -1363,7 +1363,7 @@
 								   <!-- react-text: 747 -->Мобильный телефон<!-- /react-text --><!-- react-text: 748 --> <!-- /react-text --><!-- react-text: 749 --><!-- /react-text --><span class="InputControl-label-required">*</span>
 								</label>
 								<div class="react-tel-input">
-								   <input type="tel" class="form-control" required="" style="padding:0 11px" autocomplete="tel" id="phone" <?php echo $email==null?"":"disabled='false'" ?> value="<?php echo $phone ?>" style="cursor:<?php echo $email==null?"default":"not-allowed" ?>" >
+								   <input type="tel" class="form-control" required="" style="padding:0 11px" autocomplete="tel" id="phone" <?php echo $phone==null?"":"disabled='false'" ?> value="<?php echo $phone ?>" style="cursor:<?php echo $phone==null?"text":"not-allowed" ?>" >
 								</div>
 							 </div>
 							 <div class="ContactsScreen-contactsTip" id="contactsTipLayout" style="margin-bottom:10px">
@@ -1420,7 +1420,7 @@
 	
 	<script>
 		var distance;
-		var selected_time;
+		var selected_time = null;
 		$(function() {
 			var start = moment();
 			$('input[name="daterange"]').daterangepicker({
@@ -1612,7 +1612,7 @@
 			updatePreviousVisibility();
 		}
 		
-		function submitFreight(){		
+		function submitFreight(){			
 			var title = $("#name").val();
 			var weight = $("#weight").val();
 			var price = $("#price").val();
@@ -1627,7 +1627,13 @@
 			
 			var time = null;
 			if ($("#dateCheckbox").is(':checked')){
-				time = selected_time;
+				// Check if user selected a new date
+				if (selected_time != null){
+					time = selected_time;
+				} else {
+					// Use today's date
+					time = Math.floor(Date.now() / 1000);
+				}
 			}
 			
 			$.ajax({
