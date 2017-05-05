@@ -351,7 +351,8 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 			<div class="drawer">
 				<div class="drawer__login">
 					<span class="x-hori" data-key="d89fd3d5ae09d3ce4eb131aaef56df7e"></span> <span class="x-hori" data-key="5fad0b1810e3a2b87f6bdad937571a48"></span> </div>
-				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="booking" onclick="yaCounter42689514.reachGoal('booking')">Узнать стоимость своей перевозки</a>
+				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="booking">Узнать стоимость своей перевозки</a>
+				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="poisk">Вы водитель? Найдите груз</a>
 				<div class="drawer__support">
 					<span class="drawer__support-link">Служба поддержки</span>
 					<a class="drawer__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>

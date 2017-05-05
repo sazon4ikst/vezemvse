@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	$session_user_id = @$_SESSION['user_id'];
+	$type = @$_SESSION['type'];
 
 	require "./util/connectDB.php";
 ?>
@@ -29,6 +30,7 @@
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     
     <style type="text/css" data-ymaps="css-modules">
+
         @media print {
             .ymaps-2-1-47-controls-pane {
                 visibility: hidden
@@ -1165,6 +1167,28 @@
             overflow: hidden
         }
         /**/
+
+		.InputWeight {
+			max-width:213px;
+		}
+		.InputVolume {
+			max-width:213px;
+			margin-left:20px;
+		}
+
+		@media (max-width: 767px) {
+			.InputWeight {
+				max-width:100%;
+			}
+		}
+
+		@media (max-width: 767px) {
+			.InputVolume {
+				max-width:100%;
+				margin-top:10px;
+				margin-left:0px;
+			}
+		}
     </style>
     <style type="text/css" data-ymaps="css-modules">
         .ymaps-2-1-47-pictogramCircleIconContent {
@@ -1180,7 +1204,7 @@
     </style>
 </head>
 
-<body class="" data-gr-c-s-loaded="true" style="min-height: 670px; margin-bottom: 100px; clear: both;">
+<body class="" data-gr-c-s-loaded="true" style="min-height: 750px; margin-bottom: 100px; clear: both;">
     <div id="application">
         <div data-reactroot="" class="Application">
             <div class="Header"></div>
@@ -1207,13 +1231,13 @@
 								</div>
 							</div>
 							<div style="margin-top:20px">
-								<div class="InputControl" style="max-width:213px">
+								<div class="InputControl InputWeight">
 									<label class="InputControl-label InputControl-label--normal" for="name">Общий вес</label>
 									<div>
 										<input type="number" value="" label="Общий вес" id="weight" placeholder="кг" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 									</div>
 								</div>
-								<div class="InputControl" style="max-width:213px; margin-left:20px">
+								<div class="InputControl InputVolume">
 									<label class="InputControl-label InputControl-label--normal" for="name">Объем</label>
 									<div>
 										<input type="number" value="" label="Объем" id="weight" placeholder="м3" class="InputControl-control InputControl-control--left" style="max-width: 450px">
@@ -1242,11 +1266,11 @@
 									  </div>
 									  <div class="AddressControl-suggest">
 										 <div class="SuggestControl" style="margin-left:0">
-											<div class="InputControl">
+											<div class="InputControl ">
 											   <label class="InputControl-label InputControl-label--normal" for="1">
 												  <!-- react-text: 794 -->Город / населенный пункт / улица / дом<!-- /react-text --><!-- react-text: 795 --> <!-- /react-text --><!-- react-text: 796 --><!-- /react-text -->
 											   </label>
-											   <input id="address_from" type="text" value="" autocomplete="off" role="combobox" aria-autocomplete="list" aria-owns="react-autowhatever-1" aria-expanded="false" aria-haspopup="false" label="Город / населенный пункт / улица / дом" placeholder="Начните вводить, чтобы выбрать" id="1" class="InputControl-control InputControl-control--left">
+											   <input id="address_from" type="text" value="" autocomplete="off" role="combobox" aria-autocomplete="list" aria-owns="react-autowhatever-1" aria-expanded="false" aria-haspopup="false" label="Город / населенный пункт / улица / дом" placeholder="Начните вводить, чтобы выбрать" id="1" class="InputControl-control InputControl-control--left" />
 											</div>
 											<div id="react-autowhatever-1" class="SuggestControl__suggestions-section"></div>
 										 </div>
@@ -1275,7 +1299,7 @@
 											   <label class="InputControl-label InputControl-label--normal" for="1">
 												  <!-- react-text: 829 -->Город / населенный пункт / улица / дом<!-- /react-text --><!-- react-text: 830 --> <!-- /react-text --><!-- react-text: 831 --><!-- /react-text -->
 											   </label>
-											   <input id="address_to" type="text" value="" autocomplete="off" role="combobox" aria-autocomplete="list" aria-owns="react-autowhatever-1" aria-expanded="false" aria-haspopup="false" label="Город / населенный пункт / улица / дом" placeholder="Начните вводить, чтобы выбрать" id="1" class="InputControl-control InputControl-control--left">
+											   <input id="address_to" type="text" value="" autocomplete="off" role="combobox" aria-autocomplete="list" aria-owns="react-autowhatever-1" aria-expanded="false" aria-haspopup="false" label="Город / населенный пункт / улица / дом" placeholder="Начните вводить, чтобы выбрать" id="1" class="InputControl-control InputControl-control--left"/>
 											</div>
 											<div id="react-autowhatever-1" class="SuggestControl__suggestions-section"></div>
 										 </div>
@@ -1288,7 +1312,7 @@
 							 </div>
 						  </div>
 					   </div>
-					   <div class="RouteScreen-date">
+					   <div class="RouteScreen-date" style="margin-bottom:20px">
 						  <div class="RouteScreen-dateSwitch RouteScreen-field">
 							 <label class="SwitchControl SwitchControl--middle">
 								<input id="dateCheckbox" type="checkbox" class="SwitchControl-input" name="" value="on"><!-- react-text: 845 --><!-- /react-text -->
@@ -1319,7 +1343,7 @@
 								$name = "";
 								$email = "";
 								$phone = "";
-								if ($session_user_id != null){		
+								if ($session_user_id != null and $type=="1"){		
 									$session_user_query = mysqli_query($con, "SELECT name, email, phone FROM user WHERE user_id='$session_user_id'");
 									$session_user_result = mysqli_fetch_assoc($session_user_query);
 									$name = $session_user_result["name"];
@@ -1366,7 +1390,7 @@
 								   <input type="tel" class="form-control" required="" style="padding:0 11px" autocomplete="tel" id="phone" <?php echo $phone==null?"":"disabled='false'" ?> value="<?php echo $phone ?>" style="cursor:<?php echo $phone==null?"text":"not-allowed" ?>" >
 								</div>
 							 </div>
-							 <div class="ContactsScreen-contactsTip" id="contactsTipLayout" style="margin-bottom:10px">
+							 <div class="ContactsScreen-contactsTip" id="contactsTipLayout" style="margin-bottom:30px">
 								<p class="ContactsScreen-contactsTipText">Номер телефона необходим только в случае, если вас устроит цена и вы захотите заказать перевозку.</p>
 								<i class="ContactsScreen-contactsTipSign">
 								   <svg viewBox="0 0 199 98" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

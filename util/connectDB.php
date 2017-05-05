@@ -2,13 +2,17 @@
 
 date_default_timezone_set("Europe/Kiev");
 
-/*$host = "vezemvse.mysql.ukraine.com.ua";
-$username = "vezemvse_db";
-$password = "eY62xfNe";*/
-$host = "localhost";
-$username = "root";
-$password = "";
-$db_name = "vezemvse_db";
+if ($_SERVER['SERVER_NAME'] !== "localhost"){
+	$host = "vezemvse.mysql.ukraine.com.ua";
+	$username = "vezemvse_db";
+	$password = "eY62xfNe";
+	$db_name = "vezemvse_db";
+} else {
+	$host = "localhost";
+	$username = "root";
+	$password = "";
+	$db_name = "vezemvse_db";
+}
 
 $con = mysqli_connect($host, $username, $password, $db_name);
 
