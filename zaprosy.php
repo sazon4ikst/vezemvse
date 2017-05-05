@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	$session_user_id = @$_SESSION['user_id'];
+	$type = @$_SESSION['type'];
 ?>
 
 <html>
@@ -37,18 +39,25 @@
 	<body style="background:#f9f8f3">
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
 			<?php require("./util/header.php") ?>
+			<script>
+				$('#content_body').css('padding', ($('.header').height()+40)+"px 0 40px 0");
+			</script>
 			<div class="orders" style="padding-top:0">
 				<div class="container" style="width: 1250px;">
 					<div class="row">
 						<div class="span12">
 							<div class="orders_title" style="font-weight:400">
-								Последние добавленные заказы</span>
+								<?php echo $type=="0"?"Мои предложения":"Мои запросы" ?></span>
 							</div>
 							<div class="orders_inner" style="padding:0">
 							<?php
 								require("util/connectDB.php");
 								global $con;
-								$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, address_to, distance, weight, volume, price, start_time FROM freight ORDER BY posted_time DESC") or die (mysqli_error($con));
+								if ($type=="0"){
+									$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, address_to, distance, weight, volume, price, start_time FROM freight WHERE freight_id IN (SELECT freight_id FROM offer WHERE user_id='$session_user_id') ORDER BY posted_time DESC") or die (mysqli_error($con));
+								} else {
+									$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, address_to, distance, weight, volume, price, start_time FROM freight WHERE user_id='$session_user_id' ORDER BY posted_time DESC") or die (mysqli_error($con));
+								}
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
 									<a href="gruz?id=<?php echo $freight_result["freight_id"] ?>" class="orders_inner_item_link"></a>
@@ -100,7 +109,22 @@
 								</div>
 								<?php
 								}
-								?>
+								
+								if (mysqli_num_rows($freight_query) == 0){
+									if ($type=="0"){
+									?>
+									<a style="margin-top:40px; margin-left:auto; margin-right:auto; display:block; width:300px" class="billboard__button vv-button vv-button--gold vv-button--big" href="poisk">
+										Найти первый груз
+									</a>
+									<?php
+									} else {
+									?>
+									<a style="margin-top:40px; margin-left:auto; margin-right:auto; display:block; width:400px" class="billboard__button vv-button vv-button--gold vv-button--big" href="booking">
+										Разместить первый запрос
+									</a>
+									<?php
+									}
+								} ?>
 							</div>
 						</div>
 					</div>
@@ -117,9 +141,6 @@
 			</footer>
 		</div>
 	</body>
-	<script>
-		$('#content_body').css('padding', ($('.header').height()+40)+"px 0 40px 0");
-	</script>
 	<script>
 		$(".table_item").click(function(){
 			if ($(this).hasClass("table_row")){

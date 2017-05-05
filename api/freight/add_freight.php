@@ -56,6 +56,7 @@ if (empty($user_id)){
 
 	$_SESSION['user_id'] = $user_id;
 	$_SESSION['name'] = $name;
+	$_SESSION['type'] = "1";
 }
 
 $title = mysqli_real_escape_string($con, $title);

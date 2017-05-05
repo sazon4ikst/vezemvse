@@ -63,6 +63,9 @@
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
 			
 			<?php require("./util/header.php") ?>
+			<script>
+				$('#content_body').css('padding', ($('.header').height()+20)+"px 0 40px 0");
+			</script>
 			<section id="content">
 				<div data-cat-name="moving" data-id="414419" data-name="Переезд" data-distance="18" data-subcat-name="office" class="vv-container vv-container--no-padding x-detail">
 					<input type="hidden" id="order_id" value="414419">
@@ -433,9 +436,6 @@
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVFLhJdzYyO3lSp-JUYITYBrWJ-Jy419I&callback=initMap&language=ru&region=UA" async defer></script>
 		
 		<script>
-			$('#content_body').css('padding', ($('.header').height()+20)+"px 0 40px 0");
-		</script>
-		<script>
 			var directionDisplay;
 			var directionsService;
 			var map;
@@ -511,7 +511,7 @@
 			
 			$("#bid_button").click(function() {
 				document.getElementById("bid").scrollIntoView(); 
-				window.scrollBy(0, -115);
+				window.scrollBy(0, -20-$('.header').height());
 			});
 			
 			// Mark offer as accepted

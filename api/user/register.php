@@ -27,4 +27,10 @@ $password = mysqli_real_escape_string($con, $password);
 
 mysqli_query($con, "INSERT INTO user(name, email, phone, city, password) VALUES ($name, $email, $phone, $city, $password)") or die(mysqli_error($con));
 
+$user_id = mysqli_insert_id($con);
+
+$_SESSION['user_id']= $user_id;
+$_SESSION['name']= $name;
+$_SESSION['type']= "0";
+
 ?>

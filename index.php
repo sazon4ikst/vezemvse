@@ -163,17 +163,16 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 							<a class="header__title-link" href="#">Онлайн-сервис перевозок</a>
 						</div>
 						<div class="header__item">
-							<a class="header__action _order" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
+							<a class="header__action _order" href="booking">
 								<strong>Узнайте лучшую цену</strong>
 								<br/>на перевозку груза
 							</a>
 						</div>
 						<div class="header__item header__carriers">
-							<a class="header__link" href="carrier_landing">Для частных перевозчиков</a>
-							<br/>
-							<a class="header__link" href="how_to_work">Транспортным компаниям</a>
-							<br/>
-							<a class="header__link" href="listing">Поиск грузов</a>
+							<a class="header__action _order" href="poisk">
+								<strong>Вы перевозчик?</strong>
+								<br/>найдите груз
+							</a>
 						</div>
 						<?php
 						if(!isset($_SESSION['user_id'])){
@@ -217,29 +216,29 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</svg>
 							</div>
 							<ul class="header__categories-list">
-								<li><a href="listing/all.html">Все заказы</a>
+								<li><a href="poisk/all.html">Все заказы</a>
 								</li>
-								<li><a href="listing/all/mebel_i_bytovaja_tehnika.html">Мебель и бытовая техника</a>
+								<li><a href="poisk/all/mebel_i_bytovaja_tehnika.html">Мебель и бытовая техника</a>
 								</li>
-								<li><a href="listing/all/pereezd.html">Переезд</a>
+								<li><a href="poisk/all/pereezd.html">Переезд</a>
 								</li>
-								<li><a href="listing/all/stroitelnye_gruzy_i_oborudovanie.html">Строительные грузы и оборудование</a>
+								<li><a href="poisk/all/stroitelnye_gruzy_i_oborudovanie.html">Строительные грузы и оборудование</a>
 								</li>
-								<li><a href="listing/all/vyvoz_musora.html">Вывоз мусора</a>
+								<li><a href="poisk/all/vyvoz_musora.html">Вывоз мусора</a>
 								</li>
-								<li><a href="listing/all/transportnye_sredstva.html">Транспортные средства</a>
+								<li><a href="poisk/all/transportnye_sredstva.html">Транспортные средства</a>
 								</li>
-								<li><a href="listing/all/perevozka_zhivotnyh.html">Перевозка животных</a>
+								<li><a href="poisk/all/perevozka_zhivotnyh.html">Перевозка животных</a>
 								</li>
-								<li><a href="listing/all/passazhirskie_perevozki.html">Пассажирские перевозки</a>
+								<li><a href="poisk/all/passazhirskie_perevozki.html">Пассажирские перевозки</a>
 								</li>
-								<li><a href="listing/all/produkty_pitanija.html">Продукты питания</a>
+								<li><a href="poisk/all/produkty_pitanija.html">Продукты питания</a>
 								</li>
-								<li><a href="listing/all/dogruz.html">Догруз</a>
+								<li><a href="poisk/all/dogruz.html">Догруз</a>
 								</li>
-								<li><a href="listing/all/prochie_gruzy.html">Прочие грузы</a>
+								<li><a href="poisk/all/prochie_gruzy.html">Прочие грузы</a>
 								</li>
-								<li><a href="listing/moskva.html">Грузоперевозки по Киеву</a>
+								<li><a href="poisk/moskva.html">Грузоперевозки по Киеву</a>
 								</li>
 							</ul>
 						</div>
@@ -916,25 +915,25 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 					<div class="sitemap__category">
 						<div class="sitemap__category-title">Поиск заказов</div>
 						<ul class="sitemap__list">
-							<li class="sitemap__link"><a href="listing/all.html">Все заказы</a>
+							<li class="sitemap__link"><a href="poisk/all.html">Все заказы</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/mebel_i_bytovaja_tehnika.html">Мебель и бытовая техника</a>
+							<li class="sitemap__link"><a href="poisk/all/mebel_i_bytovaja_tehnika.html">Мебель и бытовая техника</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/pereezd.html">Переезд</a>
+							<li class="sitemap__link"><a href="poisk/all/pereezd.html">Переезд</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/stroitelnye_gruzy_i_oborudovanie.html">Строительные грузы и оборудование</a>
+							<li class="sitemap__link"><a href="poisk/all/stroitelnye_gruzy_i_oborudovanie.html">Строительные грузы и оборудование</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/vyvoz_musora.html">Вывоз мусора</a>
+							<li class="sitemap__link"><a href="poisk/all/vyvoz_musora.html">Вывоз мусора</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/perevozka_zhivotnyh.html">Перевозка животных</a>
+							<li class="sitemap__link"><a href="poisk/all/perevozka_zhivotnyh.html">Перевозка животных</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/passazhirskie_perevozki.html">Пассажирские перевозки</a>
+							<li class="sitemap__link"><a href="poisk/all/passazhirskie_perevozki.html">Пассажирские перевозки</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/produkty_pitanija.html">Продукты питания</a>
+							<li class="sitemap__link"><a href="poisk/all/produkty_pitanija.html">Продукты питания</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/dogruz.html">Догруз</a>
+							<li class="sitemap__link"><a href="poisk/all/dogruz.html">Догруз</a>
 							</li>
-							<li class="sitemap__link"><a href="listing/all/prochie_gruzy.html">Прочие Грузы</a>
+							<li class="sitemap__link"><a href="poisk/all/prochie_gruzy.html">Прочие Грузы</a>
 							</li>
 						</ul>
 					</div>

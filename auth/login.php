@@ -136,12 +136,17 @@
 				"email": email,
 				"password": password
 			},
+			dataType: "json",
             success: function(data){
-				if (data != "") {
+				if ('error' in data){
+					alert(data["error"]);
 					$("#login_button").html("Войти на сайт");
-					alert(data);
 				} else {
-					window.open('../listing', '_self', false);
+					if (data["type"]=="0"){
+						window.open('../poisk', '_self', false);
+					} else {
+						window.open('../zaprosy', '_self', false);
+					}
 				}
             }
         });
