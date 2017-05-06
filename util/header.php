@@ -1,8 +1,8 @@
 <header class="layout__header _fixed">
    <div class="layout__drawer-button x-drawer-button"></div>
    <div class="layout__header-row _viewport_mobile">
-      <div class="layout__title">
-         <img class="layout__logo" src="assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" />
+      <div class="layout__title header_mobile">
+		<a href="/"><img class="layout__logo" src="assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" /></a>
       </div>
    </div>
    <div class="layout__header-row _viewport_desktop">
@@ -31,5 +31,9 @@
             </div>
          </div>
       </div>
+	  
+		<script>
+			$('#content_body').css('padding', ($('.header').height()+$('.header_mobile').height()+parseInt(jQuery('#content_body').css('padding-top'), 10))+"px 0 "+parseInt(jQuery('#content_body').css('padding-bottom'), 10)+"px 0");
+		</script>
    </div>
 </header>

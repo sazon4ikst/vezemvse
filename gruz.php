@@ -11,7 +11,7 @@
 		$id = str_replace("/gruz/", "", $_SERVER['REQUEST_URI']);
 	}
 				
-	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, address_to, distance, weight, volume, price, posted_time, start_time, volume, weight, description FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
+	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, address_to, distance, weight, volume, price, posted_time, start_time, volume, weight, description, status FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
 	$freight_result = mysqli_fetch_assoc($freight_query);
 	$freight_owner_id = $freight_result["user_id"];
 	
@@ -31,7 +31,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta lang="ru">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<meta name="googlebot"content="noarchive">
 		<meta name="keywords" content="грузовые перевозки, информационная система грузоперевозок, компании грузоперевозок, онлайн грузоперевозки, онлайн-сервис грузоперевозок, сайт грузоперевозок, сайт перевозки грузов">
 		<meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Везём Всё. Каталог компаний">
@@ -58,26 +58,173 @@
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
+		<script src="./assets/scripts/util/jquery.min.js"></script>
+		<style type="text/css" data-ymaps="css-modules">			
+			#content_body {
+				padding: 20px 0 40px 0;
+			}
+
+			@media (max-width: 767px) {
+				#content_body {
+					padding: 10px 0 10px 0;
+				}
+			}
+			
+			.gruz_mobile_padding {
+				padding: 0;
+			}
+
+			@media (max-width: 767px) {
+				.gruz_mobile_padding {
+					padding: 0 15px;
+				}
+			}
+			
+			.gruz_info {
+				padding:12px 25px !important;
+				min-height:300px;
+			}
+
+			@media (max-width: 767px) {
+				.gruz_info {
+					padding:12px 15px !important;
+					width: 100% !important;
+					height:auto !important;
+					min-height:0;
+				}
+			}
+			@media (max-width: 767px) {
+				.gruz_info_wrapper {
+					width: 100% !important;
+					padding-top: 5px !important;
+				}
+			}
+			.gruz_address {
+				padding:20px 10px !important;
+				min-height:300px;
+			}
+			@media (max-width: 767px) {
+				.gruz_address {
+					padding:15px 0 7px 0 !important;
+					height:auto !important;
+					min-height:0;
+				}
+			}
+			@media (max-width: 767px) {
+				.gruz_address_wrapper {
+					margin-left:0 !important;
+					width: 100% !important;
+					padding-top: 5px !important;
+				}
+			}
+			.gruz_info, .gruz_address {
+				border-radius:0 !important;
+			}
+			
+			@media (max-width: 767px) {
+				.gruz_map {
+					width: 100% !important;
+				}
+			}
+			
+			#map {				
+				min-height:300px;
+			}			
+			@media (max-width: 767px) {
+				#map {
+					min-height:180px;
+				}
+			}
+			a[href^="http://maps.google.com/maps"],
+			a[href^="https://maps.google.com/maps"],
+			a[href^="https://www.google.com/maps"] {
+				display: none !important;
+			}
+			.gmnoprint:not(.gm-bundled-control) {
+				display: none;
+			}
+			.gm-bundled-control .gmnoprint {
+				display: block;
+			}
+			
+			#bid_button {
+				width: 320px;
+				block: none;
+			}	
+			@media (max-width: 767px) {
+				#bid_button {
+					display: none;
+				}
+			}
+			
+			@media (max-width: 767px) {
+				.bf-bid-form__block-hint, .bf-bid-form__block {
+					padding-left: 15px;
+					padding-right: 15px;
+				}
+			}
+			@media (max-width: 767px) {
+				#bid_button_wrapper {
+					margin-left: 7px;
+					margin-right: 7px;
+				}
+			}
+			@media (max-width: 767px) {
+				#bid {
+					margin-bottom: -60px;
+				}
+			}
+			
+			.details_button {
+				width: 280px;
+				margin:30px; 
+			}
+			@media (max-width: 767px) {
+				.details_button {
+					width: calc(100% - 20px);
+					margin: 0 0 20px 0;
+				}
+			}
+			
+			@media (max-width: 767px) {
+				.info_perevozchik {
+					width: 100%;
+					margin-left: 23px;
+					border-radius: 0 !important;
+				}
+			}
+			
+			@media (max-width: 767px) {
+				.chat_perevozchik {
+					width: 100%;
+					margin-left: -13px;
+				}
+				.chat__header {
+					border-radius: 0;
+				}
+				.chat__warning {
+					border-radius: 0;
+					width:70%;
+				}
+				.details_block {					
+					border-radius: 0;
+					border-left: none !important;
+					border-right: none !important;
+				}
+			}
+			
+			
+		</style>
 	</head>
 	<body style="background:#f9f8f3">
-		<div id="content_body" style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
+		<div id="content_body" style="min-height:calc(100% + 70px); position:relative;">
 			
 			<?php require("./util/header.php") ?>
-			<script>
-				$('#content_body').css('padding', ($('.header').height()+20)+"px 0 40px 0");
-			</script>
 			<section id="content">
-				<div data-cat-name="moving" data-id="414419" data-name="Переезд" data-distance="18" data-subcat-name="office" class="vv-container vv-container--no-padding x-detail">
-					<input type="hidden" id="order_id" value="414419">
-					<input type="hidden" id="order_categories" value="[" 2","2"]"="">
-					<input type="hidden" id="order_subcategories" value="[" 202","201"]"="">
-					<input type="hidden" id="order_distance" value="18">
-					<input type="hidden" id="order_deviation" value="50">
-					<input type="hidden" id="show_suggested_orders" value="0">
-					<input type="hidden" id="logged_user_id" value="806077">
+				<div class="vv-container vv-container--no-padding x-detail">
 					<div id="x-order-questions-block"></div>
 					<div class="new_detalizacia" id="order-info">
-						<div id="x-order-title-info" class="wr_prod_info x-tip-additional-offset">
+						<div id="x-order-title-info" class="wr_prod_info x-tip-additional-offset gruz_mobile_padding">
 							<div class="prod_info inline_block" style="padding-left:0px">
 								<p class="proposal"></p>
 								<h1 style="font-size:28px; font-family:'Roboto',Helvetica,Arial, sans-serif; color:#333; font-weight: 400"><?php echo $freight_result["title"] ?></h1>
@@ -86,14 +233,16 @@
 								<p class="date" style="margin-top:15px">
 									<span class="date">№ <?php echo $freight_result["freight_id"] ?></span>
 								</p>
-								<p class="torg_green">Заказ выполнен</p>
+								<?php if ($freight_result["status"] == 2){ ?>
+									<p class="torg_green">Заказ выполнен</p>
+								<?php } ?>
 							</div>
 						</div>
 						<div class="det_button">
 							<?php
 							if (!empty($session_user_id) and !$already_have_offer and $type=="0"){
 								if ($session_user_id != null) { ?>
-								<a id="bid_button" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500; font-size:18px; padding: 20px 23px 21px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2); width:320px" class="_button prdelajit_cenu_255 x-make-proposal-button" data-intro="Предложите свою цену на перевозку с помощью оранжевой кнопки" data-step="1">
+								<a id="bid_button" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500; font-size:18px; padding: 20px 23px 21px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);" class="_button prdelajit_cenu_255 x-make-proposal-button" data-intro="Предложите свою цену на перевозку с помощью оранжевой кнопки" data-step="1">
 									ПРЕДЛОЖИТЬ СВОЮ ЦЕНУ
 								</a>
 							<?php } else { ?>
@@ -107,19 +256,18 @@
 						<div class="x-tip-merchant-main">
 							<div class="oh for_hight  x-description">
 								<div id="x-cargo-list-info">
-									<div class="wr_zruz_info-col single-colum">
+									<div class="wr_zruz_info-col single-colum gruz_info_wrapper">
 										<div class="wr_zruz_info">
 											<div class="col">
-												<div class="info_edit">
+												<div class="info_edit gruz_mobile_padding">
 													<p class="blue_bg_button">Информация о грузе</p>
 													<span id="x-edit-cargo-button">
 													</span>
 												</div>
-												<div class="in_col column column-1024" style="height:375px; overflow-x:hidden; padding:12px 20px; background:#dfeaf5">
+												<div class="in_col column column-1024 gruz_info" style="overflow-x:hidden; background:#dfeaf5">
 													<div class="wr_row" style="font-family: 'Roboto', Helvetica, Arial, sans-serif">
 														<div class="row row_top" style="padding-bottom:20px;">
-															<p><b class="name"> </b></p>
-															<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Дата погрузки:</b> <span class="date" style="margin-left:3px; font-weight:normal">
+															<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Дата погрузки:</b> <span class="date" style="margin-left:3px; font-weight:normal">
 																<?php
 																	if (!empty($freight_result["start_time"])){
 																		$date = new DateTime("@".$freight_result["start_time"]); echo $date->format('d.m');
@@ -128,10 +276,10 @@
 																</span>
 															</p>
 															<?php if (!empty($freight_result["volume"])){ ?>
-																<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Общий объем:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["volume"] ?></span></p>
+																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий объем:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["volume"] ?></span></p>
 															<?php } 
 															if (!empty($freight_result["weight"])){ ?>													
-																<p style="color:#333"><b class="name" style="color:#333; font-weight:500">Общий вес:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["weight"] ?></span></p>
+																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий вес:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["weight"] ?></span></p>
 															<?php } ?>
 														</div>
 														<div class="row sposob_oplati" style="margin-top:10px; border:none; color:#333; font-weight:normal">
@@ -145,13 +293,13 @@
 										</div>
 									</div>
 								</div>
-								<div class="edit_info">
-									<div class="top_button">
+								<div class="edit_info gruz_address_wrapper">
+									<div class="top_button gruz_mobile_padding">
 										<p class="blue_bg_button no_phone inline_block">Погрузка / Выгрузка</p>
 										<span id="x-edit-route-button">
 										</span>
 									</div>
-									<div class="info column column-ipad column-1024" id="editmap" style="height:375px; padding:20px 10px; color:#333; background:#dfeaf5">
+									<div class="info column column-ipad column-1024 gruz_address" id="editmap" style="color:#333; background:#dfeaf5">
 										<div class="top_dot">
 											<div class="big">
 												<h2 class="otkuda">
@@ -170,14 +318,14 @@
 										</div>
 									</div>
 								</div>
-								<div class="wr_map no_phone">
-									<div class="top_button">
+								<div class="wr_map no_phone gruz_map">
+									<div class="top_button gruz_mobile_padding">
 										<p class="blue_bg_button inline_block">
 											Расстояние: <span id="distance"></span>
 										</p>
 										<a href="https://maps.google.com?saddr=<?php echo urlencode($freight_result["address_from"]) ?>&daddr=<?php echo urlencode($freight_result["address_to"]) ?>&hl=ru" class="map__static-route pull-right" target="_blank">показать маршрут</a>
 									</div>
-									<div class="map column column-ipad" id="map" style="height: 375px;">
+									<div class="map column column-ipad" id="map">
 									</div>
 								</div>
 							</div>
@@ -206,8 +354,7 @@
 									</div>
 									<?php
 										while ($offers_result = mysqli_fetch_assoc($offers_query)){ ?>
-									<div class="row_all x-suggestion x-hidden suggestion" data-orderid="414419" style="display: block;">
-										<!-- detail-main--declined detail-main--performed или удалить -->
+									<div class="row_all x-suggestion x-hidden suggestion" style="display: block">
 										<section  id="suggestion-<?php echo $offers_result["offer_id"]?>" class="x-suggestion-title x-suggestion-main detail-main <?php echo $offers_result["status"] == 2 ? "detail-main--declined" : ($offers_result["status"] == 1 ? ($already_accepted ? "detail-main--declined" : "") : "detail-main--performed")?> x-tip-merchant-second">
 											<div class="detail-main__top">
 												<div class="detail-main__block-alpha">
@@ -264,15 +411,15 @@
 												<div class="detail-main__block-controls" style="width: 650px;">
 													<?php if ($offers_result["status"] == 1 and !$already_accepted and $session_user_id == $freight_owner_id){ ?>
 														<div style="width:280px; position:absolute; bottom:45; right:0; margin:30px">
-															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="accept_button details_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; display:inline-block; padding-left:0; padding-right:0">
+															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="accept_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; display:inline-block; padding-left:0; padding-right:0">
 																Согласиться
 															</div>
-															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="decline_button details_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; margin-left:5px; background:#f44336; display:inline-block; padding-left:0; padding-right:0">
+															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="decline_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; margin-left:5px; background:#f44336; display:inline-block; padding-left:0; padding-right:0">
 																Отклонить
 															</div>
 														</div>
 													<?php } ?>
-													<div class="details_button vv-button vv-button--green detail-main__watch x-sugg-detail-button" style="width:280px; position:absolute; bottom:0; right:0; margin:30px; background:#7194cc">
+													<div class="details_button vv-button vv-button--green detail-main__watch x-sugg-detail-button" style="position:absolute; bottom:0; right:0; background:#7194cc">
 														<span id="details_arrow" style="margin-top:-1px" class="detail-main__watch-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7"><defs><style>.a{fill:#fff}</style></defs><path class="a" d="M6 6.707L.646 1.354l.708-.708L6 5.293 10.646.646l.708.708L6 6.707z"></path></svg></span>
 													</div>
 												</div>
@@ -303,7 +450,7 @@
 												</div>
 											</div>
 											<div class="left">
-												<section class="chat x-suggestion-chat">
+												<section class="chat x-suggestion-chat chat_perevozchik">
 													<div class="chat__content" style="margin-top:0">
 														<header class="chat__header">
 															<span class="chat__header-info">Переписка с перевозчиком</span>
@@ -337,8 +484,8 @@
 															<?php } else if ($offers_result["status"] != 0 and ($offers_result["status"] == 2 or $already_accepted)){ ?>
 																<div class="chat__warning">Переписка закрыта</div>
 															<?php } else { ?>
-																<div class="chat__warning" style="padding:0">
-																	<table style="width:100%">
+																<div class="chat__warning" style="padding:0;">
+																	<table style="width:100%;">
 																		<tr>
 																			<td style="width:100%">
 																				<input offer_id="<?php echo $offers_result["offer_id"] ?>"class="message_text" type="text" placeholder="Ваше сообщение…" style="width:100%; border: none; margin-top:2px; padding: 15px 13px; height:57px"/>
@@ -367,7 +514,7 @@
 						
 						if (!empty($session_user_id) and !$already_have_offer and $type=="0"){
 						?>
-						<div id="bid" style="margin-top:100px">
+						<div id="bid" style="margin-top:40px">
 							<div data-reactroot="" class="bf-bid-form" id="bf">
 								<div class="bf-title">
 									<div class="bf-title__text">
@@ -382,7 +529,7 @@
 										<div class="bf-price__col bf-price__col--bid">
 											<div class="bf-price__el">
 												<div class="Input Input--label-left">
-													<input type="text" name="bid" value="" id="price" class="Input-control Input-control--left bf-price__price bf-price__price--fat">
+													<input type="number" name="bid" value="" id="price" class="Input-control Input-control--left bf-price__price bf-price__price--fat">
 												</div>
 												<div class="SelectControl SelectControl--default SelectControl--top bf-price__currency-select" style="width:46px">
 													<div class="Select bf-price__currency-select bf-price__currency-select--fat Select--single has-value" style="width:46px">
@@ -414,8 +561,8 @@
 										</div>
 									</div>
 								</section>
-								<section class="bf-bid-form__controls bf-controls">
-									<article class="bf-controls__block"  style="width:100%">
+								<section class="bf-bid-form__controls bf-controls" id="bid_button_wrapper">
+									<article class="bf-controls__block"  style="width:100%; margin-bottom:4px">
 										<button class="Button Button-forest Button-text Button-s bf-controls__big-button" id="add_button"><span class="bf-controls__add-suggestion-content" id="add_button_text" style="font-size:20px; font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:400;">ДОБАВИТЬ ПРЕДЛОЖЕНИЕ</span>
 										</button>
 									</article>
@@ -441,14 +588,14 @@
 			var map;
 			
 			function initMap() {
-				directionsService = new google.maps.DirectionsService()
+				directionsService = new google.maps.DirectionsService();
 				directionsDisplay = new google.maps.DirectionsRenderer();
-				var chicago = new google.maps.LatLng(48.4122019, 30.5669957);
+				var ukraine = new google.maps.LatLng(48.4122019, 30.5669957);
 				var myOptions = {
 					zoom: 5,
 					mapTypeId: google.maps.MapTypeId.ROADMAP,
-					center: chicago,
-					disableDefaultUI: true
+					center: ukraine,
+					disableDefaultUI: true,
 				}
 				map = new google.maps.Map(document.getElementById("map"), myOptions);
 				directionsDisplay.setMap(map);

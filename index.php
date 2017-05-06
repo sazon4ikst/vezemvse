@@ -9,7 +9,7 @@ session_start();
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<meta name="googlebot" content="noarchive">
 	<meta name="keywords" content="грузовые перевозки, информационная система грузоперевозок, компании грузоперевозок, онлайн грузоперевозки, онлайн-сервис грузоперевозок, сайт грузоперевозок, сайт перевозки грузов">
 	<meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Везём Всё. Каталог компаний">
@@ -874,7 +874,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 						</div>
 					</div>
 				</article>
-				<article class="footer">
+				<article class="footer" style="padding:20px">
 					<div class="vv-container">
 						<div class="footer__copyright">
 							© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «vezemvse.com.ua»</a> принадлежат ООО&nbsp;«Везём Всё»

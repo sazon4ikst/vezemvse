@@ -33,15 +33,34 @@
 		<link type="text/css" rel="stylesheet" href="/assets/styles/pages/landing/v2/landing_for_transit_v3.css" media="screen" />
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300&amp;subset=latin,cyrillic" media="screen" />
+		
+		<style type="text/css" data-ymaps="css-modules">
+			.container {
+				width: 1250px;
+			}
+
+			@media (max-width: 767px) {
+				.container {
+					width: 100%;
+				}
+			}
+			
+			#content_body {
+				padding: 30px 0 40px 0;
+			}
+
+			@media (max-width: 767px) {
+				#content_body {
+					padding: 75px 0 10px 0;
+				}
+			}
+		</style>
 	</head>
 	<body style="background:#f9f8f3">
-		<div id="content_body" style="min-height:calc(100% + 70px); position:relative; padding: 130px 0 40px 0">
+		<div id="content_body" style="min-height:calc(100% + 70px); position:relative;">
 			<?php require("./util/header.php") ?>
-			<script>
-				$('#content_body').css('padding', ($('.header').height()+40)+"px 0 40px 0");
-			</script>
 			<div class="orders" style="padding-top:0">
-				<div class="container" style="width: 1250px;">
+				<div class="container">
 					<div class="row">
 						<div class="span12">
 							<div class="orders_title" style="font-weight:400">
@@ -110,7 +129,7 @@
 				</div>
 			</div>
 			<footer>
-				<article class="footer">
+				<article class="footer" style="padding:20px">
 					<div class="vv-container">
 						<div class="footer__copyright">
 							© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «vezemvse.com.ua»</a> принадлежат ООО&nbsp;«Везём Всё»
