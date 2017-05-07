@@ -14,6 +14,7 @@
 	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, address_to, distance, weight, volume, price, posted_time, start_time, volume, weight, description, status FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
 	$freight_result = mysqli_fetch_assoc($freight_query);
 	$freight_owner_id = $freight_result["user_id"];
+	$freight_status = $freight_result["status"];
 	
 	// Check if user already submitted an offer
 	$my_offer_query = mysqli_query($con, "SELECT offer_id FROM offer WHERE freight_id='$id' AND user_id='$session_user_id'");
@@ -233,20 +234,25 @@
 								<p class="date" style="margin-top:15px">
 									<span class="date">№ <?php echo $freight_result["freight_id"] ?></span>
 								</p>
-								<?php if ($freight_result["status"] == 2){ ?>
+								<?php if ($freight_status == 2){ ?>
 									<p class="torg_green">Заказ выполнен</p>
 								<?php } ?>
 							</div>
 						</div>
 						<div class="det_button">
 							<?php
-							if (!empty($session_user_id) and !$already_have_offer and $type=="0"){
+							if ($session_user_id == $freight_owner_id and $freight_status=="1"){
+							?>
+								<a class="vi_perevozchik" id="button_delivered" style="cursor:pointer; margin-bottom:40px; font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
+									Подтвердить доставку груза
+								</a>
+							<?php } else if (!empty($session_user_id) and !$already_have_offer and $type=="0"){
 								if ($session_user_id != null) { ?>
 								<a id="bid_button" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500; font-size:18px; padding: 20px 23px 21px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);" class="_button prdelajit_cenu_255 x-make-proposal-button" data-intro="Предложите свою цену на перевозку с помощью оранжевой кнопки" data-step="1">
 									ПРЕДЛОЖИТЬ СВОЮ ЦЕНУ
 								</a>
-							<?php } else { ?>
-								<a class="vi_perevozchik" href="/how_to_work" style="font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
+								<?php } else { ?>
+								<a class="vi_perevozchik" href="/how_to_work" style="cursor:pointer; margin-bottom:40px; font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
 									Вы перевозчик?<br>Узнайте как с нами работать!
 								</a>
 							<?php }
@@ -409,8 +415,9 @@
 													</div>
 												</div>
 												<div class="detail-main__block-controls" style="width: 650px;">
-													<?php if ($offers_result["status"] == 1 and !$already_accepted and $session_user_id == $freight_owner_id){ ?>
-														<div style="width:280px; position:absolute; bottom:45; right:0; margin:30px">
+												
+													<?php if ($offers_result["status"] == 1 and !$already_accepted and $session_user_id == $freight_owner_id and $freight_status=="0"){ ?>
+														<div style="width:280px; position:absolute; bottom:50px; right:0; margin:30px">
 															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="accept_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; display:inline-block; padding-left:0; padding-right:0">
 																Согласиться
 															</div>
@@ -663,6 +670,7 @@
 			
 			// Mark offer as accepted
 			$(".accept_button").click(function() {
+				var freight_id = "<?php echo $id?>";
 				var offer_id = $(this).attr("offer_id");
 				var status = 0;				
 				
@@ -670,6 +678,7 @@
 					type: "POST",
 					url: '../api/offer/set_offer_status',
 					data: {
+						"freight_id": freight_id,
 						"offer_id": offer_id,
 						"status": status
 					},
@@ -748,7 +757,7 @@
 				var user_id = "<?php echo $session_user_id ?>";
 				var offer_id = text_field.attr("offer_id");
 				
-				button.html("Загрузка...");
+				button.html("Подождите...");
 				
 				$.ajax({
 					type: "POST",
@@ -769,6 +778,35 @@
 					},
 					error: function(data){
 						alert("Ошибка отправки сообщения.");
+					}
+				});
+			});
+			
+			$("#button_delivered").click(function(event){
+				if (!confirm("Подтвердить что груз был успешно доставлен?")){
+					return;
+				}
+				
+				var button = $(this);
+				
+				var freight_id = "<?php echo $id?>";
+				var status = 2;
+				
+				button.html("Подождите...");
+				
+				$.ajax({
+					type: "POST",
+					url: '../api/freight/set_freight_status',
+					data: {
+						"freight_id": freight_id,
+						"status": status
+					},
+					dataType: "json",
+					success: function(data){			
+						location.reload();
+					},
+					error: function(data){
+						alert("Произошла ошибка.");
 					}
 				});
 			});
