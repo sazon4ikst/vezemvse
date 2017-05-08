@@ -833,19 +833,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 									</div>
 								</div>
 							</div>
-							<div class="contacts__column-right">
-								<!--<div class="contacts__section _social">
-						<div class="contacts__title">Мы&nbsp;в&nbsp;соцсетях</div>
-						<span class="x-hori" data-key="dca0ddf94aafc34de7e12961c602dd45"></span>						<span class="x-hori" data-key="be5540f65473ae29b0b174c8ebe07dd2"></span>						<span class="x-hori" data-key="576f9add5d4994e6563789f10a7d5229"></span>																			<span class="x-hori" data-key="b42510f7c1bd3d3ff2e244b6d40f7614"></span>												<div class="contacts__social-links">
-															<span class="x-hori" data-key="06af0c4a9f0a6223c5272b5e27809bf3"></span>														<span class="x-hori" data-key="a0824507b731f5fca9281c2d18951c8c"></span>						</div>
-					</div>
-								<div class="contacts__section contacts__section--mobile">
-					<!-- <div class="contacts__title">Мобильные приложения</div> -->
-								<!--
-											<img class="contacts__title contacts__title--apps" src="assets/images/home_v4/android-love-ios.svg">
-													<span class="x-hori" data-key="b67342d58ce0003619332f0cc8c38441"></span>						
-													<span class="x-hori" data-key="b2700870bdc48aabf561762581744c10"></span>															</div>-->
-							</div>
+							<div class="contacts__column-right"></div>
 						</div>
 					</div>
 				</article>

@@ -252,7 +252,7 @@
 									ПРЕДЛОЖИТЬ СВОЮ ЦЕНУ
 								</a>
 							<?php } else if (empty($session_user_id)){ ?>
-								<a class="vi_perevozchik" href="/how_to_work" style="cursor:pointer; margin-bottom:40px; font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
+								<a class="vi_perevozchik" href="/kak_rabotat" style="cursor:pointer; margin-bottom:40px; font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
 									Вы перевозчик?<br>Узнайте как с нами работать!
 								</a>
 							<?php } ?>

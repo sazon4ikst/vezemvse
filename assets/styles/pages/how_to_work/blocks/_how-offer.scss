@@ -1,0 +1,566 @@
+.how-offer {
+    padding-top: 12px;
+
+    @include mobile {
+        padding-top: 26px;
+    }
+
+    &__block {
+        padding: 0 62px 0 56px;
+
+        @include desktop {
+            padding: 0 10px;
+        }
+
+        @include tablet {
+            padding: 0 32px;
+        }
+
+        @include mobile {
+            padding: 0 5px;
+        }
+    }
+
+    &__title {
+        font: 400 50px/66px $RobotoSlab;
+
+        @include desktop {
+            font-size: 45px;
+        }
+
+        @include tablet {
+            font-size: 40px;
+            line-height: 53px;
+            text-align: center;
+        }
+
+        @include mobile {
+            font-size: 30px;
+            line-height: 34px;
+            text-align: center;
+        }
+    }
+
+    &__subtitle {
+        margin-bottom: 17px;
+        font: 400 20px/26px $Roboto;
+
+        @include desktop {
+            font-size: 18px;
+        }
+
+        @include tablet {
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        @include mobile {
+            margin-bottom: 21px;
+            padding-top: 18px;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
+        }
+
+        &::after {
+            @include line (
+                $width: 100px,
+                $margin: 22px 0 0,
+                $border: 4px
+            );
+
+            @include tablet {
+                margin: 22px auto 0;
+            }
+
+            @include mobile {
+                margin: 19px auto 0;
+            }
+        }
+    }
+
+    &__info {
+        width: 330px;
+        font: 400 20px/26px $Roboto;
+        color: #4a4a4a;
+
+        @include desktop {
+            font-size: 18px;
+        }
+
+        @include tablet {
+            width: 589px;
+            margin: 0 auto 8px;
+            line-height: 22px;
+        }
+
+        @include mobile {
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
+        }
+    }
+
+    &__info-salary {
+        position: relative;
+        z-index: 1;
+        margin-bottom: -35px;
+        font: 400 32px/43px $Roboto;
+        color: #7290cb;
+
+        @include desktop {
+            font-size: 27px;
+        }
+
+        @include tablet {
+            margin-bottom: 23px;
+            text-align: center;
+        }
+
+        @include mobile {
+            margin-bottom: 120px;
+            font-size: 24px;
+            line-height: 32px;
+            text-align: center;
+        }
+
+        &--small {
+            display: block;
+            font-size: 24px;
+            line-height: 16px;
+
+            @include desktop {
+                font-size: 22px;
+                line-height: 14px;
+            }
+
+            @include tablet {
+                display: inline-block;
+                vertical-align: top;
+                font-size: 32px;
+                line-height: 43px;
+            }
+
+            @include mobile {
+                display: inline-block;
+                vertical-align: top;
+                font-size: 24px;
+                line-height: 32px;
+            }
+        }
+    }
+
+    &__service {
+        position: relative;
+        padding-top: 86px;
+        background-color: #f0f3f7;
+        border-radius: 6px;
+
+        @include tablet {
+            padding-top: 0;
+            margin-bottom: 65px;
+        }
+
+        @include mobile {
+            padding-top: 0;
+            border-radius: 0;
+        }
+
+        &::before {
+            position: absolute;
+            top: -40px;
+            display: block;
+            content: '';
+            width: 100%;
+            height: 85px;
+            background-color: #fff;
+            transform: skewY(-2.5deg);
+
+            @include tablet {
+                top: -17px;
+                height: 148px;
+            }
+
+            @include mobile {
+                display: none;
+            }
+        }
+
+        &::after {
+            position: absolute;
+            top: 40px;
+            display: block;
+            content: '';
+            width: 100%;
+            height: 45px;
+            background-color: #f0f3f7;
+            transform: skewY(-2.5deg);
+            border-radius: 6px;
+
+            @include tablet {
+                top: 125px;
+            }
+
+            @include mobile {
+                display: none;
+            }
+        }
+    }
+
+    &__service-wrapper {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    &__service-title {
+        order: 1;
+        box-sizing: border-box;
+        max-width: 410px;
+        font: 32px/43px $Roboto;
+        color: #2653aa;
+
+        @include desktop {
+            padding-left: 15px;
+            font-size: 30px;
+        }
+
+        @include tablet {
+            order: 2;
+            max-width: 664px;
+        }
+
+        @include mobile {
+            order: 2;
+            max-width: 100%;
+            line-height: 36px;
+            text-align: center;
+        }
+    }
+
+    &__service-title-small {
+        margin-bottom: 18px;
+        font-size: 18px;
+        line-height: 22px;
+
+        @include desktop {
+            font-size: 17px;
+            line-height: 20px;
+        }
+
+        @include tablet {
+            margin-bottom: 22px;
+        }
+
+        @include mobile {
+            padding-top: 8px;
+            font-size: 16px;
+            line-height: 22px;
+        }
+    }
+
+    &__service-list {
+        order: 3;
+        list-style: none;
+        margin-left: 17px;
+
+        @include desktop {
+            margin-left: 30px;
+        }
+
+        @include mobile {
+            margin: 0 auto 10px;
+            padding: 0 25px;
+        }
+    }
+
+    &__service-list-item {
+        width: 457px;
+        margin-bottom: 9px;
+        font: 14px/20px $Roboto;
+
+        @include desktop {
+            width: 385px;
+        }
+
+        @include tablet {
+            width: 593px;
+            margin-bottom: 7px;
+        }
+
+        @include mobile {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        &::before {
+            position: relative;
+            top: 12px;
+            right: 17px;
+            display: block;
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: #2653aa;
+            border-radius: 3px;
+        }
+    }
+
+    &__service-cars {
+        position: relative;
+        top: -56px;
+        display: flex;
+        align-items: flex-end;
+        order: 2;
+        margin-top: -290px;
+
+        @include desktop {
+            width: 510px;
+        }
+
+        @include tablet {
+            top: 0;
+            order: 1;
+            justify-content: space-around;
+            align-items: flex-start;
+            width: 100%;
+            margin: 0 0 20px;
+        }
+
+        @include mobile {
+            top: 0;
+            order: 1;
+            margin: -100px auto 23px;
+        }
+    }
+
+    &__service-car {
+        position: relative;
+
+        &--gazel {
+            z-index: 3;
+            margin-right: -56px;
+
+            @include tablet {
+                margin-right: 0;
+            }
+
+            @include mobile {
+                margin-right: -45px;
+            }
+        }
+
+        &--zil {
+            z-index: 2;
+            margin-right: -132px;
+
+            @include tablet {
+                margin-right: 0;
+            }
+
+            @include mobile {
+                margin-right: -60px;
+            }
+        }
+
+        &--truck {
+            z-index: 1;
+        }
+    }
+
+    &__service-car-info {
+        box-sizing: border-box;
+        width: 170px;
+        height: 65px;
+        margin: 0 auto;
+        padding-top: 15px;
+        font: 12px/14px $Helvetica;
+        letter-spacing: 0.5px;
+        color: #7290cb;
+        text-align: center;
+        background: url('../../images/how_to_work/car-info.png') no-repeat;
+        background-size: cover;
+
+        @include mobile {
+            display: none;
+        }
+
+        &--gazel {
+
+            @include tablet {
+                margin-bottom: 15px;
+            }
+        }
+
+        &--truck {
+            position: relative;
+            top: 36px;
+
+            @include tablet {
+                top: 0;
+                margin-bottom: -28px;
+            }
+        }
+    }
+
+    &__service-car-img {
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0px 20px 20px -12px rgba(0,0,0,0.15);
+
+        &--gazel {
+
+            @include tablet {
+                width: 78px;
+                height: 98px;
+            }
+
+            @include mobile {
+                width: 102px;
+                height: 128px;
+            }
+        }
+
+        &--zil {
+
+            @include tablet {
+                width: 101px;
+                height: 112px;
+            }
+
+            @include mobile {
+                width: 128px;
+                height: 142px;
+            }
+        }
+
+        &--truck {
+
+            @include tablet {
+                width: 130px;
+                height: 142px;
+            }
+
+            @include mobile {
+                width: 157px;
+                height: 171px;
+            }
+        }
+    }
+
+    &__service-car-salary {
+        font: 700 16px/19px $Helvetica;
+
+        span {
+            font-weight: 400;
+        }
+    }
+
+    &__service-counter-wrapper {
+        position: relative;
+        top: 32px;
+        width: 570px;
+        margin-top: -58px;
+        padding: 35px 0 20px;
+        box-sizing: border-box;
+        background-color: #7290cb;
+        border-radius: 6px;
+        order: 4;
+
+        @include desktop {
+            width: 500px;
+            padding: 35px 0 20px;
+        }
+
+        @include tablet {
+            top: 92px;
+            left: calc(50% - 285px);
+            margin-top: -80px;
+            padding-bottom: 18px;
+        }
+
+        @include mobile {
+            position: static;
+            width: 100%;
+            margin-top: 0;
+            padding: 0 20px 38px;
+            text-align: center;
+        }
+    }
+
+    &__service-counter {
+        @include counter (
+            $width: 520px,
+            $margin: 20px
+        );
+
+        @include desktop {
+            width: 466px;
+        }
+
+        @include mobile {
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 35px 0 0;
+        }
+    }
+
+    &__service-counter-number {
+        display: flex;
+
+        @include desktop {
+            margin-right: 12px;
+        }
+
+        @include mobile {
+            margin: 0 auto 14px;
+        }
+
+        p {
+            @include number (
+                $width: 37px,
+                $height: 46px,
+                $margin: 3px,
+                $font: 300 39px/46px
+            );
+
+            @include desktop {
+                width: 34px;
+                height: 44px;
+            }
+
+            &:nth-child(3) {
+                margin-right: 7px;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    &__service-counter-p {
+        width: 260px;
+        font: 20px/24px $Roboto;
+        color: #fff;
+
+        @include mobile {
+            width: 100%;
+        }
+    }
+
+    &__service-counter-button {
+        display: block;
+        width: 220px;
+        margin: 0 auto;
+
+        @include mobile {
+            width: 100%;
+        }
+    }
+}

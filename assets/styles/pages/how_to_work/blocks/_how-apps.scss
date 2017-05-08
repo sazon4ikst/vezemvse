@@ -1,0 +1,200 @@
+.how-apps {
+    padding-top: 45px;
+    background: url('../../images/how_to_work/bg-apps.png') no-repeat bottom center #faf9f3;
+
+    @include tablet {
+        padding-top: 45px;
+    }
+
+    @include mobile {
+        padding: 30px 0 38px;
+        background-image: none;
+    }
+
+    &__title {
+        margin-bottom: 11px;
+        font: 46px/60px $RobotoSlab;
+        text-align: center;
+
+        @include desktop {
+            font-size: 42px;
+            line-height: 55px;
+        }
+
+        @include tablet {
+            font-size: 32px;
+            line-height: 40px;
+        }
+
+        @include mobile {
+            font-size: 24px;
+            line-height: 30px;
+        }
+    }
+
+    &__subtitle {
+        max-width: 630px;
+        margin: 0 auto 45px;
+        font: 24px/32px $Roboto;
+        text-align: center;
+
+        @include desktop {
+            max-width: 605px;
+            font-size: 22px;
+            line-height: 30px;
+        }
+
+        @include tablet {
+            margin-bottom: 34px;
+            max-width: 460px;
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+        @include mobile {
+            box-sizing: border-box;
+            max-width: 100%;
+            margin-bottom: 24px;
+            font-size: 16px;
+            line-height: 21px;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 182px 0 197px;
+
+        @include desktop {
+            padding: 0 55px 0 80px;
+        }
+
+        @include tablet {
+            padding: 0 15px 0 0;
+        }
+
+        @include mobile {
+            padding: 0 20px;
+        }
+    }
+
+    &__images {
+
+        @include mobile {
+            display: none;
+        }
+    }
+
+    &__images-android {
+        position: relative;
+        top: 3px;
+    }
+
+    &__images-ios {
+        margin-left: -132px;
+        vertical-align: bottom;
+
+        @include tablet {
+            margin-left: -167px;
+        }
+    }
+
+    &__info {
+        padding: 50px 0 0 10px;
+
+        @include mobile {
+            width: 100%;
+            padding: 0;
+        }
+    }
+
+    &__info-list {
+        margin: 0 0 52px 17px;
+        list-style: none;
+
+        @include tablet {
+            margin-bottom: 29px;
+        }
+
+        @include mobile {
+            margin: 0 0 29px;
+        }
+    }
+
+    &__info-list-item {
+        margin-bottom: 9px;
+        font: 18px/22px $Helvetica;
+
+        @include tablet {
+            width: 318px;
+        }
+
+        @include mobile {
+            margin-bottom: 14px;
+            font-size: 16px;
+            line-height: 19px;
+        }
+
+        &::before {
+            position: relative;
+            top: 15px;
+            right: 16px;
+            display: block;
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: #7290cb;
+            border-radius: 3px;
+        }
+    }
+
+    &__info-buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 380px;
+        margin-bottom: 21px;
+
+        @include mobile {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            min-height: 128px;
+            padding: 0;
+        }
+    }
+
+    &__link {
+        font: 14px/17px $Helvetica;
+        color: #36c;
+
+        @include mobile {
+            display: block;
+            width: 205px;
+            margin: 0 auto;
+        }
+
+        &:link,
+        &:visited,
+        &:hover,
+        &:focus,
+        &:active {
+            color: #36c;
+            text-decoration: none;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &::after {
+            position: relative;
+            left: 10px;
+            display: inline-block;
+            vertical-align: top;
+            content: '';
+            width: 14px;
+            height: 14px;
+            background: url('../../images/how_to_work/icon-link.png') no-repeat;
+        }
+    }
+}
