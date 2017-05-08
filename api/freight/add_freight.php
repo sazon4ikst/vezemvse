@@ -5,8 +5,8 @@ require "../../util/connectDB.php";
 
 $user_id = ISSET($_POST["user_id"]) ? $_POST["user_id"] : null;
 $title = ISSET($_POST["title"]) ? $_POST["title"] : null;
-$weight = ISSET($_POST["weight"]) ? $_POST["weight"] : null;
-$volume = ISSET($_POST["volume"]) ? $_POST["volume"] : null;
+$weight = ISSET($_POST["weight"]) ? $_POST["weight"]." кг" : null;
+$volume = ISSET($_POST["volume"]) ? $_POST["volume"]." м3" : null;
 $price = ISSET($_POST["price"]) ? $_POST["price"] : null;
 $address_from = ISSET($_POST["address_from"]) ? $_POST["address_from"] : null;
 $address_to = ISSET($_POST["address_to"]) ? $_POST["address_to"] : null;
@@ -17,6 +17,7 @@ $password = ISSET($_POST["password"]) ? $_POST["password"] : null;
 $start_time = ISSET($_POST["time"]) ? $_POST["time"] : null;
 $distance = ISSET($_POST["distance"]) ? $_POST["distance"] : null;
 $description = ISSET($_POST["description"]) ? $_POST["description"] : null;
+$registered = ISSET($_POST["registered"]) ? $_POST["registered"] : "false";
 $posted_time = time();
 
 if (empty($title) or empty($address_from) or empty($address_to)){
@@ -26,12 +27,19 @@ if (empty($title) or empty($address_from) or empty($address_to)){
 global $con;
 
 $registered = false;
-if (empty($user_id)){	
-	if (empty($password)){
+if (empty($user_id)){
+	if ($registered == "false"){
 		$password = "password";
 
 		// Encrypt the password
 		$password = password_hash($password, PASSWORD_DEFAULT);
+		
+		$user_query = mysqli_query($con, "SELECT user_id, name, password, type FROM user WHERE email='$email'") or die (mysqli_error($con));
+		$user_result = mysqli_fetch_assoc($user_query);
+
+		if ($user_result) {
+			die(json_encode(array("error"=>"Вы уже зарегистрированы, нажмите на переключатель вверху и введите пароль.")));
+		}
 		
 		mysqli_query($con, "INSERT INTO user(name, email, phone, password, type) VALUES ('$full_name', '$email', '$phone', '$password', '1')") or die (mysqli_error($con));
 		$user_id = mysqli_insert_id($con);
@@ -60,8 +68,9 @@ if (empty($user_id)){
 }
 
 $title = mysqli_real_escape_string($con, $title);
-$weight = mysqli_real_escape_string($con, $weight);
 $price = mysqli_real_escape_string($con, $price);
+$weight = mysqli_real_escape_string($con, $weight);
+$volume = mysqli_real_escape_string($con, $volume);
 $address_from = mysqli_real_escape_string($con, $address_from);
 $address_to = mysqli_real_escape_string($con, $address_to);
 $full_name = mysqli_real_escape_string($con, $full_name);

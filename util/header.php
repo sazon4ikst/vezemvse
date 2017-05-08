@@ -1,3 +1,4 @@
+<script src="./assets/scripts/util/jquery.min.js"></script>
 <header class="layout__header _fixed">
    <div class="layout__drawer-button x-drawer-button"></div>
    <div class="layout__header-row _viewport_mobile">
@@ -18,7 +19,7 @@
             </div>
             <div class="header__support header__item">
                <span class="header__support-link contact x-open-support-box">Служба поддержки</span><br>
-               <a class="header__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a><br/>
+               <a class="header__support-phone" style="cursor:pointer">info@vezemvse.com.ua</a><br/>
                Работаем круглосуточно
             </div>
             <div class="header__categories-button" style="display:none">

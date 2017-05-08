@@ -59,7 +59,8 @@
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
-		<script src="./assets/scripts/util/jquery.min.js"></script>
+		<link type="text/css" rel="stylesheet" href="assets/cache/201722/home_v42017222331.min.css" media="screen" />
+
 		<style type="text/css" data-ymaps="css-modules">			
 			#content_body {
 				padding: 20px 0 40px 0;
@@ -218,6 +219,8 @@
 		</style>
 	</head>
 	<body style="background:#f9f8f3">
+		<?php require("./util/support_dialog.html") ?>
+		
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative;">
 			
 			<?php require("./util/header.php") ?>
@@ -240,23 +243,19 @@
 							</div>
 						</div>
 						<div class="det_button">
-							<?php
-							if ($session_user_id == $freight_owner_id and $freight_status=="1"){
-							?>
+							<?php if ($session_user_id == $freight_owner_id and $freight_status=="1"){ ?>
 								<a class="vi_perevozchik" id="button_delivered" style="cursor:pointer; margin-bottom:40px; font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
 									Подтвердить доставку груза
 								</a>
-							<?php } else if (!empty($session_user_id) and !$already_have_offer and $type=="0"){
-								if ($session_user_id != null) { ?>
-								<a id="bid_button" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500; font-size:18px; padding: 20px 23px 21px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);" class="_button prdelajit_cenu_255 x-make-proposal-button" data-intro="Предложите свою цену на перевозку с помощью оранжевой кнопки" data-step="1">
+							<?php } else if (!empty($session_user_id) and !$already_have_offer and $type=="0"){ ?>
+								<a id="bid_button" style="margin-bottom:40px; font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500; font-size:18px; padding: 17px 30px 18px 30px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);" class="_button prdelajit_cenu_255 x-make-proposal-button" data-intro="Предложите свою цену на перевозку с помощью оранжевой кнопки" data-step="1">
 									ПРЕДЛОЖИТЬ СВОЮ ЦЕНУ
 								</a>
-								<?php } else { ?>
+							<?php } else if (empty($session_user_id)){ ?>
 								<a class="vi_perevozchik" href="/how_to_work" style="cursor:pointer; margin-bottom:40px; font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
 									Вы перевозчик?<br>Узнайте как с нами работать!
 								</a>
-							<?php }
-							} ?>
+							<?php } ?>
 						</div>
 						<div class="breaker"></div>
 						<div class="x-tip-merchant-main">
@@ -277,6 +276,8 @@
 																<?php
 																	if (!empty($freight_result["start_time"])){
 																		$date = new DateTime("@".$freight_result["start_time"]); echo $date->format('d.m');
+																	} else {
+																		echo "не указана";
 																	}
 																?>
 																</span>
@@ -288,11 +289,13 @@
 																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий вес:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["weight"] ?></span></p>
 															<?php } ?>
 														</div>
-														<div class="row sposob_oplati" style="margin-top:10px; border:none; color:#333; font-weight:normal">
-															<b style="color:#333; font-weight:500">Комментарий заказчика:</b>
-															<p style="margin-top:4px"></p>
-															<?php echo $freight_result["description"] ?>	
-														</div>
+														<?php if (!empty($freight_result["description"])){ ?>
+															<div class="row sposob_oplati" style="margin-top:10px; border:none; color:#333; font-weight:normal">
+																<b style="color:#333; font-weight:500">Комментарий заказчика:</b>
+																<p style="margin-top:4px"></p>
+																<?php echo $freight_result["description"] ?>	
+															</div>
+														<?php } ?>
 													</div>
 												</div>
 											</div>
@@ -365,7 +368,7 @@
 											<div class="detail-main__top">
 												<div class="detail-main__block-alpha">
 													<div class="detail-main__name-wrapper">
-														<a class="detail-main__name x-notoggle" href="https://www.vezetvsem.ru/profile?id=106337" target="_blank">
+														<a class="detail-main__name x-notoggle" target="_blank">
 														<?php
 															// Get user from the database
 															$user_id = $offers_result["user_id"];
@@ -445,13 +448,13 @@
 														<span class="info x-tip-suggestion-i0">
 															<span class="bold">Перевозчик:</span>
 															<div class="tail_wr info-tailWr">
-																<a class="infoUsername" href="https://www.vezetvsem.ru/profile?id=344" target="_blank"><?php echo $user_result["name"] ?></a>
+																<a class="infoUsername" target="_blank"><?php echo $user_result["name"] ?></a>
 																<span class="tail info-tailUsername">
 																<?php echo $user_result["name"] ?>                             </span>
 															</div>
 															<br>
 															<div style="padding-top:5px"><span class="bold">Дата регистрации:</span> <?php echo date("d.m.Y", strtotime($user_result["time"])) ?> <br></div>
-															<div style="padding-top:10px"><a href="https://www.vezetvsem.ru/profile?id=344" target="_blank">Посмотреть профиль</a></div>
+															<div style="padding-top:10px"><a target="_blank">Посмотреть профиль</a></div>
 														</span>
 													</div>
 												</div>
@@ -594,9 +597,17 @@
 			var directionsService;
 			var map;
 			
-			function initMap() {
+			function initMap() {				
+				var pOptions = {
+						strokeColor: "#7290cb",
+						strokeOpacity: 1 ,
+						strokeWeight: 4,
+				};
+				var mDirectionsRendererOptions = {
+					polylineOptions: pOptions
+				};
 				directionsService = new google.maps.DirectionsService();
-				directionsDisplay = new google.maps.DirectionsRenderer();
+				directionsDisplay = new google.maps.DirectionsRenderer(mDirectionsRendererOptions);
 				var ukraine = new google.maps.LatLng(48.4122019, 30.5669957);
 				var myOptions = {
 					zoom: 5,
@@ -721,7 +732,7 @@
 				});
 			});
 			
-			$(".details_button").click(function() {
+			$(".details_button").click(function() {				
 				var opened = $(this).find('#details_arrow').getRotateAngle() == 0;
 				if (opened){			
 					$(this).find('#details_arrow').rotate({
@@ -874,27 +885,32 @@
 			if (ISSET($_GET["offer"])){	
 				$offer = $_GET["offer"];
 				?>
-				<script>					
-					document.getElementById("suggestion-<?php echo $offer ?>").scrollIntoView(); 
-					window.scrollBy(0, -200);
+				<script>
+					$(document).ready(function() {					
+						document.getElementById("suggestion-<?php echo $offer ?>").scrollIntoView();
+					});
 				</script>
 				<?php
 			} else if (ISSET($_GET["open_offer"])){			
 				$offer = $_GET["open_offer"];
 				?>
 				<script>
-					$("#suggestion-<?php echo $offer ?> .details_button").click();
-					var messages_layout = $("#suggestion-<?php echo $offer ?>").parent().find(".chat__list");
-					messages_layout.scrollTop(messages_layout[0].scrollHeight);					
+					$(document).ready(function() {
+						$("#suggestion-<?php echo $offer ?> .details_button").click();
+						var messages_layout = $("#suggestion-<?php echo $offer ?>").parent().find(".chat__list");
+						messages_layout.scrollTop(messages_layout[0].scrollHeight);					
+							
+						messages_layout[0].scrollIntoView();
+						window.scrollBy(0, -300);
 						
-					messages_layout[0].scrollIntoView();
-					window.scrollBy(0, -300);
-					
-					refreshMessages();
+						refreshMessages();
+					});
 				</script>
 				<?php
 			}
 			?>
+			<div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
+			<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
 	</body>
 	<footer style="margin-top:100px">
 		<article class="footer">

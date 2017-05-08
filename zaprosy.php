@@ -58,6 +58,7 @@
 		</style>
 	</head>
 	<body style="background:#f9f8f3">
+		<?php require("./util/support_dialog.html") ?>
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative">
 			<?php require("./util/header.php") ?>
 			<div class="orders" style="padding-top:0">
@@ -158,6 +159,8 @@
 				</article>
 			</footer>
 		</div>
+		<div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
+		<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
 	</body>
 	<script>
 		$(".table_item").click(function(){

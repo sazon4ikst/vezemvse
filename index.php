@@ -84,32 +84,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 </head>
 
 <body>
-
-	<div id="x-support-dialog" class="login-modal support-modal fade hidden">
-		<div class="content">
-			<form method="post" class="x-support-form" onsubmit="return false;">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<p class="title">Связаться со службой поддержки</p>
-				<p class="warning alert alert-danger x-warning-message hidden"></p>
-				<p class="alert alert-success x-success-message hidden"></p>
-
-				<div class="row">
-					<label>Тема сообщения<sup>*</sup>
-					</label>
-					<input name="subject" class="input x-subject" value="" type="text" id="support_subject">
-				</div>
-				<div class="row">
-					<label>Ваш электронный адрес<sup>*</sup>
-					</label>
-					<input name="email" class="input x-email" value="" type="text" id="support_email">
-				</div>
-				<div class="row">
-					<textarea class="x-message" name="message" id="support_message" rows="5" placeholder="Как мы можем вам помочь?"></textarea>
-				</div>
-				<button class="auto_butt support_butt button" type="submit" id="support_send_button">Отправить сообщение</button>
-			</form>
-		</div>
-	</div>
+	<?php require("./util/support_dialog.html") ?>
 	<article class="billboard">
 		<video id="billboard-video" class="billboard__video" loop="loop" preload="none" poster="assets/images/home_v4/video-preview.jpg">
 			<source src="../assets/video/vv.webm" type="video/webm" />
@@ -193,7 +168,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 						<div class="header__support header__item">
 							<span class="header__support-link contact x-open-support-box">Служба поддержки</span>
 							<br>
-							<a class="header__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>
+							<a class="header__support-phone" style="cursor:pointer">info@vezemvse.com.ua</a>
 							<br/> Работаем круглосуточно
 						</div>
 						<div class="header__categories-button" style="display:none">
@@ -885,45 +860,9 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 		</main>
 		<div class="layout__fog js-fog"></div>
 		<script type="text/javascript" src="assets/cache/201722/home_v42017222331.min.js" charset="UTF-8"></script>
+		
+		<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
 	</div>
-
-	<script>
-		$("#support_send_button").click(function() {
-			if ($("#support_subject").val() == "" || $("#support_email").val() == "" || $("#support_message").val() == "") {
-				return;
-			}
-
-			var currentdate = new Date();
-			var datetime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " @ " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-
-			var email = {
-				subject: $("#support_subject").val(),
-				sender: "Email: " + $("#support_email").val(),
-				body: $("#support_message").val() + " (" + datetime + ")"
-			}
-
-			this.disabled = true;
-			$("#support_subject").prop('disabled', true);
-			$("#support_email").prop('disabled', true);
-			$("#support_message").prop('disabled', true);
-
-			$.ajax({
-				url: 'send_mail.php',
-				type: 'post',
-				dataType: 'json',
-				success: function(data) {
-					$("#support_subject").val("");
-					$("#support_email").val("");
-					$("#support_message").val("");
-					$("#support_send_button").html("Сообщение отправлено");
-				},
-				error: function(data) {
-					alert("Произошла ошибка. Пожалуйста перезагрузите страницу и попробуйте еще раз.")
-				},
-				data: email
-			});
-		});
-	</script>
 	<!-- Begin Inspectlet Embed Code -->
 	<!--
 <script type="text/javascript" id="inspectletjs">

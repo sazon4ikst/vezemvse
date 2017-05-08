@@ -1,0 +1,20 @@
+<div id="x-support-dialog" class="login-modal support-modal fade hidden">
+	<div class="content">
+		<form method="post" class="x-support-form" onsubmit="return false;" style="padding-bottom:25px">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<p class="title">Связаться со службой поддержки</p>
+			<p class="alert alert-success x-success-message" style="display:none; margin: 30px auto 30px auto; width:95%; font-size:15px; text-align:center">Сообщение отправлено. Мы свяжется с Вами в течении 10 минут.</p>
+				<div id="support_body">
+				<div class="row">
+					<label>Ваш электронный адрес<sup>*</sup>
+					</label>
+					<input name="email" class="input x-email" value="" type="text" id="support_email" required>
+				</div>
+				<div class="row">
+					<textarea class="x-message" name="message" id="support_message" rows="5" placeholder="Как мы можем вам помочь?" required></textarea>
+				</div>
+				<button class="auto_butt support_butt button" type="submit" id="support_send_button">Отправить сообщение</button>
+			</div>
+		</form>
+	</div>
+</div>

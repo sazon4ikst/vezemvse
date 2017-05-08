@@ -1240,7 +1240,7 @@
 								<div class="InputControl InputVolume">
 									<label class="InputControl-label InputControl-label--normal" for="name">Объем</label>
 									<div>
-										<input type="number" value="" label="Объем" id="weight" placeholder="м3" class="InputControl-control InputControl-control--left" style="max-width: 450px">
+										<input type="number" value="" label="Объем" id="volume" placeholder="м3" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 									</div>
 								</div>
 							</div>							
@@ -1637,9 +1637,10 @@
 		}
 		
 		function submitFreight(){			
-			var title = $("#name").val();
+			var title = $("#name").val();		
+			var price = $("#price").val();	
 			var weight = $("#weight").val();
-			var price = $("#price").val();
+			var volume = $("#volume").val();
 			var description = $("#description").val();
 			var address_from = $("#address_from").val();
 			var address_to = $("#address_to").val();
@@ -1648,6 +1649,8 @@
 			var email = $("#email").val();
 			var phone = $("#phone").val();
 			var password = $("#password").val();
+			
+			var registered = $("#registerCheckbox").is(':checked');
 			
 			var time = null;
 			if ($("#dateCheckbox").is(':checked')){
@@ -1666,8 +1669,9 @@
 				data: {
 					"user_id": "<?php echo $session_user_id ?>",
 					"title": title,
-					"weight": weight,
 					"price": price,
+					"weight": weight,
+					"volume": volume,
 					"description": description,
 					"address_from": address_from,
 					"address_to": address_to,
@@ -1677,11 +1681,14 @@
 					"phone": phone,
 					"password": password,
 					"time": time,
+					"registered": registered,
 				},
 				dataType: "json",
 				success: function(data){
 					if ('error' in data){
 						alert(data["error"]);
+					} else {						
+						window.open ('zaprosy.php', '_self', false);
 					}
 				},
 				error: function(data){

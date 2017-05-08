@@ -57,6 +57,7 @@
 		</style>
 	</head>
 	<body style="background:#f9f8f3">
+		<?php require("./util/support_dialog.html") ?>
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative;">
 			<?php require("./util/header.php") ?>
 			<div class="orders" style="padding-top:0">
@@ -138,18 +139,7 @@
 				</article>
 			</footer>
 		</div>
+		<div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
+		<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
 	</body>
-	<script>
-		$(".table_item").click(function(){
-			if ($(this).hasClass("table_row")){
-				$(this).addClass("table_row_selected");
-				$(this).removeClass("table_row");
-				$(this).closest('tr').next('tr').show();
-			} else {			
-				$(this).addClass("table_row");
-				$(this).removeClass("table_row_selected");
-				$(this).closest('tr').next('tr').hide();
-			}
-		});
-	</script>
 </html>
