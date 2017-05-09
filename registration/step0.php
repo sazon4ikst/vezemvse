@@ -34,10 +34,18 @@
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	
+	<style type="text/css">		
+		@media (max-width: 767px) {
+			.x-tip {
+				display: none;
+			}
+		}
+	</style>
 </head>
-<body style="background:#f9f8f3" class="body_below_header">
+<body style="background:#f9f8f3">
 	<?php require("../util/support_dialog.html") ?>
-	<div style="text-align:center; min-height:calc(100% - 54px)">	
+	<div id="content_body"  style="text-align:center; min-height:calc(100% - 54px)">	
 		<script src="../assets/scripts/util/jquery.min.js"></script>
 		<header class="layout__header _fixed">
 		   <div class="layout__drawer-button x-drawer-button"></div>
@@ -87,7 +95,7 @@
 						<div class="row">
 							<div class="span12 r2">
 								<div class="anc1 mr15">
-									<h1 class="pustoi1 auth_title" style="font-size:30px; margin-bottom:30px; margin-left:43px">Заполните все поля:</h1>
+									<h1 class="pustoi1 auth_title" style="font-size:30px; margin-bottom:30px; padding-top:10px; margin-left:43px">Заполните все поля:</h1>
 									<div class="s-itog11 x-auth-input-block">
 										<div class="pustoi7">
 											<input id="name" type="text" class="pustoi1 x-auth-validate" placeholder="Имя или название компании" name="firstName" autocomplete="name" required>
@@ -214,7 +222,7 @@
 	});
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCncHq_o9gZVaJDpnuOdq7hVwJo6-7Nc7I&libraries=places&callback=initMap&language=ru&region=ua" async defer></script>
-<script type='text/javascript' src="util/jivosite.js"></script>
+<script type='text/javascript' src="../util/jivosite.js"></script>
 </body>
 <div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
 <script type="text/javascript" src="../assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>

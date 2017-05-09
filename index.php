@@ -32,6 +32,13 @@ session_start();
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 	<link type="text/css" rel="stylesheet" href="assets/cache/201722/home_v42017222331.min.css" media="screen" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<style type="text/css">
+		@media (max-width: 767px) {
+			.description__feature-button {
+				height:48px !important;
+			}
+		}
+	</style>
 
 	<!--<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -108,6 +115,10 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 			<a class="billboard__button vv-button vv-button--gold vv-button--big" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
        Разместить запрос
      </a>
+	 
+			<div style="color:#fff; padding-top:40px">
+				Вы перевозчик? <a href="kak_rabotat" style="color:#fff">Присоединяйтесь</a>
+			</div>
 		</div>
 
 		<svg class="_arrowdown billboard__arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Слой_1" x="0px" y="0px" viewBox="0 0 45 45" enable-background="new 0 0 45 45" xml:space="preserve">

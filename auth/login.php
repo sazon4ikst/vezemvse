@@ -35,9 +35,9 @@
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
-<body style="background:#f9f8f3" class="body_below_header">
+<body>
 	<?php require("../util/support_dialog.html") ?>
-	<div style="text-align:center; height:calc(100% - 54px)">	
+	<div id="content_body" style="min-height:calc(100% - 54px); background:#f9f8f3; text-align:center; padding-bottom: 0px">	
 		
 		
 		<script src="../assets/scripts/util/jquery.min.js"></script>
@@ -170,7 +170,7 @@
 </script>
 <div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
 <script type="text/javascript" src="../assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
-<script type='text/javascript' src="util/jivosite.js"></script>
+<script type='text/javascript' src="../util/jivosite.js"></script>
 </body>
 <footer>
 	<article class="footer">

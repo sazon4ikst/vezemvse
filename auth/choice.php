@@ -27,10 +27,21 @@
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,500,400,300&amp;subset=latin,cyrillic" media="screen" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<style type="text/css">
+		#content_body {
+			padding-top: 80px;
+		}
+		
+		@media (max-width: 767px) {
+			#content_body {
+				padding-top: 20px;
+			}
+		}
+	</style>
 </head>
-<body style="background:#f9f8f3">
+<body>
 	<?php require("../util/support_dialog.html") ?>
-	<div style="height:calc(100% - 54px); text-align:center">	
+	<div id="content_body" style="min-height:calc(100% - 54px); background:#f9f8f3; text-align:center; padding-bottom: 40px">	
 	
 	
 		<script src="../assets/scripts/util/jquery.min.js"></script>
@@ -74,36 +85,7 @@
 		   </div>
 		</header>
 		
-		
-		<header class="layout__header _fixed">
-		  <div class="layout__header-row _viewport_mobile">
-			<div class="layout__title">
-			  <img class="layout__logo" src="../assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" />
-			</div>
-		  </div>
-		  <div class="layout__header-row _viewport_desktop">
-			<div class="header">
-
-				
-			  <div class="header__content">
-				<div class="header__item header__title">
-				  <a href="/">
-					<img class="header__title-logo" src="../assets/images/home_v4/logo-white.png" alt="Сайт грузоперевозок «Везет Всем»">
-					<img class="header__title-logo _blue" src="../assets/images/home_v4/logo-blue.png" alt="Сайт грузоперевозок «Везет Всем»">
-				  </a>
-				  <a class="header__title-link" href="#">Онлайн-сервис перевозок</a>
-				</div>
-				<div class="header__support header__item">
-				  <span class="header__support-link contact x-open-support-box">Служба поддержки</span><br>
-				  <a class="header__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a><br/>
-				  Работаем круглосуточно
-				</div>
-			  </div>
-			</div>
-		  </div>
-		</header>	
-		
-		<div class="content" style="padding-top:200px">
+		<div>
 			<div class="top_bg_order" style="padding-bottom:15px;">
 				<div class="list_new" style="margin-left:-100px">
 					<div class="l_sakascik" style="margin-left:100px">
@@ -122,7 +104,7 @@
 	</div>
 	<div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
 	<script type="text/javascript" src="../assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
-<script type='text/javascript' src="util/jivosite.js"></script>
+<script type='text/javascript' src="../util/jivosite.js"></script>
 </body>
 <footer>
 	<article class="footer">
