@@ -8,7 +8,7 @@
    </div>
    <div class="layout__header-row _viewport_desktop">
       <div class="header">
-         <?php require("util/session_header.php") ?>
+         <?php require("./util/session_header.php") ?>
          <div class="header__content">
             <div class="header__item header__title">
                <a href="/">
