@@ -188,12 +188,13 @@
 				"city": city,
 				"password": password
 			},
+			dataType: "json",
             success: function(data){
-				if (data != "") {
+				if ('error' in data){
 					$("#register_button").html("Зарегистрироваться");
-					alert(data);
+					alert(data["error"]);
 				} else {
-					window.open('../listing', '_self', false);
+					window.open('../poisk', '_self', false);
 				}
             }
         });
