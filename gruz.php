@@ -198,20 +198,38 @@
 			
 			@media (max-width: 767px) {
 				.chat_perevozchik {
-					width: 100%;
-					margin-left: -13px;
+					width: 100% !important;
+					margin-left: 0 !important;
+				}
+				.info_perevozchik {
+					width: 100% !important;
+					margin-left: 0 !important;
+					padding: 0 0 10px 15px;
+				}
+				.chat__content{					
+					width: 100% !important;
 				}
 				.chat__header {
 					border-radius: 0;
+					margin: 0: !important;
 				}
 				.chat__warning {
 					border-radius: 0;
-					width:70%;
+					width: 100% !important;
+					margin: 0: !important;
+				}
+				.left {
+					width: 100% !important;
+					float: none: !important;
+					margin: 0: !important;
 				}
 				.details_block {					
 					border-radius: 0;
 					border-left: none !important;
 					border-right: none !important;
+				}
+				.opened_row {
+					padding: 0 !important;
 				}
 			}
 			
@@ -230,6 +248,14 @@
 				}
 			}
 			
+			#details_arrow {
+				margin-top: -1px;
+			}
+			@media (max-width: 767px) {
+				#details_arrow {
+					margin-top: -7px;
+				}
+			}
 			
 		</style>
 	</head>
@@ -445,7 +471,7 @@
 														</div>
 													<?php } ?>
 													<div class="details_button vv-button vv-button--green detail-main__watch x-sugg-detail-button" style="position:absolute; bottom:0; right:0; background:#7194cc">
-														<span id="details_arrow" style="margin-top:-1px" class="detail-main__watch-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7"><defs><style>.a{fill:#fff}</style></defs><path class="a" d="M6 6.707L.646 1.354l.708-.708L6 5.293 10.646.646l.708.708L6 6.707z"></path></svg></span>
+														<span id="details_arrow" class="detail-main__watch-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7"><defs><style>.a{fill:#fff}</style></defs><path class="a" d="M6 6.707L.646 1.354l.708-.708L6 5.293 10.646.646l.708.708L6 6.707z"></path></svg></span>
 													</div>
 												</div>
 											</div>
