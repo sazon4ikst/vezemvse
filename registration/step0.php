@@ -214,7 +214,7 @@
 	});
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCncHq_o9gZVaJDpnuOdq7hVwJo6-7Nc7I&libraries=places&callback=initMap&language=ru&region=ua" async defer></script>
-
+<script type='text/javascript' src="util/jivosite.js"></script>
 </body>
 <div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
 <script type="text/javascript" src="../assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
