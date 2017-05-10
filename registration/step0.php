@@ -86,6 +86,24 @@
 				</script>
 		   </div>
 		</header>
+		<div class="layout__drawer x-drawer">
+			<div class="drawer__close"></div>
+			<div class="drawer">
+				<div class="drawer__login">
+					<span class="x-hori" data-key="d89fd3d5ae09d3ce4eb131aaef56df7e"></span> <span class="x-hori" data-key="5fad0b1810e3a2b87f6bdad937571a48"></span> </div>
+				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="booking">Узнать стоимость своей перевозки</a>
+				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="poisk">Вы водитель? Найдите груз</a>
+				<div class="drawer__support">
+					<span class="drawer__support-link">Служба поддержки</span>
+					<a class="drawer__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>
+					<span>Работаем круглосуточно</span>
+				</div>
+				<div class="drawer__buttons">
+					<span class="x-hori" data-key="72088cf0c122072528987c85c7b0b62e"></span>
+					<span class="x-hori" data-key="996d7e8d2c9b99cfb25ab9f418df21fb"></span> </div>
+			</div>
+		</div>
+		<div class="layout__drawer-backdrop x-drawer-backdrop"></div>
 		
 		<section id="content" style="text-align:left">
 		<div class="x-auth-steps">
@@ -226,6 +244,7 @@
 </body>
 <div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
 <script type="text/javascript" src="../assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../assets/cache/201722/drawer.js" charset="UTF-8"></script>
 <footer>
 	<article class="footer">
 		<div class="vv-container">

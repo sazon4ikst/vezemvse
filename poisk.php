@@ -51,7 +51,7 @@
 
 			@media (max-width: 767px) {
 				#content_body {
-					padding: 75px 0 10px 0;
+					padding: 45px 0 10px 0;
 				}
 			}
 		</style>
@@ -142,5 +142,6 @@
 		<div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
 		<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
 		<script type='text/javascript' src="util/jivosite.js"></script>
+		<script type="text/javascript" src="assets/cache/201722/drawer.js" charset="UTF-8"></script>
 	</body>
 </html>

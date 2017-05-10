@@ -226,6 +226,7 @@
 <script type="text/javascript" src="./assets/cache/201754/common2017542554.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="./assets/scripts/home-v4/slick.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="./assets/scripts/pages/how_to_work/script.js" charset="UTF-8"></script>
+<script type="text/javascript" src="assets/cache/201722/drawer.js" charset="UTF-8"></script>
 
 <div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
 <script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>

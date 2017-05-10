@@ -52,7 +52,16 @@
 
 			@media (max-width: 767px) {
 				#content_body {
-					padding: 75px 0 10px 0;
+					padding: 45px 0 10px 0;
+				}
+			}
+
+			@media (max-width: 767px) {
+				.gruz_title {
+					font-weight: 600;
+				}
+				.gruz_date {
+					font-weight: 400 !important;
 				}
 			}
 		</style>
@@ -62,7 +71,7 @@
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative">
 			<?php require("./util/header.php") ?>
 			<div class="orders" style="padding-top:0">
-				<div class="container" style="width: 1250px;">
+				<div class="container">
 					<div class="row">
 						<div class="span12">
 							<div class="orders_title" style="font-weight:400">
@@ -92,7 +101,7 @@
 										<tbody>
 											<tr>
 												<td>
-													<span>
+													<span class="gruz_date">
 													<?php
 													if ($freight_result["start_time"]!=null){
 														$date = new DateTime("@".$freight_result["start_time"]);
@@ -103,7 +112,7 @@
 													?></span>
 												</td>
 												<td>
-													<span><?php echo $freight_result["title"] ?></span>
+													<span class="gruz_title"><?php echo $freight_result["title"] ?></span>
 												</td>
 												<td>
 													<span><?php echo $freight_result["address_from"] ?> </span>                        
@@ -162,6 +171,7 @@
 		<div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
 		<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
 		<script type='text/javascript' src="util/jivosite.js"></script>
+		<script type="text/javascript" src="assets/cache/201722/drawer.js" charset="UTF-8"></script>
 	</body>
 	<script>
 		$(".table_item").click(function(){

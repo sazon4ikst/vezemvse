@@ -986,9 +986,10 @@
 				<?php
 			}
 			?>
-			<div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
-			<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
-			<script type='text/javascript' src="util/jivosite.js"></script>
+		<div class="x-backdrop modal-backdrop fade in" style="display:none"></div>
+		<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
+		<script type='text/javascript' src="util/jivosite.js"></script>
+		<script type="text/javascript" src="assets/cache/201722/drawer.js" charset="UTF-8"></script>
 	</body>
 	<footer style="margin-top:100px">
 		<article class="footer">
