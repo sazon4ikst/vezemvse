@@ -204,7 +204,7 @@
 				.info_perevozchik {
 					width: 100% !important;
 					margin-left: 0 !important;
-					padding: 0 0 10px 15px;
+					padding: 5px 0 10px 15px;
 				}
 				.chat__content{					
 					width: 100% !important;
@@ -256,6 +256,34 @@
 					margin-top: -7px;
 				}
 			}
+
+			.driver_selected {
+				background: #d1f5d7;
+				padding: 10px 30px 40px 30px;
+				margin-bottom: 20px;
+				margin-top: 20px;
+			}
+			.driver_selected_text {
+				margin-left:20px; 
+			}
+			@media (max-width: 767px) {
+				.driver_selected {
+					background: #d1f5d7;
+					padding: 0 15px 25px 15px;
+					margin-bottom: 10px;
+				}
+				.driver_selected_text {
+					margin-left: 0; 
+				}
+				#selected_driver_image {
+					display: none;
+				}
+				#selected_driver_title {
+					font-size: 25px !important;
+					line-height: 35px;
+					margin: 7px 0 15px 0 !important;
+				}
+			}
 			
 		</style>
 	</head>
@@ -268,6 +296,15 @@
 			<section id="content">
 				<div class="vv-container vv-container--no-padding x-detail">
 					<div id="x-order-questions-block"></div>
+					<?php if ($freight_status == "1"){ ?>
+						<div class="driver_selected">
+							<img id="selected_driver_image" alt="" src="/assets/styles/images/v3/perevozchik.svg" height="100px" width="100px" style="margin-top:-60px">
+							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px; margin-top:10px">
+								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Вы выбрали перевозчика Дмитрий Шейко</h2>
+								Номер телефона: 0950252903. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
+							</div>
+						</div>
+					<?php } ?>
 					<div class="new_detalizacia" id="order-info">
 						<div id="x-order-title-info" class="wr_prod_info x-tip-additional-offset gruz_mobile_padding">
 							<div class="prod_info inline_block" style="padding-left:0px">
@@ -495,8 +532,7 @@
 															</div>
 															<br>
 															<div style="padding-top:5px"><span class="bold">Дата регистрации:</span> <?php echo date("d.m.Y", strtotime($user_result["time"])) ?> <br></div>
-															<div style="padding-top:10px"><a target="_blank">Посмотреть профиль</a></div>
-														</span>
+															</span>
 													</div>
 												</div>
 											</div>
