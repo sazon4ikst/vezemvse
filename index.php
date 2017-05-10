@@ -117,7 +117,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
      </a>
 	 
 			<div style="color:#fff; padding-top:40px">
-				Вы перевозчик? <a href="kak_rabotat" style="color:#fff">Присоединяйтесь</a>
+				Вы перевозчик? <a href="kak_rabotat" style="color:#fff">Зарабатывайте с нами</a>
 			</div>
 		</div>
 
@@ -157,7 +157,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 						<div class="header__item header__carriers">
 							<a class="header__action _order" href="poisk">
 								<strong>Вы перевозчик?</strong>
-								<br/>найдите груз
+								<br/>Присоединяйтесь
 							</a>
 						</div>
 						<?php

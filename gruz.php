@@ -296,7 +296,7 @@
 			<section id="content">
 				<div class="vv-container vv-container--no-padding x-detail">
 					<div id="x-order-questions-block"></div>
-					<?php if ($freight_status == "1"){ ?>
+					<?php if ($freight_status == "1" and $freight_owner_id==$session_user_id){ ?>
 						<div class="driver_selected">
 							<img id="selected_driver_image" alt="" src="/assets/styles/images/v3/perevozchik.svg" height="100px" width="100px" style="margin-top:-60px">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px; margin-top:10px">
