@@ -191,144 +191,6 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 							</svg>
 						</div>
 					</div>
-					<div class="header__categories _hidden">
-						<div class="header__categories-group">
-							<div class="header__categories-title">Поиск груза
-								<svg class="header__categories-arrow" width="11" height="12" viewBox="0 0 11 12" xmlns="http://www.w3.org/2000/svg">
-									<g fill-rule="evenodd">
-										<path class="bar" d="M10 7v1H9v1H8v1H7v1H6v1H5v-1H4v-1H3V9H2V8H1V7H0V6h2v1h1v1h1v1h1v1V0h1v9h1V8h1V7h1V6h2v1h-1z" />
-										<path d="M10 7v1H9v1H8v1H7v1H6v1H5v-1H4v-1H3V9H2V8H1V7H0V6h2v1h1v1h1v1h1v1h1V9h1V8h1V7h1V6h2v1h-1z" />
-									</g>
-								</svg>
-							</div>
-							<ul class="header__categories-list">
-								<li><a href="poisk/all.html">Все заказы</a>
-								</li>
-								<li><a href="poisk/all/mebel_i_bytovaja_tehnika.html">Мебель и бытовая техника</a>
-								</li>
-								<li><a href="poisk/all/pereezd.html">Переезд</a>
-								</li>
-								<li><a href="poisk/all/stroitelnye_gruzy_i_oborudovanie.html">Строительные грузы и оборудование</a>
-								</li>
-								<li><a href="poisk/all/vyvoz_musora.html">Вывоз мусора</a>
-								</li>
-								<li><a href="poisk/all/transportnye_sredstva.html">Транспортные средства</a>
-								</li>
-								<li><a href="poisk/all/perevozka_zhivotnyh.html">Перевозка животных</a>
-								</li>
-								<li><a href="poisk/all/passazhirskie_perevozki.html">Пассажирские перевозки</a>
-								</li>
-								<li><a href="poisk/all/produkty_pitanija.html">Продукты питания</a>
-								</li>
-								<li><a href="poisk/all/dogruz.html">Догруз</a>
-								</li>
-								<li><a href="poisk/all/prochie_gruzy.html">Прочие грузы</a>
-								</li>
-								<li><a href="poisk/moskva.html">Грузоперевозки по Киеву</a>
-								</li>
-							</ul>
-						</div>
-						<div class="header__categories-group">
-							<div class="header__categories-title">Перевозки
-								<svg class="header__categories-arrow" width="11" height="12" viewBox="0 0 11 12" xmlns="http://www.w3.org/2000/svg">
-									<g fill-rule="evenodd">
-										<path class="bar" d="M10 7v1H9v1H8v1H7v1H6v1H5v-1H4v-1H3V9H2V8H1V7H0V6h2v1h1v1h1v1h1v1V0h1v9h1V8h1V7h1V6h2v1h-1z" />
-										<path d="M10 7v1H9v1H8v1H7v1H6v1H5v-1H4v-1H3V9H2V8H1V7H0V6h2v1h1v1h1v1h1v1h1V9h1V8h1V7h1V6h2v1h-1z" />
-									</g>
-								</svg>
-							</div>
-							<ul class="header__categories-list">
-								<li><a href="dostavka-gruzov.html">Доставка грузов</a>
-								</li>
-								<li><a href="mashina-dlya-perevozki-gruza/fury.html">Грузоперевозки фурами</a>
-								</li>
-								<li><a href="gruzoperevozki/avtomobilnye.html">Автомобильные перевозки</a>
-								</li>
-								<li><a href="gruzoperevozki/mezhdunarodnye.html">Международные перевозки</a>
-								</li>
-								<li><a href="gruzoperevozki/po-rossii.html">Грузоперевозки по Украине</a>
-								</li>
-								<li><a href="gruzoperevozki/poputnye.html">Попутные грузоперевозки</a>
-								</li>
-								<li><a href="mashina-dlya-perevozki-gruza/gazel.html">Грузоперевозки на Газели</a>
-								</li>
-								<li><a href="gruzovye-perevozki/chastnye.html">Частные грузовые перевозки</a>
-								</li>
-								<li><a href="passazhirskie-perevozki.html">Пассажирские перевозки</a>
-								</li>
-								<li><a href="gruzoperevozki/mezhdugorodnie.html">Междугородние перевозки</a>
-								</li>
-							</ul>
-						</div>
-						<div class="header__categories-group">
-							<div class="header__categories-title">Категории перевозок
-								<svg class="header__categories-arrow" width="11" height="12" viewBox="0 0 11 12" xmlns="http://www.w3.org/2000/svg">
-									<g fill-rule="evenodd">
-										<path class="bar" d="M10 7v1H9v1H8v1H7v1H6v1H5v-1H4v-1H3V9H2V8H1V7H0V6h2v1h1v1h1v1h1v1V0h1v9h1V8h1V7h1V6h2v1h-1z" />
-										<path d="M10 7v1H9v1H8v1H7v1H6v1H5v-1H4v-1H3V9H2V8H1V7H0V6h2v1h1v1h1v1h1v1h1V9h1V8h1V7h1V6h2v1h-1z" />
-									</g>
-								</svg>
-							</div>
-							<ul class="header__categories-list">
-								<li><a href="mashina-dlya-perevozki-gruza/10-tonn.html">Грузоперевозки 10 тонн</a>
-								</li>
-								<li><a href="mashina-dlya-perevozki-gruza/5-tonn.html">Грузоперевозки 5 тонн</a>
-								</li>
-								<li><a href="gruzoperevozki/krupnogabaritnye.html">Крупногабаритные перевозки</a>
-								</li>
-								<li><a href="gruzoperevozki/melkogabaritnye.html">Малогабаритные перевозки</a>
-								</li>
-								<li><a href="gruzoperevozki/sbornye.html">Доставка сборных грузов</a>
-								</li>
-								<li><a href="peregon-avtomobilej.html">Перегон автомобилей</a>
-								</li>
-								<li><a href="perevozka-mebeli.html">Перевозка мебели</a>
-								</li>
-								<li><a href="perevozka-veshej.html">Перевозка вещей</a>
-								</li>
-								<li><a href="perevozka-zhivotnyh.html">Перевозка животных</a>
-								</li>
-								<li><a href="gruzoperevozki/negabaritnye.html">Перевозка негабаритных грузов</a>
-								</li>
-							</ul>
-						</div>
-						<div class="header__categories-group">
-							<div class="header__categories-title">Дополнительно
-								<svg class="header__categories-arrow" width="11" height="12" viewBox="0 0 11 12" xmlns="http://www.w3.org/2000/svg">
-									<g fill-rule="evenodd">
-										<path class="bar" d="M10 7v1H9v1H8v1H7v1H6v1H5v-1H4v-1H3V9H2V8H1V7H0V6h2v1h1v1h1v1h1v1V0h1v9h1V8h1V7h1V6h2v1h-1z" />
-										<path d="M10 7v1H9v1H8v1H7v1H6v1H5v-1H4v-1H3V9H2V8H1V7H0V6h2v1h1v1h1v1h1v1h1V9h1V8h1V7h1V6h2v1h-1z" />
-									</g>
-								</svg>
-							</div>
-							<ul class="header__categories-list">
-								<li><a href="pereezd/kvartiry.html">Переезд квартиры</a>
-								</li>
-								<li><a href="pereezd/ofisnyj.html">Офисный переезд</a>
-								</li>
-								<li><a href="pereezd/na-dachu.html">Переезд на дачу</a>
-								</li>
-								<li><a href="pereezd/iz-goroda-v-gorod.html">Переезд в другой город</a>
-								</li>
-								<li><a href="pereezd/mezhdunarodnyj.html">Международный переезд</a>
-								</li>
-								<li><a href="pereezd/mashina-s-gruzchikami.html">Машина с грузчиками для переезда</a>
-								</li>
-								<li><a href="dostavka_tovarov_i_mebeli_ikea.html">Доставка товаров из Ikea</a>
-								</li>
-								<li><a href="perevozka-avtomobilej.html">Перевозка автомобилей</a>
-								</li>
-								<li><a href="perevozka-avtomobilej/avtovozom.html">Перевозка автовозами</a>
-								</li>
-								<li><a href="dostavka-avtomobilej.html">Доставка автомобилей</a>
-								</li>
-								<li><a href="perevozka-avtomobilej/na-poezde-kontejnerom-i-setkoj.html">Перевозка авто по ж/д, сетка</a>
-								</li>
-								<li><a href="perevozka-avtomobilej/iz-moskvy.html">Доставка авто из Киева</a>
-								</li>
-							</ul>
-						</div>
-					</div>
 				</div>
 			</div>
 		</header>
@@ -337,9 +199,25 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 			<div class="drawer">
 				<div class="drawer__login">
 					<span class="x-hori" data-key="d89fd3d5ae09d3ce4eb131aaef56df7e"></span> <span class="x-hori" data-key="5fad0b1810e3a2b87f6bdad937571a48"></span> </div>
-				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="booking">Узнать стоимость своей перевозки</a>
-				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="poisk">Вы водитель? Найдите груз</a>
-				<div class="drawer__support">
+					
+				<?php if(!isset($_SESSION['user_id'])){ ?>
+					<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="booking" style="margin:0 10px 0 10px; width:calc(100% - 20px)">Узнать стоимость своей перевозки</a>
+					<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="kak_rabotat" style="margin:10px 10px 0 10px; width:calc(100% - 20px)">Вы водитель? Присоединяйтесь</a>
+					
+					<a href="/auth/choice" class="header__link header__register" style="color:#333; margin:20px 10px 0 10px; display:block">Регистрация</a>
+					<br>
+					<a href="/auth/login" class="header__link header__register" style="color:#333; margin:0 10px 20px 10px; display:block">Войти</a>
+				<?php } else { ?>
+					<?php if ($type=="0") {
+						echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="poisk" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Поиск груза</a>';
+						echo '<a class="header__link header__register" href="/zaprosy" style="color:#333; margin:20px 10px 0 10px; display:block">Мои предложения</a>';
+					}  else {
+						echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="zaprosy" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Мои запросы</a>';
+					}
+					echo '<a class="header__link header__register" href="/auth/logout" style="color:#333; margin:20px 10px 20px 10px; display:block">Выйти</a>';
+				} ?>
+				
+				<div class="drawer__support" style="padding-left:10px;">
 					<span class="drawer__support-link">Служба поддержки</span>
 					<a class="drawer__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>
 					<span>Работаем круглосуточно</span>

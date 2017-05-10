@@ -85,9 +85,25 @@
 			<div class="drawer">
 				<div class="drawer__login">
 					<span class="x-hori" data-key="d89fd3d5ae09d3ce4eb131aaef56df7e"></span> <span class="x-hori" data-key="5fad0b1810e3a2b87f6bdad937571a48"></span> </div>
-				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="booking">Узнать стоимость своей перевозки</a>
-				<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="poisk">Вы водитель? Найдите груз</a>
-				<div class="drawer__support">
+					
+				<?php if(!isset($_SESSION['user_id'])){ ?>
+					<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="../booking" style="margin:0 10px 0 10px; width:calc(100% - 20px)">Узнать стоимость своей перевозки</a>
+					<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="../kak_rabotat" style="margin:10px 10px 0 10px; width:calc(100% - 20px);">Вы водитель? Присоединяйтесь</a>
+					
+					<a href="../auth/choice" class="header__link header__register" style="color:#333; margin:20px 10px 0 10px; display:block; text-align:left; text-decoration:underline">Регистрация</a>
+					<br>
+					<a href="../auth/login" class="header__link header__register" style="color:#333; margin:0 10px 20px 10px; display:block; text-align:left; text-decoration:underline">Войти</a>
+				<?php } else { ?>
+					<?php if ($type=="0") {
+						echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="../poisk" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Поиск груза</a>';
+						echo '<a class="header__link header__register" href="../zaprosy" style="color:#333; margin:20px 10px 0 10px; display:block">Мои предложения</a>';
+					}  else {
+						echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="../zaprosy" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Мои запросы</a>';
+					}
+					echo '<a class="header__link header__register" href="../auth/logout" style="color:#333; margin:20px 10px 20px 10px; display:block">Выйти</a>';
+				} ?>
+				
+				<div class="drawer__support" style="padding-left:10px; text-align:left">
 					<span class="drawer__support-link">Служба поддержки</span>
 					<a class="drawer__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>
 					<span>Работаем круглосуточно</span>
