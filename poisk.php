@@ -104,7 +104,7 @@
 													<span><?php echo $freight_result["address_from"] ?> </span>                        
 												</td>
 												<td>
-													<span class="blue-arrow"><?php echo $freight_result["distance"] ?></span>
+													<span class="blue-arrow"><?php echo $freight_result["distance"]." км" ?></span>
 												</td>
 												<td>
 													<span><?php echo $freight_result["address_to"] ?></span>                               

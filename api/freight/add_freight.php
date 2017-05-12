@@ -5,8 +5,8 @@ require "../../util/connectDB.php";
 
 $user_id = ISSET($_POST["user_id"]) ? $_POST["user_id"] : null;
 $title = ISSET($_POST["title"]) ? $_POST["title"] : null;
-$weight = ISSET($_POST["weight"]) ? $_POST["weight"]." кг" : null;
-$volume = ISSET($_POST["volume"]) ? $_POST["volume"]." м3" : null;
+$weight = ISSET($_POST["weight"]) ? $_POST["weight"] : null;
+$volume = ISSET($_POST["volume"]) ? $_POST["volume"] : null;
 $price = ISSET($_POST["price"]) ? $_POST["price"] : null;
 $address_from = ISSET($_POST["address_from"]) ? $_POST["address_from"] : null;
 $address_to = ISSET($_POST["address_to"]) ? $_POST["address_to"] : null;

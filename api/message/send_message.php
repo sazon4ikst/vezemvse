@@ -30,4 +30,25 @@ $type = $user_result["type"];
 
 echo json_encode(array("name"=>$name, "time"=>date("d.m в H:i", strtotime($time)), "type"=>$type));
 
+// Send email notification
+$owner_query = mysqli_query($con, "SELECT user_id, freight_id FROM offer WHERE offer_id='$offer_id'") or die(mysqli_error($con));
+$owner_result = mysqli_fetch_assoc($owner_query);
+$owner_id = $owner_result["user_id"];
+$freight_id = $owner_result["freight_id"];
+$freight_owner_query = mysqli_query($con, "SELECT user_id FROM freight WHERE freight_id='$freight_id'") or die(mysqli_error($con));
+$freight_result = mysqli_fetch_assoc($freight_owner_query);
+$freight_owner_id = $freight_result["user_id"];
+if ($user_id == $owner_id){
+	$recipient_id = $freight_owner_id;
+} else {	
+	$recipient_id = $owner_id;
+}
+// Find recipient's email
+$recipient_query = mysqli_query($con, "SELECT email FROM user WHERE user_id='$recipient_id'") or die(mysqli_error($con));
+$recipient_result = mysqli_fetch_assoc($recipient_query);
+$email = $recipient_result["email"];
+
+mail($email, "Вам пришло новое сообщение", "Нажмите чтобы посмотреть");
+echo json_encode(array("error"=>"Send email ".$email));
+
 ?>

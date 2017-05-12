@@ -109,7 +109,7 @@
 				
 				<div class="drawer__support" style="padding-left:10px; text-align:left">
 					<span class="drawer__support-link">Служба поддержки</span>
-					<a class="drawer__support-phone" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>
+					<a class="drawer__support-phone">info@vezemvse.com.ua</a>
 					<span>Работаем круглосуточно</span>
 				</div>
 				<div class="drawer__buttons">

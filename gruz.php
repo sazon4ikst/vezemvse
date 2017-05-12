@@ -16,6 +16,11 @@
 	$freight_owner_id = $freight_result["user_id"];
 	$freight_status = $freight_result["status"];
 	
+	// Retrieve freight owner
+	$owner_query = mysqli_query($con, "SELECT name FROM user WHERE user_id='$freight_owner_id'") or die(mysqli_error($con));
+	$owner_result = mysqli_fetch_assoc($owner_query);
+	$owner_name = $owner_result["name"];
+	
 	// Check if user already submitted an offer
 	$my_offer_query = mysqli_query($con, "SELECT offer_id FROM offer WHERE freight_id='$id' AND user_id='$session_user_id'");
 	$already_have_offer = mysqli_fetch_assoc($my_offer_query) !== null;
@@ -296,12 +301,15 @@
 			<section id="content">
 				<div class="vv-container vv-container--no-padding x-detail">
 					<div id="x-order-questions-block"></div>
-					<?php if ($freight_status == "1" and $freight_owner_id==$session_user_id){ ?>
+					<?php if ($freight_status == "1" and $freight_owner_id==$session_user_id){
+						$accepted_offer_query = mysqli_query($con, "SELECT name, phone FROM user WHERE user_id IN (SELECT user_id FROM offer WHERE freight_id='$id' AND status='0')");
+						$accepted_offer_result = mysqli_fetch_assoc($accepted_offer_query);
+						?>
 						<div class="driver_selected">
 							<img id="selected_driver_image" alt="" src="/assets/styles/images/v3/perevozchik.svg" height="100px" width="100px" style="margin-top:-60px">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px; margin-top:10px">
-								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Вы выбрали перевозчика Дмитрий Шейко</h2>
-								Номер телефона: 0950252903. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
+								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Вы выбрали перевозчика <?php echo $accepted_offer_result["name"] ?></h2>
+								Номер телефона: <?php echo $accepted_offer_result["phone"] ?>. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
 							</div>
 						</div>
 					<?php } ?>
@@ -325,7 +333,7 @@
 								<a class="vi_perevozchik" id="button_delivered" style="cursor:pointer; margin-bottom:40px; font-weight:500; font-size:18px; padding:13px 30px 15px 30px; width:auto; line-height:25px">
 									Подтвердить доставку груза
 								</a>
-							<?php } else if (!empty($session_user_id) and !$already_have_offer and $type=="0"){ ?>
+							<?php } else if (!empty($session_user_id) and !$already_have_offer and $type=="0" and $freight_status=="0"){ ?>
 								<a id="bid_button" style="margin-bottom:40px; font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:500; font-size:18px; padding: 17px 30px 18px 30px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);" class="_button prdelajit_cenu_255 x-make-proposal-button" data-intro="Предложите свою цену на перевозку с помощью оранжевой кнопки" data-step="1">
 									ПРЕДЛОЖИТЬ СВОЮ ЦЕНУ
 								</a>
@@ -347,9 +355,13 @@
 													<span id="x-edit-cargo-button">
 													</span>
 												</div>
-												<div class="in_col column column-1024 gruz_info" style="overflow-x:hidden; background:#dfeaf5">
-													<div class="wr_row" style="font-family: 'Roboto', Helvetica, Arial, sans-serif">
-														<div class="row row_top" style="padding-bottom:20px;">
+												<div class="in_col column column-1024 gruz_info" style="overflow-x:hidden; overflow-y:auto; background:#dfeaf5">
+													<div class="wr_row" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; height:270px">
+														<div class="row row_top" style="padding-bottom:10px;">
+															<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Заказчик:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $owner_name ?></span></p>
+															<?php if (!empty($freight_result["price"])){ ?>
+																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Желаемая стоимость:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["price"]." грн" ?></span></p>
+															<?php } ?>
 															<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Дата погрузки:</b> <span class="date" style="margin-left:3px; font-weight:normal">
 																<?php
 																	if (!empty($freight_result["start_time"])){
@@ -364,11 +376,11 @@
 																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий объем:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["volume"] ?></span></p>
 															<?php } 
 															if (!empty($freight_result["weight"])){ ?>													
-																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий вес:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["weight"] ?></span></p>
+																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий вес:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo formatWeight($freight_result["weight"]) ?></span></p>
 															<?php } ?>
 														</div>
 														<?php if (!empty($freight_result["description"])){ ?>
-															<div class="row sposob_oplati" style="margin-top:10px; border:none; color:#333; font-weight:normal">
+															<div class="row sposob_oplati" style="margin-top:10px; padding-bottom: 20px; padding-right: 20px; line-height: 24px; border:none; color:#333; font-weight:normal">
 																<b style="color:#333; font-weight:500">Комментарий заказчика:</b>
 																<p style="margin-top:4px"></p>
 																<?php echo $freight_result["description"] ?>	
@@ -599,68 +611,72 @@
 						</div>
 						<?php						
 						
-						if (!empty($session_user_id) and !$already_have_offer and $type=="0"){
+						if (!empty($session_user_id) and !$already_have_offer and $type=="0" and $freight_status=="0"){
 						?>
-						<div id="bid" style="margin-top:40px">
-							<div data-reactroot="" class="bf-bid-form" id="bf">
-								<div class="bf-title">
-									<div class="bf-title__text">
-										Ваше предложение по&nbsp;заказу №&nbsp<?php echo $freight_result["freight_id"] ?>
+							<div id="bid" style="margin-top:40px">
+								<div data-reactroot="" class="bf-bid-form" id="bf">
+									<div class="bf-title">
+										<div class="bf-title__text">
+											Ваше предложение по&nbsp;заказу №&nbsp<?php echo $freight_result["freight_id"] ?>
+										</div>
 									</div>
-								</div>
-								<section class="bf-bid-form__block bf-bid-form__block--required bf-bid-form__block--price bf-price" id="bf-price">
-									<div class="bf-bid-form__block-hint"><span class="bf-bid-form__required">Обязательно к&nbsp;заполнению</span>
-									</div>
-									<div class="bf-bid-form__block-title bf-bid-form__required">Стоимость перевозки</div>
-									<article class="bf-price__row" style="margin-bottom:0">
-										<div class="bf-price__col bf-price__col--bid">
-											<div class="bf-price__el">
-												<div class="Input Input--label-left">
-													<input type="number" name="bid" value="" id="price" class="Input-control Input-control--left bf-price__price bf-price__price--fat">
-												</div>
-												<div class="SelectControl SelectControl--default SelectControl--top bf-price__currency-select" style="width:46px">
-													<div class="Select bf-price__currency-select bf-price__currency-select--fat Select--single has-value" style="width:46px">
-														<div class="Select-control">
-															<span class="Select-multi-value-wrapper" id="react-select-2--value">
-																<div class="Select-value" style="cursor:default"><span class="Select-value-label" role="option" aria-selected="true" id="react-select-2--value-item">грн</span>
-																</div>
-															</span>
+									<section class="bf-bid-form__block bf-bid-form__block--required bf-bid-form__block--price bf-price" id="bf-price">
+										<div class="bf-bid-form__block-hint"><span class="bf-bid-form__required">Обязательно к&nbsp;заполнению</span>
+										</div>
+										<div class="bf-bid-form__block-title bf-bid-form__required">Стоимость перевозки</div>
+										<article class="bf-price__row" style="margin-bottom:0">
+											<div class="bf-price__col bf-price__col--bid">
+												<div class="bf-price__el">
+													<div class="Input Input--label-left">
+														<input type="number" name="bid" value="" id="price" class="Input-control Input-control--left bf-price__price bf-price__price--fat">
+													</div>
+													<div class="SelectControl SelectControl--default SelectControl--top bf-price__currency-select" style="width:46px">
+														<div class="Select bf-price__currency-select bf-price__currency-select--fat Select--single has-value" style="width:46px">
+															<div class="Select-control">
+																<span class="Select-multi-value-wrapper" id="react-select-2--value">
+																	<div class="Select-value" style="cursor:default"><span class="Select-value-label" role="option" aria-selected="true" id="react-select-2--value-item">грн</span>
+																	</div>
+																</span>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
+										</article>
+										<article class="bf-price__row">
+											<div class="bf-price__col bf-price__col--manual"></div>
+										</article>
+									</section>
+									<section class="bf-bid-form__block bf-bid-form__block bf-bid-form__block--message bf-comment">
+										<div class="bf-bid-form__block-title">Сообщение заказчику</div>
+										<div class="bf-comment__content">
+											<div class="bf-comment__textarea Textarea">
+												<textarea id="message" class="Textarea-textarea--resize-vertical Textarea-textarea" rows="3" placeholder="Это сообщение будет показано заказчику в чате, где Вы сможете вести с ним переговоры по деталям перевозки, оплаты и т.п."></textarea>
+											</div>
+											<div class="bf-comment__attention">
+												<span style="padding-top:4px">
+												<b>ОБРАТИТЕ ВНИМАНИЕ!</b> Согласно правилам переписки, обмениваться контактными данными до&nbsp;заключения сделки запрещено.
+												</span>
+											</div>
 										</div>
-									</article>
-									<article class="bf-price__row">
-										<div class="bf-price__col bf-price__col--manual"></div>
-									</article>
-								</section>
-								<section class="bf-bid-form__block bf-bid-form__block bf-bid-form__block--message bf-comment">
-									<div class="bf-bid-form__block-title">Сообщение заказчику</div>
-									<div class="bf-comment__content">
-										<div class="bf-comment__textarea Textarea">
-											<textarea id="message" class="Textarea-textarea--resize-vertical Textarea-textarea" rows="3" placeholder="Это сообщение будет показано заказчику в чате, где Вы сможете вести с ним переговоры по деталям перевозки, оплаты и т.п."></textarea>
-										</div>
-										<div class="bf-comment__attention">
-											<span style="padding-top:4px">
-											<b>ОБРАТИТЕ ВНИМАНИЕ!</b> Согласно правилам переписки, обмениваться контактными данными до&nbsp;заключения сделки запрещено.
-											</span>
-										</div>
-									</div>
-								</section>
-								<section class="bf-bid-form__controls bf-controls" id="bid_button_wrapper">
-									<article class="bf-controls__block"  style="width:100%; margin-bottom:4px">
-										<button class="Button Button-forest Button-text Button-s bf-controls__big-button" id="add_button"><span class="bf-controls__add-suggestion-content" id="add_button_text" style="font-size:20px; font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:400;">ДОБАВИТЬ ПРЕДЛОЖЕНИЕ</span>
-										</button>
-									</article>
-								</section>
-								<div class="SpinnerContainer"></div>
+									</section>
+									<section class="bf-bid-form__controls bf-controls" id="bid_button_wrapper">
+										<article class="bf-controls__block"  style="width:100%; margin-bottom:4px">
+											<button class="Button Button-forest Button-text Button-s bf-controls__big-button" id="add_button"><span class="bf-controls__add-suggestion-content" id="add_button_text" style="font-size:20px; font-family: 'Roboto', Helvetica, Arial, sans-serif; font-weight:400;">ДОБАВИТЬ ПРЕДЛОЖЕНИЕ</span>
+											</button>
+										</article>
+									</section>
+									<div class="SpinnerContainer"></div>
+								</div>
 							</div>
-						</div>
-						<?php } else if (!$already_have_offer and isset($type) and $type=="0") { ?>
-						<div id="bid" style="margin:40px 0 20px 0">
-							Зарегистрируйтесь чтобы добавить заявку. Это бесплатно.
-						</div>
+						<?php } else if (!$already_have_offer and isset($type) and $type=="0" and $freight_status=="0") { ?>
+							<div id="bid" style="margin:40px 0 20px 0">
+								Зарегистрируйтесь чтобы добавить заявку. Это бесплатно.
+							</div>
+						<?php } else { ?>
+							<div id="bid" style="margin:40px 0 20px 0">
+								Заказ уже выполнен, приём заявок закрыт. <a href="/poisk">Найти другой груз</a>
+							</div>
 						<?php } ?>
 					</div>
 				</div>
@@ -857,12 +873,16 @@
 					},
 					dataType: "json",
 					success: function(data){						
-						button.html("Отправить");
-						text_field.val("");
+						button.html("Отправить");				
 						
-						var messages_layout = text_field.parent().parent().parent().parent().parent().parent().parent().find(".chat__list");
-						messages_layout.append("<div class='chat-message chat-message"+(data['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+data["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+data["name"]+"</span>"+(data['type']==0? "<span> (перевозчик):</span>" : "") +"</div><span class='chat-message__text'> "+message+"</span></div>");
-						messages_layout.scrollTop(messages_layout[0].scrollHeight);
+						if ('error' in data){
+							alert(data["error"]);
+						} else {
+							text_field.val("");
+							var messages_layout = text_field.parent().parent().parent().parent().parent().parent().parent().find(".chat__list");
+							messages_layout.append("<div class='chat-message chat-message"+(data['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+data["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+data["name"]+"</span>"+(data['type']==0? "<span> (перевозчик):</span>" : "") +"</div><span class='chat-message__text'> "+message+"</span></div>");
+							messages_layout.scrollTop(messages_layout[0].scrollHeight);
+						}
 					},
 					error: function(data){
 						alert("Ошибка отправки сообщения.");
@@ -1000,6 +1020,17 @@
 			</div>
 		</article>
 	</footer>
+	<?php
+	
+	function formatWeight($weight){
+		if ($weight < 1000){
+			return $weight." кг";
+		} else {			
+			return str_replace(".", ",", round($weight/1000, 1)." т");
+		}
+	}
+	
+	?>
 </html>
 <!--<div class="not-prepay-booking x-accept-suggestion-dialog" data-remodal-id="booking" style="display:block">
 	<button data-remodal-action="close" class="remodal-close"></button>

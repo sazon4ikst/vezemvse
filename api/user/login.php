@@ -28,6 +28,7 @@ if (!$user_result or !password_verify($password, $user_result["password"])) {
 $_SESSION['user_id']= $user_result["user_id"];
 $_SESSION['name']= $user_result["name"];
 $_SESSION['type']= $user_result["type"];
+$_SESSION['email'] = $user_result["email"];
 
 echo json_encode(array("type"=>$user_result["type"]));
 

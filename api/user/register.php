@@ -42,5 +42,6 @@ echo json_encode(array("result"=>"success"));
 $_SESSION['user_id'] = $user_id;
 $_SESSION['name'] = $name;
 $_SESSION['type'] = "0";
+$_SESSION['email'] = $email;
 
 ?>
