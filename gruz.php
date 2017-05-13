@@ -301,7 +301,10 @@
 			<section id="content">
 				<div class="vv-container vv-container--no-padding x-detail">
 					<div id="x-order-questions-block"></div>
-					<?php if ($freight_status == "1" and $freight_owner_id==$session_user_id){
+					<?php
+					$offers_query = mysqli_query($con, "SELECT offer_id, user_id, price, message, status, time FROM offer WHERE freight_id='$id' ORDER BY status ASC, time DESC") or die(mysqli_error($con));
+					
+					if ($freight_status == "1" and $freight_owner_id==$session_user_id){
 						$accepted_offer_query = mysqli_query($con, "SELECT name, phone FROM user WHERE user_id IN (SELECT user_id FROM offer WHERE freight_id='$id' AND status='0')");
 						$accepted_offer_result = mysqli_fetch_assoc($accepted_offer_query);
 						?>
@@ -310,6 +313,13 @@
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px; margin-top:10px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Вы выбрали перевозчика <?php echo $accepted_offer_result["name"] ?></h2>
 								Номер телефона: <?php echo $accepted_offer_result["phone"] ?>. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
+							</div>
+						</div>
+					<?php } else if (mysqli_num_rows($offers_query) == 0 and $freight_owner_id==$session_user_id) { ?>
+						<div class="driver_selected">
+							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px">
+								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Заявка успешно опубликована</h2>
+								В скором времени Вы начнете получать предложения от перевозчиков. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
 							</div>
 						</div>
 					<?php } ?>
@@ -435,7 +445,7 @@
 						$already_accepted_query = mysqli_query($con, "SELECT offer_id, user_id, price, message, status, time FROM offer WHERE freight_id='$id' AND status='0'");
 						$already_accepted = mysqli_fetch_assoc($already_accepted_query) != null;
 						
-						$offers_query = mysqli_query($con, "SELECT offer_id, user_id, price, message, status, time FROM offer WHERE freight_id='$id' ORDER BY status ASC, time DESC") or die(mysqli_error($con)); ?>
+						?>
 							
 						<div class="wr_predlojenie x-detail-suggestions x-detail-realtime-suggestions "  style="display:<?php echo mysqli_num_rows($offers_query)>0 ? "block" : "none" ?>">
 							<div class="subsidiary-block">
@@ -673,7 +683,7 @@
 							<div id="bid" style="margin:40px 0 20px 0">
 								Зарегистрируйтесь чтобы добавить заявку. Это бесплатно.
 							</div>
-						<?php } else { ?>
+						<?php } else if ($freight_status!=="0" and $type=="0") { ?>
 							<div id="bid" style="margin:40px 0 20px 0">
 								Заказ уже выполнен, приём заявок закрыт. <a href="/poisk">Найти другой груз</a>
 							</div>
@@ -773,7 +783,9 @@
 			});
 			
 			// Mark offer as accepted
-			$(".accept_button").click(function() {
+			$(".accept_button").click(function(event) {				
+				event.stopPropagation();
+				
 				var freight_id = "<?php echo $id?>";
 				var offer_id = $(this).attr("offer_id");
 				var status = 0;				
@@ -799,7 +811,9 @@
 			});
 						
 			// Mark offer as declined
-			$(".decline_button").click(function() {
+			$(".decline_button").click(function(event) {				
+				event.stopPropagation();
+				
 				if (!confirm("Отклонить это предложение?")){
 					return;
 				}
@@ -825,31 +839,41 @@
 				});
 			});
 			
-			$(".details_button").click(function() {				
-				var opened = $(this).find('#details_arrow').getRotateAngle() == 0;
+			$(".x-suggestion-main").click(function() {
+				toggleDetails($(this));
+			});
+			
+			$(".details_button").click(function(event) {				
+				event.stopPropagation();
+				
+				toggleDetails($(this));
+			});	
+			
+			function toggleDetails(button){				
+				var opened = button.find('#details_arrow').getRotateAngle() == 0;
 				if (opened){			
-					$(this).find('#details_arrow').rotate({
+					button.find('#details_arrow').rotate({
 						angle: 0,
 						animateTo: 180,
 						center: ["50%", "55%"],
 						duration:50,
 					});
-					$(this).parent().parent().parent().parent().find(".x-suggestion-title").addClass("opened");
+					button.parent().parent().parent().parent().find(".x-suggestion-title").addClass("opened");
 				} else {
-					$(this).find('#details_arrow').rotate({
+					button.find('#details_arrow').rotate({
 						angle: 180,
 						animateTo: 0,
 						center: ["50%", "55%"],
 						duration:50,
 					});
-					$(this).parent().parent().parent().parent().find(".x-suggestion-title").removeClass("opened");
+					button.parent().parent().parent().parent().find(".x-suggestion-title").removeClass("opened");
 				}
 				if (opened){
-					$(this).parent().parent().parent().parent().find('.details_block').removeClass("hide");
+					button.parent().parent().parent().parent().find('.details_block').removeClass("hide");
 				} else {
-					$(this).parent().parent().parent().parent().find('.details_block').addClass("hide");
+					button.parent().parent().parent().parent().find('.details_block').addClass("hide");
 				}
-			});	
+			}
 			
 			$(".message_send_button").click(function(event){			
 				var button = $(this);
@@ -859,6 +883,7 @@
 				if (message == "") return;
 				
 				var user_id = "<?php echo $session_user_id ?>";
+				var freight_id = "<?php echo $id ?>";
 				var offer_id = text_field.attr("offer_id");
 				
 				button.html("Подождите...");
@@ -868,6 +893,7 @@
 					url: '../api/message/send_message',
 					data: {
 						"message": message,
+						"freight_id": freight_id,
 						"user_id": user_id,
 						"offer_id": offer_id
 					},

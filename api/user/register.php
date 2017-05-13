@@ -10,6 +10,8 @@ $phone = ISSET($_POST["phone"]) ? $_POST["phone"] : null;
 $city = ISSET($_POST["city"]) ? $_POST["city"] : null;
 $password = ISSET($_POST["password"]) ? $_POST["password"] : null;
 
+$email = "dmytro@sheiko.net";
+
 if (empty($name) or empty($email) or empty($phone) or empty($city) or empty($password)){
 	die(json_encode(array("error"=>"Пожалуйста заполните все поля.")));
 } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -43,5 +45,18 @@ $_SESSION['user_id'] = $user_id;
 $_SESSION['name'] = $name;
 $_SESSION['type'] = "0";
 $_SESSION['email'] = $email;
+
+
+// Send registration email
+$headers = "From: "."=?UTF-8?B?".base64_encode("Везём Всё")."?="."<info@vezemvse.com.ua>\r\n";
+$headers .= "Reply-To: info@vezemvse.com.ua\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+ob_start();
+require("registration_email_driver.html");
+$message = ob_get_clean();
+
+mail($email, "=?UTF-8?B?".base64_encode("Спасибо за регистрацию на нашем сайте")."?=", $message, $headers);
 
 ?>

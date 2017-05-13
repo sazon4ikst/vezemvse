@@ -155,7 +155,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 							</a>
 						</div>
 						<div class="header__item header__carriers">
-							<a class="header__action _order" href="poisk">
+							<a class="header__action _order" href="kak_rabotat">
 								<strong>Вы перевозчик?</strong>
 								<br/>Присоединяйтесь
 							</a>

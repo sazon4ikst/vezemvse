@@ -3,10 +3,11 @@
 require "../../util/connectDB.php";
 
 $user_id = isset($_POST['user_id']) ? $_POST["user_id"] : null;
+$freight_id = isset($_POST['freight_id']) ? $_POST["freight_id"] : null;
 $offer_id = isset($_POST['offer_id']) ? $_POST["offer_id"] : null;
 $message = isset($_POST['message']) ? $_POST["message"] : null;
 
-if (empty($user_id) or empty($offer_id) or empty($message)){
+if (empty($user_id) or empty($freight_id) or empty($offer_id) or empty($message)){
 	die("Пожалуйста заполните все поля.");
 }
 
@@ -48,7 +49,16 @@ $recipient_query = mysqli_query($con, "SELECT email FROM user WHERE user_id='$re
 $recipient_result = mysqli_fetch_assoc($recipient_query);
 $email = $recipient_result["email"];
 
-mail($email, "Вам пришло новое сообщение", "Нажмите чтобы посмотреть");
-echo json_encode(array("error"=>"Send email ".$email));
+// Send registration email
+$headers = "From: "."=?UTF-8?B?".base64_encode("Везём Всё")."?="."<info@vezemvse.com.ua>\r\n";
+$headers .= "Reply-To: info@vezemvse.com.ua\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+ob_start();
+require("new_message_email.html");
+$message = ob_get_clean();
+
+mail($email, "=?UTF-8?B?".base64_encode("Вам пришло новое сообщение")."?=", $message, $headers);
 
 ?>
