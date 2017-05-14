@@ -132,7 +132,7 @@
 									<h1 class="pustoi1 auth_title" style="font-size:30px; margin-bottom:30px; padding-top:10px; margin-left:43px">Заполните все поля:</h1>
 									<div class="s-itog11 x-auth-input-block">
 										<div class="pustoi7">
-											<input id="name" type="text" class="pustoi1 x-auth-validate" placeholder="Имя или название компании" name="firstName" autocomplete="name" required>
+											<input id="name" type="text" class="pustoi1 x-auth-validate" placeholder="Название компании или Ваше имя" name="firstName" autocomplete="name" required>
 
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>

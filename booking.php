@@ -1221,7 +1221,7 @@
 							<div class="InputControl">
 								<label class="InputControl-label InputControl-label--normal" for="name">Наименование <font color=red>*</font></label>
 								<div>
-									<input type="text" value="" label="Наименование" id="name" placeholder="Введите название груза" class="InputControl-control InputControl-control--left" style="max-width: 450px">
+									<input type="text" value="" label="Наименование" id="name" placeholder="Введите название груза (обязательно)" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 								</div>
 							</div>
 							<div class="InputControl" style="margin-top:20px">
@@ -1315,12 +1315,12 @@
 					   <div class="RouteScreen-date" style="margin-bottom:20px">
 						  <div class="RouteScreen-dateSwitch RouteScreen-field">
 							 <label class="SwitchControl SwitchControl--middle">
-								<input id="dateCheckbox" type="checkbox" class="SwitchControl-input" name="" value="on"><!-- react-text: 845 --><!-- /react-text -->
+								<input id="dateCheckbox" type="checkbox" class="SwitchControl-input" name="" value="on" checked><!-- react-text: 845 --><!-- /react-text -->
 								<div class="SwitchControl-buttonwrapper"><span class="SwitchControl-track"></span><span class="SwitchControl-button"></span></div>
 								<span class="SwitchControl-label SwitchControl-label--l SwitchControl-label--middle">Дата перевозки</span>
 							 </label>
 						  </div>
-						  <div id="dateLayout" style="display:none; margin-top: 15px">
+						  <div id="dateLayout" style="margin-top: 15px">
 							 <div>
 								<span style="display: table; height: 0px;"></span>
 								<div>
@@ -1363,7 +1363,7 @@
 							?>
 						  <div class="InputControl ContactsScreen-field" id="nameLayout">
 							 <label class="InputControl-label InputControl-label--normal" for="1">
-								<!-- react-text: 725 -->Ваше имя<!-- /react-text --><!-- react-text: 726 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
+								<!-- react-text: 725 -->Названии компании или Ваше имя<!-- /react-text --><!-- react-text: 726 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
 							 </label>
 							 <input type="text" name="name" required="" label="Ваше имя" <?php echo $name==null?"":"disabled='false'" ?> value="<?php echo $name ?>" id="full_name" style="cursor:<?php echo $name==null?"text":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
 						  </div>
@@ -1378,7 +1378,7 @@
 								<label class="InputControl-label InputControl-label--normal" for="1">
 								   <!-- react-text: 738 -->Пароль<!-- /react-text --><!-- react-text: 739 --> <!-- /react-text --><span class="InputControl-label-required">*</span>
 								</label>
-								<input type="password" name="password" required="" label="Пароль" <?php echo $password==null?"":"disabled='false'" ?> value="" id="password" style="cursor:<?php echo $password==null?"text":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
+								<input type="password" name="password" required="" label="Пароль" <?php echo $email==null?"":"disabled='false'" ?> value="" id="password" style="cursor:<?php echo $email==null?"text":"not-allowed" ?>" class="InputControl-control InputControl-control--left">
 							 </div>
 						  </div>
 						  <div class="ContactsScreen-contactsPhones" id="phoneLayout" style="margin-top:5px">
@@ -1441,6 +1441,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js"></script>
     <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
     <script src="/booking/assets/bootstrap/bootstrap.min.js"></script>
+	<script type='text/javascript' src="util/jivosite.js"></script>
 	
 	<script>
 		var distance;
@@ -1772,10 +1773,10 @@
 				totalTime += myroute.legs[i].duration.value;
 			}
 			totalDist = totalDist / 1000.
-			distance = Math.round(totalDist) + " км";
+			distance = Math.round(totalDist);
 		}
 	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCncHq_o9gZVaJDpnuOdq7hVwJo6-7Nc7I&libraries=places&callback=initAutocomplete&language=ru&region=ua" async defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL5UB6urkL0ni5h-_R9WqLBIJxWdgZl2w&libraries=places&callback=initAutocomplete&language=ru&region=ua" async defer></script>
 </body>
 
 </html>

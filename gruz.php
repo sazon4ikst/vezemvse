@@ -13,17 +13,24 @@
 				
 	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, address_to, distance, weight, volume, price, posted_time, start_time, volume, weight, description, status FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
 	$freight_result = mysqli_fetch_assoc($freight_query);
+	if ($freight_result==null) die("Груз не найден");
 	$freight_owner_id = $freight_result["user_id"];
 	$freight_status = $freight_result["status"];
 	
 	// Retrieve freight owner
-	$owner_query = mysqli_query($con, "SELECT name FROM user WHERE user_id='$freight_owner_id'") or die(mysqli_error($con));
+	$owner_query = mysqli_query($con, "SELECT name, phone FROM user WHERE user_id='$freight_owner_id'") or die(mysqli_error($con));
 	$owner_result = mysqli_fetch_assoc($owner_query);
 	$owner_name = $owner_result["name"];
 	
 	// Check if user already submitted an offer
-	$my_offer_query = mysqli_query($con, "SELECT offer_id FROM offer WHERE freight_id='$id' AND user_id='$session_user_id'");
-	$already_have_offer = mysqli_fetch_assoc($my_offer_query) !== null;
+	$my_offer_query = mysqli_query($con, "SELECT offer_id, status FROM offer WHERE freight_id='$id' AND user_id='$session_user_id'");
+	$my_offer_result = mysqli_fetch_assoc($my_offer_query);
+	if ($my_offer_result !== null){
+		$my_offer_status = $my_offer_result["status"];
+		$already_have_offer = true;
+	} else {
+		$already_have_offer = false;
+	}
 	
 	if ($session_user_id != null){
 		// Get user type
@@ -312,14 +319,21 @@
 							<img id="selected_driver_image" alt="" src="/assets/styles/images/v3/perevozchik.svg" height="100px" width="100px" style="margin-top:-60px">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px; margin-top:10px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Вы выбрали перевозчика <?php echo $accepted_offer_result["name"] ?></h2>
-								Номер телефона: <?php echo $accepted_offer_result["phone"] ?>. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
+								Номер телефона водителя: <?php echo $accepted_offer_result["phone"] ?>. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
 							</div>
 						</div>
-					<?php } else if (mysqli_num_rows($offers_query) == 0 and $freight_owner_id==$session_user_id) { ?>
+					<?php } else if (mysqli_num_rows($offers_query) == 0 and $freight_owner_id==$session_user_id and $freight_status=="0") { ?>
 						<div class="driver_selected">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Заявка успешно опубликована</h2>
 								В скором времени Вы начнете получать предложения от перевозчиков. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
+							</div>
+						</div>
+					<?php } else if ($already_have_offer and $my_offer_status=="0" and $freight_status!=="2") { ?>
+						<div class="driver_selected">
+							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px">
+								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Поздравляем, Вас выбрали для выполнения этого заказа!</h2>
+								Вы можете связаться с заказчиком по номеру <b><?php echo $owner_result["phone"] ?></b> или продолжить общение в чате.<br><br>Есть вопросы? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
 							</div>
 						</div>
 					<?php } ?>
@@ -383,7 +397,7 @@
 																</span>
 															</p>
 															<?php if (!empty($freight_result["volume"])){ ?>
-																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий объем:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["volume"] ?></span></p>
+																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий объем:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo str_replace(".", ",", $freight_result["volume"])." м3" ?></span></p>
 															<?php } 
 															if (!empty($freight_result["weight"])){ ?>													
 																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий вес:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo formatWeight($freight_result["weight"]) ?></span></p>
@@ -683,7 +697,7 @@
 							<div id="bid" style="margin:40px 0 20px 0">
 								Зарегистрируйтесь чтобы добавить заявку. Это бесплатно.
 							</div>
-						<?php } else if ($freight_status!=="0" and $type=="0") { ?>
+						<?php } else if ($freight_status=="2" and $type=="0") { ?>
 							<div id="bid" style="margin:40px 0 20px 0">
 								Заказ уже выполнен, приём заявок закрыт. <a href="/poisk">Найти другой груз</a>
 							</div>
@@ -693,7 +707,7 @@
 			</section>
 		</div>
 		<script src="assets/scripts/jQueryRotate.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVFLhJdzYyO3lSp-JUYITYBrWJ-Jy419I&callback=initMap&language=ru&region=UA" async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL5UB6urkL0ni5h-_R9WqLBIJxWdgZl2w&callback=initMap&language=ru&region=UA" async defer></script>
 		
 		<script>
 			var directionDisplay;

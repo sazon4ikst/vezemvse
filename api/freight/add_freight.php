@@ -26,9 +26,8 @@ if (empty($title) or empty($address_from) or empty($address_to)){
 
 global $con;
 
-$registered = false;
 if (empty($user_id)){
-	if ($registered == false){
+	if ($registered == "false"){
 		$raw_password = mt_rand(100000, 999999);
 
 		// Encrypt the password
@@ -56,6 +55,8 @@ if (empty($user_id)){
 		$message = ob_get_clean();
 
 		mail($email, "=?UTF-8?B?".base64_encode("Спасибо за регистрацию на нашем сайте")."?=", $message, $headers);
+		
+		$_SESSION['name'] = $full_name;
 	} else {		
 		$password = mysqli_real_escape_string($con, $password);
 		$email = mysqli_real_escape_string($con, $email);
@@ -73,10 +74,11 @@ if (empty($user_id)){
 
 		$user_id = $user_result["user_id"];
 		$name = $user_result["name"];
+		
+		$_SESSION['name'] = $name;
 	}
 
 	$_SESSION['user_id'] = $user_id;
-	$_SESSION['name'] = $full_name;
 	$_SESSION['type'] = "1";
 	$_SESSION['email'] = $email;
 }
@@ -108,18 +110,13 @@ $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 $drivers_query = mysqli_query($con, "SELECT name, email FROM user WHERE type='0'") or die(mysqli_error($con));
 while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
 	$email = $drivers_result["email"];
-	$driver_name = parseFirstName($drivers_result["name"]);	
+	$driver_name = $drivers_result["name"];	
 
 	ob_start();
 	require("new_freight_email.html");
 	$message = ob_get_clean();
 	
 	mail($email, "=?UTF-8?B?".base64_encode("Новый заказ – ".$title)."?=", $message, $headers);
-}
-
-function parseFirstName($name){
-	$nameParts = explode(" ", $name);
-	return $nameParts[0];
 }
 
 ?>

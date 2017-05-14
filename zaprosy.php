@@ -82,13 +82,13 @@
 								require("util/connectDB.php");
 								global $con;
 								if ($type=="0"){
-									$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, address_to, distance, weight, volume, price, start_time FROM freight WHERE freight_id IN (SELECT freight_id FROM offer WHERE user_id='$session_user_id') ORDER BY posted_time DESC") or die (mysqli_error($con));
+									$freight_query = mysqli_query($con, "SELECT freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid) AS last_offer FROM freight WHERE freight_id IN (SELECT freight_id FROM offer WHERE user_id='$session_user_id') ORDER BY posted_time DESC") or die (mysqli_error($con));
 								} else {
-									$freight_query = mysqli_query($con, "SELECT freight_id, title, address_from, address_to, distance, weight, volume, price, start_time FROM freight WHERE user_id='$session_user_id' ORDER BY posted_time DESC") or die (mysqli_error($con));
+									$freight_query = mysqli_query($con, "SELECT freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid) AS last_offer FROM freight WHERE user_id='$session_user_id' ORDER BY posted_time DESC") or die (mysqli_error($con));
 								}
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
-									<a href="gruz?id=<?php echo $freight_result["freight_id"] ?>" class="orders_inner_item_link"></a>
+									<a href="gruz?id=<?php echo $freight_result["freightid"] ?>" class="orders_inner_item_link"></a>
 									<table>
 										<colgroup>
 											<col width="4%">
@@ -124,12 +124,18 @@
 													<span><?php echo $freight_result["address_to"] ?></span>                               
 												</td>												
 												<td>
-													Последнее предложение:
-													<?php if(!empty($freight_result["price"])){ ?>
+												<?php if ($freight_result["status"] == "2") { ?>
+													<p class="torg_green" style="background: #00b911; color: #fff; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; padding: 5px 15px; border-radius: 30px; width:150px; text-align:center; float:right; margin-top:10px">Заказ выполнен</p>
+												<?php } else { ?>									
+													Последнее предложение:			
+													<?php if(!empty($freight_result["last_offer"])){ ?>
+														<span><?php echo number_format($freight_result["last_offer"], 0, ".", " ") ?> грн</span>
+													<?php } else if(!empty($freight_result["price"])){ ?>
 														<span><?php echo number_format($freight_result["price"], 0, ".", " ") ?> грн</span>
 													<?php } else { ?>
 														<span style="margin-right: 2px">—</span>
-													<?php } ?>
+													<?php }
+												} ?>
 												</td>
 											</tr>
 										</tbody>
