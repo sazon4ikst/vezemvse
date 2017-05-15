@@ -1,0 +1,17 @@
+User-agent: Yandex
+Disallow: /auth
+Disallow: /registration
+Disallow: /zaprosy
+Disallow: /api
+Disallow: /send_mail
+Disallow: /util
+Disallow: /scraper
+
+User-Agent: Googlebot
+Disallow: /auth
+Disallow: /registration
+Disallow: /zaprosy
+Disallow: /api
+Disallow: /send_mail
+Disallow: /util
+Disallow: /scraper

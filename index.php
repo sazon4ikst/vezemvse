@@ -40,54 +40,57 @@ session_start();
 		}
 	</style>
 
-	<!--<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	<?php
+	require_once("util/analytics.php");
+	
+	if ($_SERVER['SERVER_NAME'] == "vezemvse.com.ua" and !$analytics_disabled){ ?>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-89978000-4', 'auto');
-  ga('send', 'pageview');
+	  ga('create', 'UA-89978000-4', 'auto');
+	  ga('send', 'pageview');
 
-</script>
-<script type="text/javascript">
-setTimeout(function(){var a=document.createElement("script");
-var b=document.getElementsByTagName("script")[0];
-a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0056/1107.js?"+Math.floor(new Date().getTime()/3600000);
-a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
-</script>
-<!-- Yandex.Metrika counter -->
-	<!--
-<script type="text/javascript">
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter42689514 = new Ya.Metrika({
-                    id:42689514,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    webvisor:true
-                });
-            } catch(e) { }
-        });
+	</script>
+	<script type="text/javascript">
+	setTimeout(function(){var a=document.createElement("script");
+	var b=document.getElementsByTagName("script")[0];
+	a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0056/1107.js?"+Math.floor(new Date().getTime()/3600000);
+	a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+	</script>
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter42689514 = new Ya.Metrika({
+						id:42689514,
+						clickmap:true,
+						trackLinks:true,
+						accurateTrackBounce:true,
+						webvisor:true
+					});
+				} catch(e) { }
+			});
 
-        var n = d.getElementsByTagName("script")[0],
-            s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "https://mc.yandex.ru/metrika/watch.js";
+			var n = d.getElementsByTagName("script")[0],
+				s = d.createElement("script"),
+				f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = "https://mc.yandex.ru/metrika/watch.js";
 
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/42689514" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-
+			if (w.opera == "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f, false);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks");
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/42689514" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- /Yandex.Metrika counter -->
 	<meta name="yandex-verification" content="02cbc138dbce34b8" />
+	<?php } ?>
 </head>
 
 <body>
@@ -149,7 +152,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 							<a class="header__title-link" href="#">Онлайн-сервис перевозок</a>
 						</div>
 						<div class="header__item">
-							<a class="header__action _order" href="booking">
+							<a class="header__action _order" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 								<strong>Узнайте лучшую цену</strong>
 								<br/>на перевозку груза
 							</a>
@@ -201,7 +204,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 					<span class="x-hori" data-key="d89fd3d5ae09d3ce4eb131aaef56df7e"></span> <span class="x-hori" data-key="5fad0b1810e3a2b87f6bdad937571a48"></span> </div>
 					
 				<?php if(!isset($_SESSION['user_id'])){ ?>
-					<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="booking" style="margin:0 10px 0 10px; width:calc(100% - 20px)">Узнать стоимость своей перевозки</a>
+					<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="booking" style="margin:0 10px 0 10px; width:calc(100% - 20px)" onclick="yaCounter42689514.reachGoal('booking')">Узнать стоимость своей перевозки</a>
 					<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="kak_rabotat" style="margin:10px 10px 0 10px; width:calc(100% - 20px)">Вы водитель? Присоединяйтесь</a>
 					
 					<a href="/auth/choice" class="header__link header__register" style="color:#333; margin:20px 10px 0 10px; display:block">Регистрация</a>
@@ -292,7 +295,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 					</header>
 
 					<div class="description__features">
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/flat.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -305,7 +308,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/cars.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -318,7 +321,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/water.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -331,7 +334,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/way.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -344,7 +347,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/liquid.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -357,7 +360,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/granulars.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -370,7 +373,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/build.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -383,7 +386,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/food.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -396,7 +399,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/animals.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -409,7 +412,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/agro.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -422,7 +425,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/garbage.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -435,7 +438,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/rails.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -448,7 +451,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/oversize.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -461,7 +464,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/passengers.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
@@ -474,7 +477,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 								</div>
 							</div>
 						</a>
-						<a class="description__feature" href="booking">
+						<a class="description__feature" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
 							<img class="description__feature-image" src="assets/images/home_v4/mosaic/order-car.jpg">
 							<div class="description__feature-summary">
 								<div class="description__feature-title">
