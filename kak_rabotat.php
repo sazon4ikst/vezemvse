@@ -160,7 +160,7 @@ session_start();
 						</div>
 					</div>
 					<div class="how-offer__service-counter-wrapper" style="height:100px; background:none">
-						<a class="vv-button vv-button--gold vv-button--medium how-offer__service-counter-button" href="/registration/step0" style="font-weight:500; font-size:22px; padding: 22px 50px 23px 50px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2); height:auto">Присоединиться</a>
+						<a class="vv-button vv-button--gold vv-button--medium how-offer__service-counter-button" href="/registration/step0<?php echo ISSET($_GET["gruz"])?("?gruz=".$_GET["gruz"]):""?>" style="font-weight:500; font-size:22px; padding: 22px 50px 23px 50px; box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2); height:auto">Присоединиться</a>
 					</div>
 				</div>
 			</div>
@@ -178,7 +178,7 @@ session_start();
 						<label class="how-start__step-title how-start__step-title--reg" for="1.step">Зарегистрируйтесь на&nbsp;сайте<div class="how-start__step-arrow"><svg class="how-couse__block-arrow-svg how-start__step-arrow-svg" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg"><path d="M.843 7.207L.136 6.5 6.5.136 7.914 1.55 2.964 6.5l4.95 4.95L6.5 12.864.843 7.207z" class="vv-button__arrow" fill-rule="evenodd"/></svg></div></label>
 						<div class="how-start__step-info">
 							<div class="how-start__step-p">Укажите контактные данные, псевдоним и&nbsp;пароль.</div>
-							<a class="vv-button vv-button--gold how-start__step-button" href="/registration/step0">Зарегистрироваться</a>
+							<a class="vv-button vv-button--gold how-start__step-button" href="/registration/step0<?php echo ISSET($_GET["gruz"])?("?gruz=".$_GET["gruz"]):""?>">Зарегистрироваться</a>
 						</div>
 					</div>
 					<div class="how-start__step">
@@ -230,7 +230,7 @@ session_start();
 		<div class="vv-container">
 			<div class="how-reg__title">Зарегистрируйтесь на&nbsp;сервисе и&nbsp;начните зарабатывать уже сегодня</div>
 			<div class="how-reg__subtitle">Регистрация бесплатная</div>
-			<a class="vv-button vv-button--gold  vv-button--big how-reg__button" href="/registration/step0">Начать работать</a>
+			<a class="vv-button vv-button--gold  vv-button--big how-reg__button" href="/registration/step0<?php echo ISSET($_GET["gruz"])?("?gruz=".$_GET["gruz"]):""?>">Начать работать</a>
 		</div>
 	</section>
 

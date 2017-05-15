@@ -217,7 +217,7 @@
 
 									<div class="s-itog11 x-auth-input-block">
 										<div class="pustoi7">
-											<input id="city" type="text" class="pustoi1 x-ac-related x-ac-input x-ac-city x-auth-validate x-input" placeholder="Город" name="city" data-tip="city" autocomplete="shipping locality" required>
+											<input id="city" type="text" class="pustoi1 x-ac-related x-ac-input x-ac-city x-auth-validate x-input" placeholder="Город" name="city" data-tip="city" autocomplete="shipping locality" value="Киев" required>
 
 											<div class="pustoi3"></div>
 											<div class="pustoi4"></div>
@@ -301,7 +301,7 @@
 					$("#register_button").html("Зарегистрироваться");
 					alert(data["error"]);
 				} else {
-					window.open('../poisk', '_self', false);
+					window.open('<?php echo ISSET($_GET["gruz"])?("../gruz?id=".$_GET["gruz"]):"../poisk"?>', '_self', false);
 				}
             }
         });
