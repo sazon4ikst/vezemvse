@@ -1,0 +1,5 @@
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\wamp64\www\api\notification\update_token.php:8:</small>
+<b>array</b> <i>(size=1)</i>
+  'participant_google_token' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'eBMnytVzxsg:APA91bHPnAxjQw1W5SRWYs32h22Qf6MF75waOeegPWPEk-P6u3SRElqvHWI6q-3YMxVaFWe8SPHJKpGaAwro1I0JIH6hE1UFCx-sCjMVzOE8Hnd9hbVE3GOqwlETgm-V3dYhga3JE179'</font> <i>(length=152)</i>
+</pre>

@@ -40,6 +40,6 @@ ob_start();
 require("new_offer_email.html");
 $message = ob_get_clean();
 
-mail($email, "=?UTF-8?B?".base64_encode("Новое предложение от перевозчика ".$name)."?=", $message, $headers);
+@mail($email, "=?UTF-8?B?".base64_encode("Новое предложение от перевозчика ".$name)."?=", $message, $headers);
 
 ?>
