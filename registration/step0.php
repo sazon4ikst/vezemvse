@@ -301,6 +301,10 @@
 					$("#register_button").html("Зарегистрироваться");
 					alert(data["error"]);
 				} else {
+					ga('send', 'event', {
+						eventCategory: 'Регистрация водителя'
+					});
+					
 					window.open('<?php echo ISSET($_GET["gruz"])?("../gruz?id=".$_GET["gruz"]):"../poisk"?>', '_self', false);
 				}
             }

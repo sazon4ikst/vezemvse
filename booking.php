@@ -1741,6 +1741,10 @@
 					if ('error' in data){
 						alert(data["error"]);
 					} else {						
+						ga('send', 'event', {
+							eventCategory: 'Размещение запроса'
+						});
+					
 						window.open ('zaprosy.php', '_self', false);
 					}
 				},

@@ -243,7 +243,7 @@
 				if ('error' in data){
 					alert(data["error"]);
 					$("#login_button").html("Войти на сайт");
-				} else {
+				} else {					
 					if (data["type"]=="0"){
 						window.open('../poisk', '_self', false);
 					} else {

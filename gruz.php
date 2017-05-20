@@ -832,7 +832,12 @@
 						"price": price,
 						"message": message
 					},
-					success: function(data){
+					success: function(data){												
+						ga('send', 'event', {
+							eventCategory: 'Предложение',
+							eventAction: 'Добавить новое',							
+						});
+						
 						var offer_id = JSON.parse(data)["offer_id"];
 						$("#add_button_text").text("Предложение добавлено!");
 						window.open('?id='+freight_id+'&offer='+offer_id,"_self");
@@ -866,6 +871,11 @@
 					},
 					dataType: "json",
 					success: function(data){
+						ga('send', 'event', {
+							eventCategory: 'Предложение',
+							eventAction: 'Подтвердить',							
+						});
+						
 						alert("Вы согласились с предложением, в скором времени с Вами свяжется перевозчик!");
 						location.reload();
 					},
@@ -969,7 +979,12 @@
 						
 						if ('error' in data){
 							alert(data["error"]);
-						} else {
+						} else {																			
+							ga('send', 'event', {
+								eventCategory: 'Сообщение',
+								eventAction: 'Добавить новое',							
+							});
+							
 							text_field.val("");
 							var messages_layout = text_field.parent().parent().parent().parent().parent().parent().parent().find(".chat__list");
 							messages_layout.append("<div class='chat-message chat-message"+(data['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+data["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+data["name"]+"</span>"+(data['type']==0? "<span> (перевозчик):</span>" : "") +"</div><span class='chat-message__text'> "+message+"</span></div>");
@@ -1002,7 +1017,12 @@
 						"status": status
 					},
 					dataType: "json",
-					success: function(data){			
+					success: function(data){																		
+						ga('send', 'event', {
+							eventCategory: 'Заказ',
+							eventAction: 'Доставлен',							
+						});
+					
 						location.reload();
 					},
 					error: function(data){
