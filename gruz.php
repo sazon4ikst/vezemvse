@@ -47,21 +47,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<meta name="googlebot"content="noarchive">
 		<meta name="keywords" content="грузовые перевозки, информационная система грузоперевозок, компании грузоперевозок, онлайн грузоперевозки, онлайн-сервис грузоперевозок, сайт грузоперевозок, сайт перевозки грузов">
-		<meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Везём Всё. Каталог компаний">
+		<meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Гуру Груза. Каталог компаний">
 		<meta name="author" content="Dmytro Sheiko">
 		<link rel="shortcut icon" href="assets/styles/images/favicon.ico">
-		<meta property="og:title" content="Везём Всё - онлайн-сервис по грузоперевозкам." />
+		<meta property="og:title" content="Гуру Груза - онлайн-сервис по грузоперевозкам." />
 		<meta property="og:description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="index.html" />
 		<meta property="og:image" content="assets/images/other/social_logo.jpg" />
-		<meta property="og:site_name" content="vezemvse.com.ua" />
-		<meta itemprop="name" content="Везём Всё - онлайн-сервис по грузоперевозкам." />
+		<meta property="og:site_name" content="gurugruza.com.ua" />
+		<meta itemprop="name" content="Гуру Груза - онлайн-сервис по грузоперевозкам." />
 		<meta itemprop="description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
 		<meta itemprop="image" content="assets/images/other/social_logo.jpg" />
 		<meta itemprop="address" content="02000, Киев, Днепровская Наебержная 14Б, 1603" />
 		<meta itemprop="telephone" content="+38-095-029-29-03" />
-		<title>Доставка груза по Украине. Стоимость доставки груза - онлайн-аукцион сайт грузоперевозок по Украине «Везём Всё»</title>
+		<title>Доставка груза по Украине. Стоимость доставки груза - онлайн-аукцион сайт грузоперевозок по Украине «Гуру Груза»</title>
 		<link type="text/css" rel="stylesheet" href="listing/assets/main.css" media="screen" />
 		<link type="text/css" rel="stylesheet" href="assets/cache/201722/home_v42017222331.min.css" media="screen" />
 		<link type="text/css" rel="stylesheet" href="/assets/cache/201736/common2017362446.min.css" media="screen" />
@@ -302,7 +302,7 @@
 	<?php
 	require_once("util/analytics.php");
 	
-	if ($_SERVER['SERVER_NAME'] == "vezemvse.com.ua" and !$analytics_disabled){ ?>
+	if ($_SERVER['SERVER_NAME'] == "gurugruza.com.ua" and !$analytics_disabled){ ?>
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -371,21 +371,21 @@
 							<img id="selected_driver_image" alt="" src="/assets/styles/images/v3/perevozchik.svg" height="100px" width="100px" style="margin-top:-60px">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px; margin-top:10px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Вы выбрали перевозчика <?php echo $accepted_offer_result["name"] ?></h2>
-								Номер телефона водителя: <?php echo $accepted_offer_result["phone"] ?>. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
+								Номер телефона водителя: <?php echo $accepted_offer_result["phone"] ?>. Нужна помощь? <a href="mailto:info@gurugruza.com.ua">Напишите нам</a>
 							</div>
 						</div>
 					<?php } else if (mysqli_num_rows($offers_query) == 0 and $freight_owner_id==$session_user_id and $freight_status=="0") { ?>
 						<div class="driver_selected">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Заявка успешно опубликована</h2>
-								В скором времени Вы начнете получать предложения от перевозчиков. Нужна помощь? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
+								В скором времени Вы начнете получать предложения от перевозчиков. Нужна помощь? <a href="mailto:info@gurugruza.com.ua">Напишите нам</a>
 							</div>
 						</div>
 					<?php } else if ($already_have_offer and $my_offer_status=="0" and $freight_status!=="2") { ?>
 						<div class="driver_selected">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Поздравляем, Вас выбрали для выполнения этого заказа!</h2>
-								Вы можете связаться с заказчиком по номеру <b><?php echo $owner_result["phone"] ?></b> или продолжить общение в чате.<br><br>Есть вопросы? <a href="mailto:info@vezemvse.com.ua">Напишите нам</a>
+								Вы можете связаться с заказчиком по номеру <b><?php echo $owner_result["phone"] ?></b> или продолжить общение в чате.<br><br>Есть вопросы? <a href="mailto:info@gurugruza.com.ua">Напишите нам</a>
 							</div>
 						</div>
 					<?php } ?>
@@ -1127,7 +1127,7 @@
 		<article class="footer">
 			<div class="vv-container">
 				<div class="footer__copyright">
-					© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «vezemvse.com.ua»</a> принадлежат ООО&nbsp;«Везём Всё»
+					© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «gurugruza.com.ua»</a> принадлежат ООО&nbsp;«Гуру Груза»
 				</div>
 			</div>
 		</article>

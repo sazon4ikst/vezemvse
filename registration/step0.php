@@ -5,19 +5,19 @@
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
     <meta name="googlebot"   content="noarchive">
     <meta name="keywords"    content="грузовые перевозки, информационная система грузоперевозок, компании грузоперевозок, онлайн грузоперевозки, онлайн-сервис грузоперевозок, сайт грузоперевозок, сайт перевозки грузов">
-    <meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Везём Всё. Каталог компаний">
+    <meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Гуру Груза. Каталог компаний">
     <meta name="author" content="Dmytro Sheiko">    
     <link rel="shortcut icon" href="../assets/styles/images/favicon.ico">
-	<meta property="og:title" content="Везём Всё - онлайн-сервис по грузоперевозкам." />
+	<meta property="og:title" content="Гуру Груза - онлайн-сервис по грузоперевозкам." />
 	<meta property="og:description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="../assets/images/other/social_logo.jpg" />
-	<meta property="og:site_name" content="vezemvse.com.ua" />
-	<meta itemprop="name" content="Везём Всё - онлайн-сервис по грузоперевозкам." />
+	<meta property="og:site_name" content="gurugruza.com.ua" />
+	<meta itemprop="name" content="Гуру Груза - онлайн-сервис по грузоперевозкам." />
 	<meta itemprop="description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
 	<meta itemprop="image" content="../assets/images/other/social_logo.jpg" />
 	<meta itemprop="address" content="02000, Киев, Днепровская Наебержная 14Б, 1603" />
-	<title>Доставка груза по Украине. Стоимость доставки груза - онлайн-аукцион сайт грузоперевозок по Украине «Везём Всё»</title>
+	<title>Доставка груза по Украине. Стоимость доставки груза - онлайн-аукцион сайт грузоперевозок по Украине «Гуру Груза»</title>
 	<link type="text/css" rel="stylesheet" href="../listing/assets/main.css" media="screen" />
 	<link type="text/css" rel="stylesheet" href="assets/style.css" media="screen" />
 	<link type="text/css" rel="stylesheet" href="../assets/cache/201722/home_v42017222331.min.css" media="screen" />
@@ -46,7 +46,7 @@
 	<?php
 	require_once("../util/analytics.php");
 	
-	if ($_SERVER['SERVER_NAME'] == "vezemvse.com.ua" and !$analytics_disabled){ ?>
+	if ($_SERVER['SERVER_NAME'] == "gurugruza.com.ua" and !$analytics_disabled){ ?>
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -119,7 +119,7 @@
 					</div>
 					<div class="header__support header__item">
 					   <span class="header__support-link contact x-open-support-box">Служба поддержки</span><br>
-					   <a class="header__support-phone" style="cursor:pointer">info@vezemvse.com.ua</a><br/>
+					   <a class="header__support-phone" style="cursor:pointer">info@gurugruza.com.ua</a><br/>
 					   Работаем круглосуточно
 					</div>
 					<div class="header__categories-button" style="display:none">
@@ -163,7 +163,7 @@
 				
 				<div class="drawer__support" style="padding-left:10px; text-align:left">
 					<span class="drawer__support-link">Служба поддержки</span>
-					<a class="drawer__support-phone">info@vezemvse.com.ua</a>
+					<a class="drawer__support-phone">info@gurugruza.com.ua</a>
 					<span>Работаем круглосуточно</span>
 				</div>
 				<div class="drawer__buttons">
@@ -321,7 +321,7 @@
 	<article class="footer">
 		<div class="vv-container">
 			<div class="footer__copyright">
-				© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «vezemvse.com.ua»</a> принадлежат ООО&nbsp;«Везём Всё»
+				© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «gurugruza.com.ua»</a> принадлежат ООО&nbsp;«Гуру Груза»
 			</div>
 		</div>
 	</article>

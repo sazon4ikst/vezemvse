@@ -2,7 +2,7 @@
 
 date_default_timezone_set("Europe/Kiev");
 
-if ($_SERVER['SERVER_NAME'] !== "vezemvse.com.ua"){
+if ($_SERVER['SERVER_NAME'] !== "gurugruza.com.ua"){
 	$host = "localhost";
 	$username = "root";
 	$password = "";

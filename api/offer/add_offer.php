@@ -31,8 +31,8 @@ $user_query = mysqli_query($con, "SELECT name FROM user WHERE user_id='$user_id'
 $user_result = mysqli_fetch_assoc($user_query);
 $name = $user_result["name"];
 
-$headers = "From: "."=?UTF-8?B?".base64_encode("Везём Всё")."?="."<info@vezemvse.com.ua>\r\n";
-$headers .= "Reply-To: info@vezemvse.com.ua\r\n";
+$headers = "From: "."=?UTF-8?B?".base64_encode("Гуру Груза")."?="."<info@gurugruza.com.ua>\r\n";
+$headers .= "Reply-To: info@gurugruza.com.ua\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 

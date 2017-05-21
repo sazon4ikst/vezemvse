@@ -51,8 +51,8 @@ $email = $recipient_result["email"];
 $phone = $recipient_result["phone"];
 
 // Send registration email
-$headers = "From: "."=?UTF-8?B?".base64_encode("Везём Всё")."?="."<info@vezemvse.com.ua>\r\n";
-$headers .= "Reply-To: info@vezemvse.com.ua\r\n";
+$headers = "From: "."=?UTF-8?B?".base64_encode("Гуру Груза")."?="."<info@gurugruza.com.ua>\r\n";
+$headers .= "Reply-To: info@gurugruza.com.ua\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
@@ -77,7 +77,7 @@ function sendNotificationSms($google_token, $phone, $name){
 	
 	$recipients = array();
 	array_push($recipients, $phone);
-	$data = array("message"=>$name." отправил Вам новое сообщение. Подробности: http://vezemvse.com.ua.\n\n(Не отвечайте на это уведомление.)", "recipients"=>$recipients);
+	$data = array("message"=>$name." отправил Вам новое сообщение. Подробности: http://gurugruza.com.ua.\n\n(Не отвечайте на это уведомление.)", "recipients"=>$recipients);
 
     // Set POST request body
     $post = array(

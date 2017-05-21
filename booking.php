@@ -1206,7 +1206,7 @@
 	<?php
 	require_once("util/analytics.php");
 	
-	if ($_SERVER['SERVER_NAME'] == "vezemvse.com.ua" and !$analytics_disabled){ ?>
+	if ($_SERVER['SERVER_NAME'] == "gurugruza.com.ua" and !$analytics_disabled){ ?>
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -1485,7 +1485,7 @@
                 <!-- /react-text -->
                 <!-- react-text: 197 -->2017
                 <!-- /react-text -->
-                <!-- react-text: 198 -->Все права на сайт «vezemvse.com.ua» принадлежат ООО «Везём Всё»
+                <!-- react-text: 198 -->Все права на сайт «gurugruza.com.ua» принадлежат ООО «Гуру Груза»
                 <!-- /react-text -->
             </div>
         </div>

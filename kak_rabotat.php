@@ -10,7 +10,7 @@ session_start();
 	<meta name="AUTHOR"      content="Alex Kozlov">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="googlebot"   content="noarchive">
-	<meta name="description" content="Везём Всё информационная система грузоперевозок он-лайн. На сайте представлены все компании грузоперевозок">
+	<meta name="description" content="Гуру Груза информационная система грузоперевозок он-лайн. На сайте представлены все компании грузоперевозок">
 	
 
 <meta name="robots" content="index,follow" />
@@ -22,7 +22,7 @@ session_start();
 
 
 
-	<title>Как и почему работать с Везём Всё</title>
+	<title>Как и почему работать с Гуру Груза</title>
 
 <link type="text/css" rel="stylesheet" href="./assets/cache/201754/common2017542554.min.css" media="screen" />
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700|Roboto+Slab:400,300,700&subset=latin,cyrillic" media="screen" />
@@ -65,7 +65,7 @@ session_start();
 	<?php
 	require_once("util/analytics.php");
 	
-	if ($_SERVER['SERVER_NAME'] == "vezemvse.com.ua" and !$analytics_disabled){ ?>
+	if ($_SERVER['SERVER_NAME'] == "gurugruza.com.ua" and !$analytics_disabled){ ?>
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -124,7 +124,7 @@ session_start();
 			<div class="how-offer__block">
 				<h1 class="how-offer__title">У&nbsp;нас есть для вас груз!</h1>
 				<div class="how-offer__subtitle">Присоединяйтесь и&nbsp;получайте заказы</div>
-				<div class="how-offer__info">Средний заработок перевозчиков с&nbsp;сервисом &laquo;Везём Всё&raquo; &mdash;</div>
+				<div class="how-offer__info">Средний заработок перевозчиков с&nbsp;сервисом &laquo;Гуру Груза&raquo; &mdash;</div>
 				<div class="how-offer__info-salary" style="font-size:30px">200&nbsp;000&nbsp;грн/год&nbsp;&mdash; 800&nbsp;000&nbsp;грн/год <span class="how-offer__info-salary--small">и&nbsp;более</span></div>
 			</div>
 			<div class="how-offer__service">
@@ -170,7 +170,7 @@ session_start();
 	<section class="how-start" style="margin-top:70px">
 		<div class="vv-container">
 			<div class="how-start__wrapper">
-				<div class="how-start__title">Как начать зарабатывать с&nbsp;&laquo;Везём Всё&raquo;</div>
+				<div class="how-start__title">Как начать зарабатывать с&nbsp;&laquo;Гуру Груза&raquo;</div>
 				<div class="how-start__steps">
 					<div class="how-start__step">
 						<div class="how-start__step-number">1</div>
@@ -243,7 +243,7 @@ session_start();
 					<div class="how-contacts__info-title">Дмитрий Шейко</div>
 					<div class="how-contacts__info-subtitle">Руководитель службы заботы о клиентах</div>
 					<div class="how-contacts__info-links">
-						<a class="how-contacts__info-mail" href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>
+						<a class="how-contacts__info-mail" href="mailto:info@gurugruza.com.ua">info@gurugruza.com.ua</a>
 					</div>
 				</div>
 			</div>
@@ -265,7 +265,7 @@ session_start();
                 <div class="footer-contacts__section footer-contacts__section--phone">
                     <div class="footer-contacts__section-email">
                         <div class="footer-contacts__title">Почта</div>
-                        <a href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>
+                        <a href="mailto:info@gurugruza.com.ua">info@gurugruza.com.ua</a>
                     </div>
                 </div>
             </div>
@@ -275,7 +275,7 @@ session_start();
     <article class="footer" style="padding:20px">
 	<div class="vv-container">
 	<div class="footer__copyright">
-		© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «vezemvse.com.ua»</a> принадлежат ООО&nbsp;«Везём Всё»
+		© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «gurugruza.com.ua»</a> принадлежат ООО&nbsp;«Гуру Груза»
 	</div>
 </div>
 </article>

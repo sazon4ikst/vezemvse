@@ -12,22 +12,22 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<meta name="googlebot" content="noarchive">
 	<meta name="keywords" content="грузовые перевозки, информационная система грузоперевозок, компании грузоперевозок, онлайн грузоперевозки, онлайн-сервис грузоперевозок, сайт грузоперевозок, сайт перевозки грузов">
-	<meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Везём Всё. Каталог компаний">
+	<meta name="description" content="Грузоперевозки в Киеве, организация грузовых перевозок с помощью информационной системы Гуру Груза. Каталог компаний">
 	<meta name="author" content="Dmytro Sheiko">
 	<meta name="robots" content="noyaca" />
-	<meta property="og:title" content="Везём Всё - онлайн-сервис по грузоперевозкам." />
+	<meta property="og:title" content="Гуру Груза - онлайн-сервис по грузоперевозкам." />
 	<meta property="og:description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="index.html" />
 	<meta property="og:image" content="assets/images/other/social_logo.jpg" />
-	<meta property="og:site_name" content="vezemvse.com.ua" />
-	<meta itemprop="name" content="Везём Всё - онлайн-сервис по грузоперевозкам." />
+	<meta property="og:site_name" content="gurugruza.com.ua" />
+	<meta itemprop="name" content="Гуру Груза - онлайн-сервис по грузоперевозкам." />
 	<meta itemprop="description" content="Узнайте стоимость своей перевозки и сэкономьте до 70%. Перевозим Всё, Везде, Всегда." />
 	<meta itemprop="image" content="assets/images/other/social_logo.jpg" />
 	<meta itemprop="address" content="02000, Киев, Днепровская Наебержная 14Б, 1603" />
 	<meta name="robots" content="index,follow" />
 	<link rel="shortcut icon" href="assets/styles/images/favicon.ico">
-	<title>Везём Всё — грузоперевозки в Киеве, цены на грузовые перевозки по Киеву и области, организация перевозок грузов</title>
+	<title>Гуру Груза — грузоперевозки в Киеве, цены на грузовые перевозки по Киеву и области, организация перевозок грузов</title>
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 	<link type="text/css" rel="stylesheet" href="assets/cache/201722/home_v42017222331.min.css" media="screen" />
@@ -43,7 +43,7 @@ session_start();
 	<?php
 	require_once("util/analytics.php");
 	
-	if ($_SERVER['SERVER_NAME'] == "vezemvse.com.ua" and !$analytics_disabled){ ?>
+	if ($_SERVER['SERVER_NAME'] == "gurugruza.com.ua" and !$analytics_disabled){ ?>
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -182,7 +182,7 @@ session_start();
 						<div class="header__support header__item">
 							<span class="header__support-link contact x-open-support-box">Служба поддержки</span>
 							<br>
-							<a class="header__support-phone" style="cursor:pointer">info@vezemvse.com.ua</a>
+							<a class="header__support-phone" style="cursor:pointer">info@gurugruza.com.ua</a>
 							<br/> Работаем круглосуточно
 						</div>
 						<div class="header__categories-button" style="display:none">
@@ -222,7 +222,7 @@ session_start();
 				
 				<div class="drawer__support" style="padding-left:10px;">
 					<span class="drawer__support-link">Служба поддержки</span>
-					<a class="drawer__support-phone">info@vezemvse.com.ua</a>
+					<a class="drawer__support-phone">info@gurugruza.com.ua</a>
 					<span>Работаем круглосуточно</span>
 				</div>
 				<div class="drawer__buttons">
@@ -237,7 +237,7 @@ session_start();
 				<div class="description__content">
 					<header class="description__header">
 						<div class="description__header-title">
-							Как работает «Везём Всё»
+							Как работает «Гуру Груза»
 						</div>
 					</header>
 
@@ -277,7 +277,7 @@ session_start();
 									Вы выбираете лучшую цену и&nbsp;экономите до&nbsp;72%
 								</div>
 								<div class="description__step-text">
-									Выберите исполнителя и «Везём Всё» пришлет его контактные данные, чтобы совершить грузоперевозки в Киеве.
+									Выберите исполнителя и «Гуру Груза» пришлет его контактные данные, чтобы совершить грузоперевозки в Киеве.
 								</div>
 							</div>
 						</div>
@@ -512,7 +512,7 @@ session_start();
 				<div class="advantages__content">
 					<header class="advantages__header">
 						<div class="advantages__header-title">
-							Почему клиенты выбирают «Везём Всё»
+							Почему клиенты выбирают «Гуру Груза»
 						</div>
 					</header>
 					<div class="advantages__list">
@@ -570,7 +570,7 @@ session_start();
 								<div class="contacts__section contacts__section--phone">
 									<div class="contacts__section-email">
 										<div class="contacts__title">Почта</div>
-										<a href="mailto:info@vezemvse.com.ua">info@vezemvse.com.ua</a>
+										<a href="mailto:info@gurugruza.com.ua">info@gurugruza.com.ua</a>
 									</div>
 								</div>
 							</div>
@@ -581,7 +581,7 @@ session_start();
 				<article class="footer" style="padding:20px">
 					<div class="vv-container">
 						<div class="footer__copyright">
-							© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «vezemvse.com.ua»</a> принадлежат ООО&nbsp;«Везём Всё»
+							© 2017 Все права на&nbsp;<a class="footer__copyright-link" href="index.html">сайт грузоперевозок «gurugruza.com.ua»</a> принадлежат ООО&nbsp;«Гуру Груза»
 						</div>
 					</div>
 				</article>

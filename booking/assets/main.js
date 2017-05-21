@@ -25166,7 +25166,7 @@
                         className: "BannerPane__logo"
                     }), m.default.createElement("div", {
                         className: "BannerPane__title"
-                    }, "Приложение", m.default.createElement("span", null, "«Везём Всё»"))), m.default.createElement(y.default, {
+                    }, "Приложение", m.default.createElement("span", null, "«Гуру Груза»"))), m.default.createElement(y.default, {
                         className: "BannerPane__button",
                         view: "sand",
                         size: "s",
@@ -27102,11 +27102,11 @@
                         }, A.default.createElement(ee.default, {
                             className: "Cian-logoVV",
                             src: n(432),
-                            title: "Логотип Везём Всё"
+                            title: "Логотип Гуру Груза"
                         }), A.default.createElement(ee.default, {
                             className: "Cian-logoVVmobile",
                             src: n(433),
-                            title: "Логотип Везём Всё"
+                            title: "Логотип Гуру Груза"
                         })), A.default.createElement("div", {
                             className: "container"
                         }, A.default.createElement("div", {
@@ -28238,7 +28238,7 @@
                             src: n(1404)
                         }), A.default.createElement("p", {
                             className: "ContactsScreen-guaranteesText"
-                        }, "Сервис «Везём Всё» внесен в реестр операторов персональных данных Роскомнадзора и полностью соответствует требованиям 152-ФЗ «О персональных данных»")))), A.default.createElement("div", {
+                        }, "Сервис «Гуру Груза» внесен в реестр операторов персональных данных Роскомнадзора и полностью соответствует требованиям 152-ФЗ «О персональных данных»")))), A.default.createElement("div", {
                             className: "container"
                         }, A.default.createElement("div", {
                             className: "ContactsScreen-controls"
@@ -28510,7 +28510,7 @@
                 value: function() {
                     return m.default.createElement("div", {
                         className: "Footer"
-                    }, "© ", g.default.Year, " Все права на сайт «vezemvse.com.ua» принадлежат ООО «Везём Всё»")
+                    }, "© ", g.default.Year, " Все права на сайт «gurugruza.com.ua» принадлежат ООО «Гуру Груза»")
                 }
             }]), t
         }(h.Component);

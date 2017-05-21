@@ -20,7 +20,7 @@
             </div>
             <div class="header__support header__item">
                <span class="header__support-link contact x-open-support-box">Служба поддержки</span><br>
-               <a class="header__support-phone" style="cursor:pointer">info@vezemvse.com.ua</a><br/>
+               <a class="header__support-phone" style="cursor:pointer">info@gurugruza.com.ua</a><br/>
                Работаем круглосуточно
             </div>
             <div class="header__categories-button" style="display:none">
@@ -64,7 +64,7 @@
 		
 		<div class="drawer__support" style="padding-left:10px;">
 			<span class="drawer__support-link">Служба поддержки</span>
-			<a class="drawer__support-phone">info@vezemvse.com.ua</a>
+			<a class="drawer__support-phone">info@gurugruza.com.ua</a>
 			<span>Работаем круглосуточно</span>
 		</div>
 		<div class="drawer__buttons">
