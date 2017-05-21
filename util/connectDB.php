@@ -8,10 +8,10 @@ if ($_SERVER['SERVER_NAME'] !== "gurugruza.com.ua"){
 	$password = "";
 	$db_name = "vezemvse_db";
 } else {
-	$host = "vezemvse.mysql.ukraine.com.ua";
-	$username = "vezemvse_db";
-	$password = "eY62xfNe";
-	$db_name = "vezemvse_db";
+	$host = "gurugruz.mysql.ukraine.com.ua";
+	$username = "gurugruz_db";
+	$password = "PJkSpx6X";
+	$db_name = "gurugruz_db";
 }
 
 $con = mysqli_connect($host, $username, $password, $db_name);
