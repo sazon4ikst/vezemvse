@@ -39,6 +39,20 @@ session_start();
 			}
 		}
 	</style>
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "Organization",
+	  "url": "https://gurugruza.com.ua",
+	  "contactPoint": [{
+		"@type": "ContactPoint",
+		"email": "info@gurugruza.com.ua",
+		"url": "https://gurugruza.com.ua",
+		"contactType": "customer service",
+		"areaServed": "UA"
+	  }]
+	}
+	</script>
 
 	<?php
 	require_once("util/analytics.php");
