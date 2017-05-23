@@ -437,18 +437,24 @@
 															<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Заказчик:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $owner_name ?></span></p>
 															<?php if (!empty($freight_result["price"])){ ?>
 																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Желаемая стоимость:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["price"]." грн" ?></span></p>
-															<?php } ?>
-															<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Дата погрузки:</b> <span class="date" style="margin-left:3px; font-weight:normal">
-																<?php
-																	if (!empty($freight_result["start_time"])){
-																		$date = new DateTime("@".$freight_result["start_time"]); echo $date->format('d.m');
-																	} else {
-																		echo "не указана";
-																	}
-																?>
-																</span>
-															</p>
-															<?php if (!empty($freight_result["volume"])){ ?>
+															<?php }
+															
+															
+															if (!empty($freight_result["start_time"]) and $freight_result["start_time"]>time()){?>
+																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Дата погрузки:</b> <span class="date" style="margin-left:3px; font-weight:normal">
+																	<?php
+																		if (!empty($freight_result["start_time"])){
+																			$date = new DateTime("@".$freight_result["start_time"]); echo $date->format('d.m');
+																		} else {
+																			echo "не указана";
+																		}
+																	?>
+																	</span>
+																</p>															
+															<?php
+															}
+															
+															if (!empty($freight_result["volume"])){ ?>
 																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Общий объем:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo str_replace(".", ",", $freight_result["volume"])." м3" ?></span></p>
 															<?php } 
 															if (!empty($freight_result["weight"])){ ?>													
