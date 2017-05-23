@@ -130,7 +130,7 @@ session_start();
 			<div class="how-offer__service">
 				<div class="how-offer__block how-offer__service-wrapper">
 					<div class="how-offer__service-title">
-						<span>Сервис &laquo;Везём&nbsp;Всё&raquo; &mdash;</span>
+						<span>Сервис &laquo;Гуру&nbsp;Груза&raquo; &mdash;</span>
 						<p class="how-offer__service-title-small">агент с&nbsp;гарантированной оплатой. Подберем грузы по&nbsp;указанным вами направлениям</p>
 					</div>
 					<ul class="how-offer__service-list" style="padding: 0; margin: 0 0 10px 25px;">
