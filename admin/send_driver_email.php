@@ -10,8 +10,10 @@ $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
 $driver_emails = array();
 array_push($driver_emails, "dmytro@sheiko.net");
+//array_push($driver_emails, "gruzovyieperevozki@gmail.com");
 
-$gruz_id = 5256;
+
+$gruz_id = 5254;
 
 for ($i=0; $i<count($driver_emails); $i++){
 	$email = $driver_emails[$i];

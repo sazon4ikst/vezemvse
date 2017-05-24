@@ -10,8 +10,6 @@ $phone = ISSET($_POST["phone"]) ? $_POST["phone"] : null;
 $city = ISSET($_POST["city"]) ? $_POST["city"] : null;
 $password = ISSET($_POST["password"]) ? $_POST["password"] : null;
 
-$email = "dmytro@sheiko.net";
-
 if (empty($name) or empty($email) or empty($phone) or empty($city) or empty($password)){
 	die(json_encode(array("error"=>"Пожалуйста заполните все поля.")));
 } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -31,7 +29,7 @@ $password = mysqli_real_escape_string($con, $password);
 
 $user_query = mysqli_query($con, "SELECT user_id, name, email, password, type FROM user WHERE email='$email'") or die (mysqli_error($con));
 $user_result = mysqli_fetch_assoc($user_query);
-if ($user_result) {
+if (mysqli_num_rows($user_query)>0) {
 	die(json_encode(array("error"=>"Пользователь с таким адресом почты уже зарегистрирован.")));
 }
 
@@ -57,6 +55,7 @@ ob_start();
 require("registration_email_driver.html");
 $message = ob_get_clean();
 
-mail($email, "=?UTF-8?B?".base64_encode("Спасибо за регистрацию на нашем сайте")."?=", $message, $headers);
+@mail($email, "=?UTF-8?B?".base64_encode("Спасибо за регистрацию на нашем сайте")."?=", $message, $headers);
+@mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Спасибо за регистрацию на нашем сайте")."?=", $message, $headers);
 
 ?>
