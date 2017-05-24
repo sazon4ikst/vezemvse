@@ -54,6 +54,22 @@
 					padding: 45px 0 10px 0;
 				}
 			}
+
+			@media (max-width: 767px) {
+				.torg_green {
+					display: none;
+				}
+			}
+			
+			.torg_green_phone {
+				display: none !important;
+			}
+
+			@media (max-width: 767px) {
+				.torg_green_phone {
+					display: block !important;
+				}
+			}
 		</style>
 
 	<?php
@@ -173,6 +189,10 @@
 														<span style="margin-right: 2px">—</span>
 													<?php }
 												} ?>
+												
+												<?php if ($freight_result["status"] == "2") { ?>
+													<span class="torg_green_phone">Заказ выполнен</span>
+												<?php } ?>
 												</td>
 											</tr>
 										</tbody>

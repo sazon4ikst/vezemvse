@@ -6,6 +6,7 @@ Disallow: /api
 Disallow: /send_mail
 Disallow: /util
 Disallow: /scraper
+Disallow: /admin
 
 User-Agent: Googlebot
 Disallow: /auth
@@ -15,3 +16,4 @@ Disallow: /api
 Disallow: /send_mail
 Disallow: /util
 Disallow: /scraper
+Disallow: /admin
