@@ -440,7 +440,7 @@
 															<?php }
 															
 															
-															if (!empty($freight_result["start_time"]) and $freight_result["start_time"]+60*60*24>time()){?>
+															if (!empty($freight_result["start_time"]) and $freight_result["start_time"]+60*60*12>time()){?>
 																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Дата погрузки:</b> <span class="date" style="margin-left:3px; font-weight:normal">
 																	<?php
 																		if (!empty($freight_result["start_time"])){

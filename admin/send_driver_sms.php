@@ -2,7 +2,7 @@
 
 require "../util/connectDB.php";
 
-$gruz_id = 5254;
+$gruz_id = 5258;
 
 $freight_query = mysqli_query($con, "SELECT title, price, address_from, address_to FROM freight WHERE freight_id='$gruz_id'") or die (mysqli_error($con));
 $freight_result = mysqli_fetch_assoc($freight_query);
@@ -11,8 +11,8 @@ $price = $freight_result["price"];
 $address_from = $freight_result["address_from"];
 $address_to = $freight_result["address_to"];	
 
-
-$driver_phones = array(
+// Одесса
+/*$driver_phones = array(
 	//"0950252903",
 	"0968991479",
 	"0675147905",
@@ -28,7 +28,66 @@ $driver_phones = array(
 	"0503954999",
 	"0679804455",
 	"0678575633",
-);
+);*/
+
+// Черкассы
+/*$driver_phones = array(
+	//"0950252903",
+	"0978014059",
+	"0675019321",
+	"0938201414",
+	"0939052824",
+	"0678385639",
+	"0672901647",
+	"0635786728",
+	"0675981946",
+	"0674738655",
+	"0661120027",
+	"0982724001",
+	"0687397646",
+	"0981501910",
+	"0950105981",
+	"0966602607",
+);*/
+
+// Киев
+/*$driver_phones = array(
+	//"0950252903",
+	"0676560808",
+	"0970224024",
+	"0504494909",
+	"0976831184",
+	"0445033961",
+	"0672329063",
+	"0632037968",
+	"0684161995",
+	"0675278711",
+	"0977596058",
+	"0672497969",
+	"0672362510",
+	"0676593327",
+	"0937749931",
+	"0985036394",
+);*/
+
+// Запорожье
+/*$driver_phones = array(
+	//"0950252903",
+	"0504565096",
+	"0509224183",
+	"0506552322",
+	"0964563479",
+	"0930770942",
+	"0979554875",
+	"0678642805",
+	"0664303653",
+	"0934034043",
+	"0994817299",
+	"0994727477",
+	"0982420432",
+	"0667471409",
+	"0676390388"
+);*/
 	
 
 include 'sms/config.php';
@@ -126,11 +185,11 @@ echo $greeting?>! Интересует заказ?
 
 <?php echo $title ?>
 
+<?php echo str_replace(", город Киев", "", $address_from) ?> → <?php echo str_replace(", город Киев", "", $address_to) ?>
+
 <?php if (!empty($price)) { ?>
 Оплата: <?php echo $price ?> грн
 <?php } ?>
-<?php echo $address_from ?> → <?php echo str_replace(", город Киев", "", $address_to) ?>
-
 
 Подробности: https://gurugruza.com.ua/gruz?id=<?php echo $gruz_id ?>
 <?php
