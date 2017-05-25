@@ -1,5 +1,16 @@
 <?php
 	session_start();
+	$session_user_id = @$_SESSION['user_id'];
+	
+	require("util/connectDB.php");
+	global $con;
+	
+	if ($session_user_id != null){
+		// Get user type
+		$session_user_query = mysqli_query($con, "SELECT type FROM user WHERE user_id='$session_user_id'");
+		$session_user_result = mysqli_fetch_assoc($session_user_query);
+		$type = $session_user_result["type"];
+	}
 ?>
 
 <html>
@@ -139,7 +150,7 @@
 							<?php
 								require("util/connectDB.php");
 								global $con;
-								$freight_query = mysqli_query($con, "SELECT freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid) AS last_offer FROM freight ORDER BY posted_time DESC") or die (mysqli_error($con));
+								$freight_query = mysqli_query($con, "SELECT user_id, freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid) AS last_offer FROM freight ORDER BY posted_time DESC") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
 									<a href="gruz?id=<?php echo $freight_result["freightid"] ?>" class="orders_inner_item_link"></a>
@@ -149,8 +160,14 @@
 											<col width="26.5%">
 											<col width="15%">
 											<col width="11%">
-											<col width="19%">
-											<col width="25%">
+											<?php if ($type=="2") { ?>	
+												<col width="18%">
+												<col width="10%">		
+												<col width="30%">
+											<?php } else { ?>											
+												<col width="19%">
+												<col width="25%">
+											<?php } ?>
 										</colgroup>
 										<tbody>
 											<tr>
@@ -182,11 +199,11 @@
 												<?php } else { ?>									
 													Последнее предложение:			
 													<?php if(!empty($freight_result["last_offer"])){ ?>
-														<span><?php echo number_format($freight_result["last_offer"], 0, ".", " ") ?> грн</span>
+														<span style="font-size: 18px;font-weight: 700;"><?php echo number_format($freight_result["last_offer"], 0, ".", " ") ?> грн</span>
 													<?php } else if(!empty($freight_result["price"])){ ?>
-														<span><?php echo number_format($freight_result["price"], 0, ".", " ") ?> грн</span>
+														<span style="font-size: 18px;font-weight: 700;"><?php echo number_format($freight_result["price"], 0, ".", " ") ?> грн</span>
 													<?php } else { ?>
-														<span style="margin-right: 2px">—</span>
+														<span style="font-size: 18px;font-weight: 700; margin-right: 2px">—</span>
 													<?php }
 												} ?>
 												
@@ -194,6 +211,20 @@
 													<span class="torg_green_phone">Заказ выполнен</span>
 												<?php } ?>
 												</td>
+																			
+												<?php if ($type=="2") {
+													
+													$owner_id = $freight_result["user_id"];
+												
+												$owner_query = mysqli_query($con, "SELECT name, phone FROM user WHERE user_id='$owner_id'") or die (mysqli_error($con));
+												$owner_result = mysqli_fetch_assoc($owner_query);												
+													
+												?>				
+												<td>
+													<?php echo $owner_result["name"] ?>
+													<span>☎ <?php echo str_replace("+38", "", $owner_result["phone"]) ?></span>
+												</td>
+												<?php } ?>
 											</tr>
 										</tbody>
 									</table>

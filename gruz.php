@@ -21,6 +21,7 @@
 	$owner_query = mysqli_query($con, "SELECT name, phone FROM user WHERE user_id='$freight_owner_id'") or die(mysqli_error($con));
 	$owner_result = mysqli_fetch_assoc($owner_query);
 	$owner_name = $owner_result["name"];
+	$owner_phone = $owner_result["phone"];
 	
 	// Check if user already submitted an offer
 	$my_offer_query = mysqli_query($con, "SELECT offer_id, status FROM offer WHERE freight_id='$id' AND user_id='$session_user_id'");
@@ -434,7 +435,7 @@
 												<div class="in_col column column-1024 gruz_info" style="overflow-x:hidden; overflow-y:auto; background:#dfeaf5">
 													<div class="wr_row" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; height:270px">
 														<div class="row row_top" style="padding-bottom:10px;">
-															<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Заказчик:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $owner_name ?></span></p>
+															<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Заказчик:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $owner_name; echo ($type=="2") ? " (☎ ".str_replace("+38", "", $owner_phone).")" : "" ?></span></p>
 															<?php if (!empty($freight_result["price"])){ ?>
 																<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Желаемая стоимость:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $freight_result["price"]." грн" ?></span></p>
 															<?php }

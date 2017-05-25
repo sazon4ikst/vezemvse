@@ -244,10 +244,10 @@
 					alert(data["error"]);
 					$("#login_button").html("Войти на сайт");
 				} else {					
-					if (data["type"]=="0"){
-						window.open('../poisk', '_self', false);
-					} else {
+					if (data["type"]=="1"){
 						window.open('../zaprosy', '_self', false);
+					} else {
+						window.open('../poisk', '_self', false);
 					}
 				}
             }
