@@ -1690,6 +1690,8 @@
 		}
 		
 		function submitFreight(){			
+			$("#next_step").html("Подождите...");
+			
 			var title = $("#name").val();		
 			var price = $("#price").val();	
 			var weight = $("#weight").val();
@@ -1739,16 +1741,21 @@
 				dataType: "json",
 				success: function(data){
 					if ('error' in data){
+						$("#next_step").html("Узнать стоимость перевозки");
 						alert(data["error"]);
-					} else {						
-						ga('send', 'event', {
-							eventCategory: 'Размещение запроса'
-						});
+					} else {
+						try{						
+							ga('send', 'event', {
+								eventCategory: 'Размещение запроса'
+							});
+						}catch(err) {}
 					
 						window.open ('zaprosy.php', '_self', false);
+						
 					}
 				},
-				error: function(data){
+				error: function(data){					
+					$("#next_step").html("Узнать стоимость перевозки");
 					alert(JSON.stringify(data));
 				}
 			});
