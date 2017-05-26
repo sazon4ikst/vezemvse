@@ -1843,6 +1843,25 @@
 		}
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL5UB6urkL0ni5h-_R9WqLBIJxWdgZl2w&libraries=places&callback=initAutocomplete&language=ru&region=ua" async defer></script>
-</body>
+	<!-- Google Code for &#1055;&#1088;&#1086;&#1089;&#1084;&#1086;&#1090;&#1088; &quot;&#1056;&#1072;&#1079;&#1084;&#1077;&#1097;&#1077;&#1085;&#1080;&#1077; &#1079;&#1072;&#1087;&#1088;&#1086;&#1089;&#1072;&quot; (&#1047;&#1072;&#1082;&#1072;&#1079;&#1095;&#1080;&#1082;) Conversion Page -->
+	<script type="text/javascript">
+	/* <![CDATA[ */
+	var google_conversion_id = 863547203;
+	var google_conversion_language = "en";
+	var google_conversion_format = "3";
+	var google_conversion_color = "ffffff";
+	var google_conversion_label = "LQgNCOfR0nEQw97imwM";
+	var google_remarketing_only = false;
+	/* ]]> */
+	</script>
+	<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+	</script>
+	<noscript>
+	<div style="display:inline;">
+	<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/863547203/?label=LQgNCOfR0nEQw97imwM&amp;guid=ON&amp;script=0"/>
+	</div>
+	</noscript>
+
+	</body>
 
 </html>

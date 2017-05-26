@@ -237,13 +237,15 @@ echo $greeting?>, Руслан! Поступил новый заказ:
 
 <?php echo str_replace(", город Киев", "", $address_from) ?> → <?php echo str_replace(", город Киев", "", $address_to) ?>
 
-<?php if (!empty($price)) { ?>
-Оплата: <?php echo $price ?> грн
+<?php if (!empty($weight)) { ?>
+<?php echo $weight." кг" ?>
 <?php } ?>
 
-Подробности: https://gurugruza.com.ua/gruz?id=<?php echo $gruz_id ?>
+<?php if (!empty($price)) { ?>
+<?php echo $price ?> грн
+<?php } ?>
 
-(это автоматическое СМС)<?php
+Подробности: https://gurugruza.com.ua/gruz?id=<?php echo $gruz_id ?><?php
 $message = ob_get_clean();
 
 //Проверим, хватает ли денег на запланированную рассылку
