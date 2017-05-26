@@ -1275,18 +1275,12 @@
 								<div>
 									<input type="text" value="" label="Наименование" id="name" placeholder="Введите название груза (обязательно)" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 								</div>
-							</div>
-							<div class="InputControl" style="margin-top:20px">
-								<label class="InputControl-label InputControl-label--normal" for="name">Желаемый бюджет</label>
-								<div>
-									<input type="number" value="" label="Желаемый бюджет" id="price" placeholder="грн" class="InputControl-control InputControl-control--left" style="max-width: 450px">
-								</div>
-							</div>
+							</div>							
 							<div style="margin-top:20px">
 								<div class="InputControl InputWeight">
-									<label class="InputControl-label InputControl-label--normal" for="name">Общий вес</label>
+									<label class="InputControl-label InputControl-label--normal" for="name">Общий вес <font color=red>*</font></label>
 									<div>
-										<input type="number" value="" label="Общий вес" id="weight" placeholder="кг" class="InputControl-control InputControl-control--left" style="max-width: 450px">
+										<input type="number" value="" label="Общий вес" id="weight" placeholder="кг (обязательно)" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 									</div>
 								</div>
 								<div class="InputControl InputVolume">
@@ -1295,7 +1289,13 @@
 										<input type="number" value="" label="Объем" id="volume" placeholder="м3" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 									</div>
 								</div>
-							</div>							
+							</div>		
+							<div class="InputControl" style="margin-top:20px">
+								<label class="InputControl-label InputControl-label--normal" for="name">Желаемый бюджет</label>
+								<div>
+									<input type="number" value="" label="Желаемый бюджет" id="price" placeholder="грн" class="InputControl-control InputControl-control--left" style="max-width: 450px">
+								</div>
+							</div>					
 							<div class="InputControl" style="margin-top:20px">
 								<label class="InputControl-label InputControl-label--normal" for="name">Комментарий</label>
 								<div>
@@ -1540,7 +1540,10 @@
 	
 		$("#name").bind('input', function() {
 			updateNextVisibility();
-		});	
+		});
+		$("#weight").bind('input', function() {
+			updateNextVisibility();
+		});
 		$("#address_from").bind('input', function() {
 			updateNextVisibility();
 		});	
@@ -1579,7 +1582,7 @@
 		
 		function updateNextVisibility(){
 			if (currentStep == 1){
-				if ($("#name").val().length == 0){
+				if ($("#name").val().length == 0 || $("#weight").val().length == 0){
 					$("#next_step").attr("disabled", "");
 				} else {
 					$("#next_step").removeAttr("disabled");

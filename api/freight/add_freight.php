@@ -135,7 +135,7 @@ $address_to = $freight_result["address_to"];
 
 // Диспетчер
 $driver_phones = array(
-	"0950252903",
+	//"0950252903",
 	"0678882806",
 );	
 
@@ -243,8 +243,7 @@ echo $greeting?>, Руслан! Поступил новый заказ:
 
 Подробности: https://gurugruza.com.ua/gruz?id=<?php echo $gruz_id ?>
 
-(это автоматическое СМС)
-<?php
+(это автоматическое СМС)<?php
 $message = ob_get_clean();
 
 //Проверим, хватает ли денег на запланированную рассылку
