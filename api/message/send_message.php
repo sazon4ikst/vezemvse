@@ -61,6 +61,7 @@ require("new_message_email.html");
 $message = ob_get_clean();
 
 @mail($email, "=?UTF-8?B?".base64_encode("Вам пришло новое сообщение")."?=", $message, $headers);
+@mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Вам пришло новое сообщение")."?=", $message, $headers);
 
 // Send sms
 $google_token_query = mysqli_query($con, "SELECT google_token FROM notification WHERE id='1'") or die(mysqli_error($con));

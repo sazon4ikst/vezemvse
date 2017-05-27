@@ -185,13 +185,13 @@
 													<span><?php echo $freight_result["title"] ?></span>
 												</td>
 												<td>
-													<span><?php echo $freight_result["address_from"] ?> </span>                        
+													<span><?php echo str_replace(", город Киев", "", $freight_result["address_from"]) ?> </span>                        
 												</td>
 												<td>
 													<span class="blue-arrow"><?php echo $freight_result["distance"]." км" ?></span>
 												</td>
 												<td>
-													<span><?php echo $freight_result["address_to"] ?></span>                               
+													<span><?php echo str_replace(", город Киев", "", $freight_result["address_to"]) ?></span>                               
 												</td>												
 												<td>
 												<?php if ($freight_result["status"] == "2") { ?>

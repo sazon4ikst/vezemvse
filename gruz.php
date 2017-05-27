@@ -731,7 +731,7 @@
 										</article>
 									</section>
 									<section class="bf-bid-form__block bf-bid-form__block bf-bid-form__block--message bf-comment">
-										<div class="bf-bid-form__block-title">Сообщение заказчику</div>
+										<div class="bf-bid-form__block-title">Сообщение заказчику (можно оставить пустым)</div>
 										<div class="bf-comment__content">
 											<div class="bf-comment__textarea Textarea">
 												<textarea id="message" class="Textarea-textarea--resize-vertical Textarea-textarea" rows="3" placeholder="Это сообщение будет показано заказчику в чате, где Вы сможете вести с ним переговоры по деталям перевозки, оплаты и т.п."></textarea>
@@ -839,11 +839,13 @@
 						"price": price,
 						"message": message
 					},
-					success: function(data){												
-						ga('send', 'event', {
-							eventCategory: 'Предложение',
-							eventAction: 'Добавить новое',							
-						});
+					success: function(data){
+						try{						
+							ga('send', 'event', {
+								eventCategory: 'Предложение',
+								eventAction: 'Добавить новое',							
+							});
+						} catch(err){}
 						
 						var offer_id = JSON.parse(data)["offer_id"];
 						$("#add_button_text").text("Предложение добавлено!");
@@ -878,10 +880,12 @@
 					},
 					dataType: "json",
 					success: function(data){
-						ga('send', 'event', {
-							eventCategory: 'Предложение',
-							eventAction: 'Подтвердить',							
-						});
+						try{
+							ga('send', 'event', {
+								eventCategory: 'Предложение',
+								eventAction: 'Подтвердить',							
+							});
+						} catch(err){}
 						
 						alert("Вы согласились с предложением, в скором времени с Вами свяжется перевозчик!");
 						location.reload();
@@ -986,11 +990,15 @@
 						
 						if ('error' in data){
 							alert(data["error"]);
-						} else {																			
-							ga('send', 'event', {
-								eventCategory: 'Сообщение',
-								eventAction: 'Добавить новое',							
-							});
+						} else {
+							try{
+								ga('send', 'event', {
+									eventCategory: 'Сообщение',
+									eventAction: 'Добавить новое',							
+								});
+							}catch(err){
+								
+							}
 							
 							text_field.val("");
 							var messages_layout = text_field.parent().parent().parent().parent().parent().parent().parent().find(".chat__list");
@@ -1024,11 +1032,13 @@
 						"status": status
 					},
 					dataType: "json",
-					success: function(data){																		
-						ga('send', 'event', {
-							eventCategory: 'Заказ',
-							eventAction: 'Доставлен',							
-						});
+					success: function(data){
+						try{						
+							ga('send', 'event', {
+								eventCategory: 'Заказ',
+								eventAction: 'Доставлен',							
+							});
+						} catch(err){}
 					
 						location.reload();
 					},

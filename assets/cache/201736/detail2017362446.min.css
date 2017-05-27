@@ -6806,7 +6806,7 @@ body .vv-input.vv-error:focus {
     padding: 8px 20px
 }
 .detail-main__watch::before {
-    content: 'Смотреть подробности'
+    content: 'Смотреть переписку'
 }
 @media (min-width: 980px) and (max-width: 1199px) {
     .detail-main__watch {
@@ -6956,7 +6956,7 @@ body .vv-input.vv-error:focus {
     }
 }
 .detail-main.opened .detail-main__watch::before {
-    content: 'Скрыть подробности'
+    content: 'Скрыть переписку'
 }
 .detail-main.opened .detail-main__watch-icon {
     margin-top: 2px;
