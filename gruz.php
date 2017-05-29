@@ -321,36 +321,6 @@
 	a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0056/1107.js?"+Math.floor(new Date().getTime()/3600000);
 	a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 	</script>
-	<!-- Yandex.Metrika counter -->
-	<script type="text/javascript">
-		(function (d, w, c) {
-			(w[c] = w[c] || []).push(function() {
-				try {
-					w.yaCounter42689514 = new Ya.Metrika({
-						id:42689514,
-						clickmap:true,
-						trackLinks:true,
-						accurateTrackBounce:true,
-						webvisor:true
-					});
-				} catch(e) { }
-			});
-
-			var n = d.getElementsByTagName("script")[0],
-				s = d.createElement("script"),
-				f = function () { n.parentNode.insertBefore(s, n); };
-			s.type = "text/javascript";
-			s.async = true;
-			s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-			if (w.opera == "[object Opera]") {
-				d.addEventListener("DOMContentLoaded", f, false);
-			} else { f(); }
-		})(document, window, "yandex_metrika_callbacks");
-	</script>
-	<noscript><div><img src="https://mc.yandex.ru/watch/42689514" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-	<!-- /Yandex.Metrika counter -->
-	<meta name="yandex-verification" content="02cbc138dbce34b8" />
 	<?php } ?>
 	</head>
 	<body style="background:#f9f8f3">
@@ -373,21 +343,28 @@
 							<img id="selected_driver_image" alt="" src="/assets/styles/images/v3/perevozchik.svg" height="100px" width="100px" style="margin-top:-60px">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px; margin-top:10px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Вы выбрали перевозчика <?php echo $accepted_offer_result["name"] ?></h2>
-								Номер телефона водителя: <?php echo $accepted_offer_result["phone"] ?>. Нужна помощь? <a href="mailto:info@gurugruza.com.ua">Напишите нам</a>
+								Номер телефона водителя: <?php echo $accepted_offer_result["phone"] ?>. Нужна помощь? Напишите нам в чате.
 							</div>
 						</div>
 					<?php } else if (mysqli_num_rows($offers_query) == 0 and $freight_owner_id==$session_user_id and $freight_status=="0") { ?>
 						<div class="driver_selected">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Заявка успешно опубликована</h2>
-								В скором времени Вы начнете получать предложения от перевозчиков. Нужна помощь? <a href="mailto:info@gurugruza.com.ua">Напишите нам</a>
+								В скором времени Вы начнете получать предложения от перевозчиков.<br><br>Нужна помощь? Напишите нам в чате.
+							</div>
+						</div>
+					<?php } else if (mysqli_num_rows($offers_query) > 0 and $freight_owner_id==$session_user_id and $freight_status=="0") { ?>
+						<div class="driver_selected">
+							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px">
+								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Вы получили новое предложение</h2>
+								Сравните цены и выберите перевозчика из списка внизу страницы.<br><br>Нужна помощь? Напишите нам в чате.
 							</div>
 						</div>
 					<?php } else if ($already_have_offer and $my_offer_status=="0" and $freight_status!=="2") { ?>
 						<div class="driver_selected">
 							<div class="driver_selected_text" style="display:inline-block; margin-bottom:-40px">
 								<h2 id="selected_driver_title" style="color:#30c161; margin-bottom: 30px">Поздравляем, Вас выбрали для выполнения этого заказа!</h2>
-								Вы можете связаться с заказчиком по номеру <b><?php echo $owner_result["phone"] ?></b> или продолжить общение в чате.<br><br>Есть вопросы? <a href="mailto:info@gurugruza.com.ua">Напишите нам</a>
+								Вы можете связаться с заказчиком по номеру <b><?php echo $owner_result["phone"] ?></b> или продолжить переписку.<br><br>Есть вопросы? Напишите нам в чате.
 							</div>
 						</div>
 					<?php } ?>
@@ -893,7 +870,6 @@
 					},
 					error: function(data){
 						alert("Ошибка сервера.");
-						alert(JSON.stringify(data));
 					}
 				});
 			});
@@ -906,6 +882,7 @@
 					return;
 				}
 				
+				var freight_id = "<?php echo $id?>";
 				var offer_id = $(this).attr("offer_id");
 				var status = 2;				
 				
@@ -913,6 +890,7 @@
 					type: "POST",
 					url: '../api/offer/set_offer_status',
 					data: {
+						"freight_id": freight_id,
 						"offer_id": offer_id,
 						"status": status
 					},
@@ -922,7 +900,6 @@
 					},
 					error: function(data){
 						alert("Ошибка сервера.");
-						alert(JSON.stringify(data));
 					}
 				});
 			});

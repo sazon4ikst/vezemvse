@@ -63,36 +63,6 @@
 	a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0056/1107.js?"+Math.floor(new Date().getTime()/3600000);
 	a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 	</script>
-	<!-- Yandex.Metrika counter -->
-	<script type="text/javascript">
-		(function (d, w, c) {
-			(w[c] = w[c] || []).push(function() {
-				try {
-					w.yaCounter42689514 = new Ya.Metrika({
-						id:42689514,
-						clickmap:true,
-						trackLinks:true,
-						accurateTrackBounce:true,
-						webvisor:true
-					});
-				} catch(e) { }
-			});
-
-			var n = d.getElementsByTagName("script")[0],
-				s = d.createElement("script"),
-				f = function () { n.parentNode.insertBefore(s, n); };
-			s.type = "text/javascript";
-			s.async = true;
-			s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-			if (w.opera == "[object Opera]") {
-				d.addEventListener("DOMContentLoaded", f, false);
-			} else { f(); }
-		})(document, window, "yandex_metrika_callbacks");
-	</script>
-	<noscript><div><img src="https://mc.yandex.ru/watch/42689514" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-	<!-- /Yandex.Metrika counter -->
-	<meta name="yandex-verification" content="02cbc138dbce34b8" />
 	<?php } ?>
 </head>
 <body style="background:#f9f8f3">
