@@ -196,6 +196,9 @@ if ($area == "Одесская"){
 		"0672324402",
 		"0672592358",
 		"0982867615",
+		"0951793080",
+		"0932369567",
+		"0963330712"
 	);
 } else if ($area == "Запорожская"){
 	// Запорожье
@@ -410,6 +413,7 @@ for ($i=0; $i<count($driver_phones); $i++){
 	$phone = str_replace(")", "" ,$phone);
 	$phone = str_replace(" ", "" ,$phone);
 	$phone = str_replace("+", "" ,$phone);
+	$phone = str_replace("-", "" ,$phone);
 	
 	if (!startsWith($phone, "38")){
 		$phone = "38".$phone;

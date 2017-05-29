@@ -33,6 +33,7 @@
 		$already_have_offer = false;
 	}
 	
+	$type = null;
 	if ($session_user_id != null){
 		// Get user type
 		$session_user_query = mysqli_query($con, "SELECT type FROM user WHERE user_id='$session_user_id'");

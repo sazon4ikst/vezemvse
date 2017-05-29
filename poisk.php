@@ -151,7 +151,7 @@
 							<?php
 								require("util/connectDB.php");
 								global $con;
-								$freight_query = mysqli_query($con, "SELECT user_id, freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid) AS last_offer FROM freight WHERE fake='0' ORDER BY posted_time DESC") or die (mysqli_error($con));
+								$freight_query = mysqli_query($con, "SELECT user_id, freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid ORDER BY price ASC LIMIT 1) AS last_offer FROM freight WHERE fake='0' ORDER BY posted_time DESC") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
 									<a href="gruz?id=<?php echo $freight_result["freightid"] ?>" class="orders_inner_item_link"></a>
