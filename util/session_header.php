@@ -53,7 +53,7 @@ if(isset($_SESSION['user_id'])){
 						$('#unread_count').parent().css('cursor', 'pointer');
 
 						$('#unread_count').parent().click(function() {
-							window.location.href = "./gruz?id=239897625&open_offer="+messages[0]["offer_id"];
+							window.location.href = "./gruz?id="+messages[0]["freight_id"]+"&open_offer="+messages[0]["offer_id"];
 						});													
 						
 						if (!message_shaked){

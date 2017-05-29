@@ -561,6 +561,8 @@
 													<div class="detail-main__price-wrapper">
 														<input type="hidden" class="x-bid" value="3020">
 														<div class="detail-main__price"><?php echo number_format($offers_result["price"], 0, ',', ' ') ?> грн</div>
+														
+														<input style="display:none" type="number" value="<?php echo $offers_result["price"] ?>" style="display:block; width:100%; margin-right:23px"/>
 													</div>
 												</div>
 												<div class="detail-main__block-date" style="width:500px">
@@ -570,13 +572,19 @@
 												</div>
 												<div class="detail-main__block-controls" style="width: 650px;">
 												
-													<?php if ($offers_result["status"] == 1 and !$already_accepted and $session_user_id == $freight_owner_id and $freight_status=="0"){ ?>
+													<?php if ($offers_result["status"] == "1" and !$already_accepted and $session_user_id == $freight_owner_id and $freight_status=="0"){ ?>
 														<div style="width:280px; position:absolute; bottom:50px; right:0; margin:30px">
 															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="accept_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; display:inline-block; padding-left:0; padding-right:0">
 																Согласиться
 															</div>
 															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="decline_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; margin-left:5px; background:#f44336; display:inline-block; padding-left:0; padding-right:0">
 																Отклонить
+															</div>
+														</div>
+													<?php } else if ($session_user_id == $offers_result["user_id"] and $freight_status=="0" and $offers_result["status"] == "1") { ?>
+														<div style="width:280px; position:absolute; bottom:50px; right:0; margin:30px">
+															<div offer_id="<?php echo $offers_result["offer_id"] ?>" offer_price="<?php echo $offers_result["price"] ?>" class="change_price vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:280px; display:inline-block; padding-left:0; padding-right:0">
+																Изменить цену
 															</div>
 														</div>
 													<?php } ?>
@@ -1024,6 +1032,38 @@
 						alert("Произошла ошибка.");
 					}
 				});
+			});
+			
+			$(".change_price").click(function(event){		
+				event.stopPropagation();
+				
+				var freight_id = "<?php echo $id ?>";
+				var offer_price = $(this).attr("offer_price");
+				var offer_id = $(this).attr("offer_id");
+				
+				try{
+					var price = parseInt(prompt("Введите новую цену (грн)", offer_price));
+					if (price != null){
+						$.ajax({
+							type: "POST",
+							url: '../api/offer/update_offer_price',
+							data: {
+								"freight_id": freight_id,
+								"offer_id": offer_id,
+								"price": price
+							},
+							dataType: "json",
+							success: function(data){
+								location.reload();
+							},
+							error: function(data){
+								alert("Ошибка сервера.");
+							}
+						});
+					}
+				}catch (err){
+					alert("Неправильный формат цены.");
+				}
 			});
 			
 			// Send message when enter is clicked
