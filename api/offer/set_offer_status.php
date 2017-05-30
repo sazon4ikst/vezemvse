@@ -54,7 +54,7 @@ if ($status == $OFFER_STATUS_ACCEPTED){
 	require("offer_accepted_email.html");
 	$message = ob_get_clean();
 
-	mail($email, "=?UTF-8?B?".base64_encode("Вас выбрали для выполнения заказа \"$title\"!")."?=", $message, $headers);
+	@mail($email, "=?UTF-8?B?".base64_encode("Вас выбрали для выполнения заказа \"$title\"!")."?=", $message, $headers);
 }
 
 ?>

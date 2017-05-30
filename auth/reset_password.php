@@ -146,8 +146,8 @@
 						<div class="row">
 							<div class="span12 r2">
 								<div class="anc1 mr15">
-									<h1 class="pustoi1 auth_title" style="font-size:32px; margin-left:43px; padding-top:20px">Авторизация:</h1>
-									<p class="text" style="margin-left:43px; margin-bottom:30px">Для входа в систему введите e-mail и пароль</p>
+									<h1 class="pustoi1 auth_title" style="font-size:32px; margin-left:43px; padding-top:20px">Восстановить доступ:</h1>
+									<p class="text" style="margin-left:43px; margin-bottom:30px">Введите свой e-mail, а также новый пароль</p>
 									
 									<div class="s-itog11 varning x-auth-input-block">
 										<div class="pustoi7">
@@ -170,17 +170,22 @@
 											<span class="pustoi6"></span>
 										</div>
 									</div>
-									<div style="margin-bottom:25px; margin-left: 40px">
-										Забыли пароль? <a href="/auth/reset_password">Восстановить доступ</a>
+
+									<div class="s-itog11 x-auth-input-block">
+										<div class="pustoi7">
+											<span class="x-auth-show-password-input">
+												<input id="repeat_password" type="password" class="pustoi1 x-auth-validate x-input" placeholder="Пароль (ещё раз)" name="password" data-tip="password" required>
+											</span>
+											<div class="pustoi3"></div>
+											<div class="pustoi4"></div>
+											<span class="pustoi2"></span>
+											<span class="pustoi6"></span>
+										</div>
 									</div>
 									<div class="linia6"></div>
 									<div class="reg-but" style="margin-bottom:100px; padding-top:26px;">
 										<div>
-											<button id="login_button" type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px" >Войти на сайт</button>
-										</div>
-										<!--<a target="_blank" href="../condition" class="sog">Пользовательское соглашение</a>-->
-										<div style="margin-top:25px">
-											Еще нет аккаунта? <a href="/auth/choice">Зарегистрируйтесь</a>
+											<button id="login_button" type="submit" class="billboard__button vv-button vv-button--gold vv-button--big" style="width:313px" >Изменить пароль</button>
 										</div>
 									</div>
 								</div>
@@ -201,12 +206,18 @@
 		
 		var email = $("#email").val();
 		var password = $("#password").val();
+		var repeat_password = $("#repeat_password").val();
+		
+		if (password != repeat_password){
+			alert("Пароли не совпадают.");
+			return;
+		}
 		
 		$("#login_button").html("Загрузка...");
 		
 		$.ajax({
 			type: "POST",
-			url: '../api/user/login',
+			url: '../api/user/reset_password',
             data: {
 				"email": email,
 				"password": password
@@ -215,7 +226,7 @@
             success: function(data){
 				if ('error' in data){
 					alert(data["error"]);
-					$("#login_button").html("Войти на сайт");
+					$("#login_button").html("Изменить пароль");
 				} else {					
 					if (data["type"]=="1"){
 						window.open('../zaprosy', '_self', false);

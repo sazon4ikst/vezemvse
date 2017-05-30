@@ -2,6 +2,21 @@
 
 session_start();
 
+if (isset($_GET["zakaz"])){
+	echo "Загрузка...";
+
+	require "util/connectDB.php";
+	global $con;
+
+	$freight_id = $_GET["zakaz"];
+
+	mysqli_query($con, "UPDATE freight SET view = view + 1 WHERE freight_id='$freight_id'");
+
+	header('Location: /gruz?id='.$freight_id);
+
+	die();
+}
+
 ?>
 <!DOCTYPE html>
 <html>
