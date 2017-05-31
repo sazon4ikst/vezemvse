@@ -75,6 +75,8 @@
 			
 			.torg_green_phone {
 				display: none !important;
+				font-size:12px !important;
+				color: #00b911 !important;
 			}
 
 			@media (max-width: 767px) {
@@ -121,7 +123,7 @@
 							<?php
 								require("util/connectDB.php");
 								global $con;
-								$freight_query = mysqli_query($con, "SELECT user_id, freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid ORDER BY price ASC LIMIT 1) AS last_offer FROM freight WHERE fake='0' ORDER BY posted_time DESC") or die (mysqli_error($con));
+								$freight_query = mysqli_query($con, "SELECT user_id, freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid ORDER BY price ASC LIMIT 1) AS last_offer, (SELECT status FROM offer WHERE offer.freight_id=freightid ORDER BY status ASC LIMIT 1) AS offer_status FROM freight WHERE fake='0' ORDER BY posted_time DESC") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
 									<a href="gruz?id=<?php echo $freight_result["freightid"] ?>" class="orders_inner_item_link"></a>
@@ -166,8 +168,10 @@
 												</td>												
 												<td>
 												<?php if ($freight_result["status"] == "2") { ?>
-													<p class="torg_green" style="background: #00b911; color: #fff; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; padding: 5px 15px; border-radius: 30px; width:150px; text-align:center; float:right; margin-top:10px">Заказ выполнен</p>
-												<?php } else { ?>									
+													<p class="torg_green" style="background: #00b911; color: #fff; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; padding: 5px 15px; border-radius: 30px; width:155px; text-align:center; float:right; margin-top:10px">Заказ выполнен</p>
+												<?php } else if ($freight_result["offer_status"] == "0") { ?>
+													<p class="torg_green" style="background: #00b911; color: #fff; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; padding: 5px 15px; border-radius: 30px; width:155px; text-align:center; float:right; margin-top:10px">Выполняется</p>
+												<?php } else { ?>
 													Последнее предложение:			
 													<?php if(!empty($freight_result["last_offer"])){ ?>
 														<span style="font-size: 18px;font-weight: 700;"><?php echo number_format($freight_result["last_offer"], 0, ".", " ") ?> грн</span>
@@ -180,6 +184,8 @@
 												
 												<?php if ($freight_result["status"] == "2") { ?>
 													<span class="torg_green_phone">Заказ выполнен</span>
+												<?php } else if ($freight_result["offer_status"] == "0") { ?>
+													<span class="torg_green_phone">Выполняется</span>
 												<?php } ?>
 												</td>
 																			

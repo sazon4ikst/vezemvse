@@ -33,6 +33,7 @@ $freights_query = mysqli_query($con, "SELECT freight_id, title, address_from, ad
 	<p><input type="radio" name="area" value='Львовская'>Львовская</input></p>
 	<p><input type="radio" name="area" value='Черновицкая'>Черновицкая</input></p>
 	<p><input type="radio" name="area" value='Полтавская'>Полтавская</input></p>
+	<p><input type="radio" name="area" value='Сумская'>Сумская</input></p>
 	
 	<div><input type="submit" style="width:815px; height:30px; margin-top:10px" value="Отправить СМС"></input></div>
 <form>
@@ -443,6 +444,21 @@ if ($area == "Одесская"){
 } else if ($area == "Полтавская"){
 	$driver_phones = array(
 		"0501308091",
+	);
+} else if ($area == "Сумская"){
+	$driver_phones = array(
+		"0506979060",
+		"0662122421",
+		"0997253475",
+		"0506300230",
+		"0953171332",
+		"0954117173",
+		"0679570483",
+		"0666054486",
+		"0950159717",
+		"0671959521",
+		"0671193156",
+		"0508064628",
 	);
 }
 
