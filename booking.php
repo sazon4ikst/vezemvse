@@ -1753,7 +1753,7 @@
 							});
 						}catch(err) {}
 					
-						window.open ('zaprosy.php', '_self', false);
+						window.open ('gruz?id='+data["freight_id"], '_self', false);
 						
 					}
 				},

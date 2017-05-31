@@ -34,6 +34,9 @@ $freights_query = mysqli_query($con, "SELECT freight_id, title, address_from, ad
 	<p><input type="radio" name="area" value='Черновицкая'>Черновицкая</input></p>
 	<p><input type="radio" name="area" value='Полтавская'>Полтавская</input></p>
 	<p><input type="radio" name="area" value='Сумская'>Сумская</input></p>
+	<p><input type="radio" name="area" value='Харьковская'>Харьковская</input></p>
+	<p><input type="radio" name="area" value='Винницкие компании'>Винницкие компании</input></p>
+	<p><input type="radio" name="area" value='Тест (Я)'>Тест (Я)</input></p>
 	
 	<div><input type="submit" style="width:815px; height:30px; margin-top:10px" value="Отправить СМС"></input></div>
 <form>
@@ -192,6 +195,9 @@ if ($area == "Одесская"){
 		"0630456383",
 		"0968242478",
 		"0668177858",
+		"0506822499",
+		"0504623375",
+		"0686525410",
 	);
 } else if ($area == "Запорожская"){
 	$driver_phones = array(
@@ -460,6 +466,67 @@ if ($area == "Одесская"){
 		"0671193156",
 		"0508064628",
 	);
+} else if ($area == "Винницкие компании"){
+	$driver_phones = array(
+		"+380 (97) 160-46-55",
+		"+380 (98) 444-55-80",
+		"+380 (67) 506-42-75",
+		"+380 (99) 062-48-96",
+		"+380 (97) 722-71-88",
+		"+380 (68) 214-47-79",
+		"+380 (97) 576-06-23",
+		"+3809826740",
+		"+38 (099) 232-01-49",
+		"+38 (067) 306-86-45",
+		"+38 (098) 195-44-09",
+		"+38 (068) 275-32-60",
+		"+38 (093) 070-50-39",
+		"+38 (097) 167-50-26",
+		"+38 (098) 267-40-58",
+		"+38 (098) 550-25-23",
+		"+38 (050) 211-97-59",
+		"+38 (093) 260-02-57",
+		"+38 (067) 711-62-26",
+		"+38 (098) 195-60-94",
+		"+38 (097) 017-47-60",	
+		"+38 (097) 167-51-39",
+		"+38 (097) 169-23-94",
+		"+38 (067) 506-42-75",
+		"+38 (098) 195-44-12",
+		"+38 (098) 195-60-99",
+	);
+} else if ($area == "Тест (Я)"){
+	$driver_phones = array(
+		"0950252903",
+	);
+} else if ($area == "Харьковская"){
+	$driver_phones = array(
+		"063-761-30-65",
+		"099-717-60-03",
+		"066-190-60-96",
+		"050-908-92-77",
+		"099-750-33-83",
+		"099-263-27-11",
+		"050-572-25-61",
+		"050-325-57-42",
+		"066-058-93-12",
+		"063-931-37-42",
+		"050-985-62-21",
+		"098-066-70-70",
+		"099-424-44-55",
+		"050-784-01-00",
+		"099-250-09-16",
+		"063-111-26-46",
+		"099-263-27-11",
+		"098-066-70-70",
+		"050-572-25-61",
+		"063-394-50-30",
+		"050-301-49-54",
+		"063-761-30-65",
+		"063-761-30-65",
+		"050-985-62-21",
+		"050-876-66-21",
+	);
 }
 
 include 'sms/config.php';
@@ -509,6 +576,7 @@ for ($i=0; $i<count($driver_phones); $i++){
 	$phone = str_replace(" ", "" ,$phone);
 	$phone = str_replace("+", "" ,$phone);
 	$phone = str_replace("-", "" ,$phone);
+	
 	
 	if (!startsWith($phone, "38")){
 		$phone = "38".$phone;
@@ -567,20 +635,23 @@ echo $greeting?>! Интересует заказ?
 
 <?php echo $title ?>
 
-<?php echo str_replace(", город Киев", "", $address_from) ?> → <?php echo str_replace(", город Киев", "", $address_to) ?>
+<?php
+$address_from = str_replace(", город Киев", "", $address_from);
+$address_to = str_replace(", город Киев", "", $address_to);
+echo  $address_from?> → <?php echo $address_to ?>
 
 <?php if (!empty($price)) { ?>
 Оплата: <?php echo $price ?> грн
 <?php } ?>
 
-Подробности: https://gurugruza.com.ua?zakaz=<?php echo $gruz_id ?>
+Предложите цену: https://gurugruza.com.ua?zakaz=<?php echo $gruz_id ?>
 <?php
 $message = ob_get_clean();
 
 echo $message;
 
 //Проверим, хватает ли денег на запланированную рассылку
-$res = $Stat->checkCampaignPrice("testName", 
+$res = $Stat->checkCampaignPrice("Guru Gruza", 
 		$message, 
 		$addrbook_id);
 if (isset($res["result"]["error"])) {
@@ -597,7 +668,7 @@ if ($balance > $cost) {
 
 
 if (count($new_recipient_phones)>0){
-	$res = $Stat->createCampaign("testName", $message, $addrbook_id, "", 0, 0, 0, "");
+	//$res = $Stat->createCampaign("Guru Gruza", $message, $addrbook_id, "", 0, 0, 0, "");
 }
 
 echo "<br><br>Sent to ".(count($new_recipient_phones))." devices from ".count($driver_phones)."<br><br>";

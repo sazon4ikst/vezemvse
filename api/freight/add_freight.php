@@ -156,7 +156,7 @@ $Stat = new Stat ($Gateway);
 // в том числе в Украину
 //Если вы собираетесь отправлять смс исключительно в Россию - 
 //регистрировать имя отправителя нет необходимости
-$res=$Account->registerSender('testName','ua');
+$res=$Account->registerSender('Guru Gruza','ua');
 
 //Проверяем успешность операции
 if (isset($res["result"]["error"])) {
@@ -249,7 +249,7 @@ echo $greeting?>, Руслан! Поступил новый заказ:
 $message = ob_get_clean();
 
 //Проверим, хватает ли денег на запланированную рассылку
-$res = $Stat->checkCampaignPrice("testName", 
+$res = $Stat->checkCampaignPrice("Guru Gruza", 
 		$message, 
 		$addrbook_id);
 if (isset($res["result"]["error"])) {
@@ -262,7 +262,7 @@ if ($balance > $cost) {
 
 
 if (count($new_recipient_phones)>0){
-	$res = $Stat->createCampaign("testName", $message, $addrbook_id, "", 0, 0, 0, "");
+	$res = $Stat->createCampaign("Guru Gruza", $message, $addrbook_id, "", 0, 0, 0, "");
 }
 
 
