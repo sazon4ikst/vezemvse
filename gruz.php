@@ -635,9 +635,11 @@
 																	<div class="chat-message chat-message<?php echo $message_user_result["type"]==0?"--carrier":"--merchant" ?>">
 																		<span class="chat-message__time"><?php echo date("d.m в H:i", strtotime($messages_result["time"])) ?></span>
 																		<div class="chat-message__name">
-																			<span class="chat-message__nickname"><?php echo $message_user_result["name"] ?></span>
 																			<?php if ($message_user_result["type"]==0){ ?>
+																				<span class="chat-message__nickname"><?php echo $message_user_result["name"] ?></span>
 																				<span> (перевозчик):</span>
+																			<?php } else { ?>																				
+																				<span class="chat-message__nickname"><?php echo $message_user_result["name"].":" ?></span>
 																			<?php } ?>
 																		</div>
 																		<span class="chat-message__text"><?php echo $messages_result["message"] ?></span>
@@ -988,7 +990,7 @@
 							
 							text_field.val("");
 							var messages_layout = text_field.parent().parent().parent().parent().parent().parent().parent().find(".chat__list");
-							messages_layout.append("<div class='chat-message chat-message"+(data['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+data["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+data["name"]+"</span>"+(data['type']==0? "<span> (перевозчик):</span>" : "") +"</div><span class='chat-message__text'> "+message+"</span></div>");
+							messages_layout.append("<div class='chat-message chat-message"+(data['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+data["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+data["name"]+"</span>"+(data['type']==0? "<span> (перевозчик):</span>" : ":") +"</div><span class='chat-message__text'> "+message+"</span></div>");
 							messages_layout.scrollTop(messages_layout[0].scrollHeight);
 						}
 					},
@@ -1110,7 +1112,7 @@
 								}
 								messages_layout.empty();
 								$.each(data, function(i, message) {
-									messages_layout.append("<div class='chat-message chat-message"+(message['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+message["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+message["name"]+"</span>"+(message['type']==0? "<span> (перевозчик):</span>" : "") +"</div><span class='chat-message__text'> "+message["message"]+"</span></div>");
+									messages_layout.append("<div class='chat-message chat-message"+(message['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+message["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+message["name"]+"</span>"+(message['type']==0? "<span> (перевозчик):</span>" : ":") +"</div><span class='chat-message__text'> "+message["message"]+"</span></div>");
 								});
 								if (scrolledBottom){
 									messages_layout.scrollTop(messages_layout[0].scrollHeight);
