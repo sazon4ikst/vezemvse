@@ -31,7 +31,7 @@ while ($message_result = mysqli_fetch_assoc($message_query)){
 	$name = $user_result["name"];
 	$type = $user_result["type"];
 	
-	array_push($messages, array("message"=>$message, "name"=>$name, "time"=>date("d.m в H:i", strtotime($time)), "type"=>$type));
+	array_push($messages, array("user_id"=>$user_id, "message"=>$message, "name"=>$name, "time"=>date("d.m в H:i", strtotime($time)), "type"=>$type));
 }
 
 echo json_encode($messages);

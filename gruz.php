@@ -628,17 +628,20 @@
 															$messages_query = mysqli_query($con, "SELECT user_id, message, time FROM message WHERE offer_id='".$offers_result["offer_id"]."' ORDER BY time ASC") or die(mysqli_error($con));
 															while ($messages_result = mysqli_fetch_assoc($messages_query)){
 																$message_user_id = $messages_result["user_id"];
-																$message_user_query = mysqli_query($con, "SELECT name, type FROM user WHERE user_id='$message_user_id'") or die(mysqli_error($con));
+																$message_user_query = mysqli_query($con, "SELECT user_id, name, type FROM user WHERE user_id='$message_user_id'") or die(mysqli_error($con));
 																$message_user_result = mysqli_fetch_assoc($message_user_query);
 															
 																?>
 																	<div class="chat-message chat-message<?php echo $message_user_result["type"]==0?"--carrier":"--merchant" ?>">
 																		<span class="chat-message__time"><?php echo date("d.m в H:i", strtotime($messages_result["time"])) ?></span>
 																		<div class="chat-message__name">
-																			<?php if ($message_user_result["type"]==0){ ?>
+																			<?php if ($message_user_result["user_id"]==4){ ?>
+																				<span class="chat-message__nickname" style="color:#7290cb"><?php echo $message_user_result["name"] ?></span>
+																				<span style="color:#7290cb"> (консультант):</span>	
+																			<?php } else if ($message_user_result["type"]==0) { ?>	
 																				<span class="chat-message__nickname"><?php echo $message_user_result["name"] ?></span>
 																				<span> (перевозчик):</span>
-																			<?php } else { ?>																				
+																			<?php } else { ?>																			
 																				<span class="chat-message__nickname"><?php echo $message_user_result["name"].":" ?></span>
 																			<?php } ?>
 																		</div>
@@ -1112,7 +1115,7 @@
 								}
 								messages_layout.empty();
 								$.each(data, function(i, message) {
-									messages_layout.append("<div class='chat-message chat-message"+(message['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+message["time"]+" </span><div class='chat-message__name'><span class='chat-message__nickname'>"+message["name"]+"</span>"+(message['type']==0? "<span> (перевозчик):</span>" : ":") +"</div><span class='chat-message__text'> "+message["message"]+"</span></div>");
+									messages_layout.append("<div class='chat-message chat-message"+(message['type']==0?'--carrier':'--merchant')+"'><span class='chat-message__time'>"+message["time"]+" </span><div "+(message['user_id']=="4"?"style='color:#7290cb'":"")+"class='chat-message__name'><span class='chat-message__nickname'>"+message["name"]+"</span>"+(message['user_id']=="4"?("<span> (консультант):</span>"):(message['type']==0? "<span> (перевозчик):</span>" : ":")) +"</div><span class='chat-message__text'> "+message["message"]+"</span></div>");
 								});
 								if (scrolledBottom){
 									messages_layout.scrollTop(messages_layout[0].scrollHeight);
