@@ -820,6 +820,18 @@
 				var user_id = "<?php echo $session_user_id ?>";
 				var price = $("#price").val();
 				var message = $("#message").val();
+				
+				var phoneno = /.*?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}).*?$/;
+				if(message.match(phoneno)) {
+					alert("Обмениваться контактными данными до заключения сделки запрещено. Телефон будет доступен после того как закачик нажмёт \"согласится\" с заявкой.");
+					return;
+				}
+				var phoneno = /.*?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}).*?$/;
+				if(message.match(phoneno)) {
+					alert("Обмениваться контактными данными до заключения сделки запрещено. Телефон будет доступен после того как закачик нажмёт \"согласится\" с заявкой.");
+					return;
+				}
+				
 				$("#add_button_text").text("Подождите...");
 				$.ajax({
 					type: "POST",
@@ -960,6 +972,17 @@
 				var message = text_field.val();
 				if (message == "") return;
 				
+				var phoneno = /.*?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}).*?$/;
+				if(message.match(phoneno)) {
+					alert("Обмениваться контактными данными до заключения сделки запрещено. Телефон будет доступен после того как закачик нажмёт \"согласится\" с заявкой.");
+					return;
+				}
+				var phoneno = /.*?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}).*?$/;
+				if(message.match(phoneno)) {
+					alert("Обмениваться контактными данными до заключения сделки запрещено. Телефон будет доступен после того как закачик нажмёт \"согласится\" с заявкой.");
+					return;
+				}
+				
 				var user_id = "<?php echo $session_user_id ?>";
 				var freight_id = "<?php echo $id ?>";
 				var offer_id = text_field.attr("offer_id");
@@ -1047,8 +1070,9 @@
 				var offer_id = $(this).attr("offer_id");
 				
 				try{
-					var price = parseInt(prompt("Введите новую цену (грн)", offer_price));
-					if (price != null){
+					var raw_price = prompt("Введите новую цену (грн)", offer_price);
+					var price = parseInt(raw_price);
+					if (raw_price != null){
 						$.ajax({
 							type: "POST",
 							url: '../api/offer/update_offer_price',
