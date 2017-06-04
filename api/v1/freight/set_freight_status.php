@@ -1,6 +1,6 @@
 <?php
 
-require "../../util/connectDB.php";
+require "../../../util/connectDB.php";
 
 $freight_id = ISSET($_POST["freight_id"]) ? $_POST["freight_id"] : null;
 $status = ISSET($_POST["status"]) ? $_POST["status"] : null;

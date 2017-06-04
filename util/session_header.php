@@ -39,7 +39,7 @@ if(isset($_SESSION['user_id'])){
 			var user_id = "<?php echo $session_user_id ?>";
 			$.ajax({
 				type: "POST",
-				url: "api/message/get_unread_count",
+				url: "api/v1/message/get_unread_count",
 				data: {
 					"user_id": user_id
 				},

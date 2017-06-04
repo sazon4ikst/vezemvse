@@ -1,6 +1,6 @@
 <?php
 
-require "../../util/connectDB.php";
+require "../../../util/connectDB.php";
 
 $user_id = isset($_POST['user_id']) ? $_POST["user_id"] : null;
 $freight_id = isset($_POST['freight_id']) ? $_POST["freight_id"] : null;

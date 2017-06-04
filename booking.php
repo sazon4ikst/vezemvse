@@ -1723,7 +1723,7 @@
 			
 			$.ajax({
 				type: "POST",
-				url: '../api/freight/add_freight',
+				url: '../api/v1/freight/add_freight',
 				data: {
 					"user_id": "<?php echo $session_user_id ?>",
 					"title": title,

@@ -1,6 +1,6 @@
 <?php
 
-require "../../util/connectDB.php";
+require "../../../util/connectDB.php";
 
 $freight_id = $_POST["freight_id"];
 $user_id = $_POST["user_id"];

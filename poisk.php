@@ -121,8 +121,6 @@
 							</div>
 							<div class="orders_inner" style="padding:0">
 							<?php
-								require("util/connectDB.php");
-								global $con;
 								$freight_query = mysqli_query($con, "SELECT user_id, freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid ORDER BY price ASC LIMIT 1) AS last_offer, (SELECT status FROM offer WHERE offer.freight_id=freightid ORDER BY status ASC LIMIT 1) AS offer_status FROM freight WHERE fake='0' ORDER BY posted_time DESC") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">

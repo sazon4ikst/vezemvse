@@ -257,7 +257,7 @@
 		
 		$.ajax({
 			type: "POST",
-			url: '../api/user/register',
+			url: '../api/v1/user/register',
             data: {
 				"name": name,
 				"email": email,
@@ -271,9 +271,11 @@
 					$("#register_button").html("Зарегистрироваться");
 					alert(data["error"]);
 				} else {
-					ga('send', 'event', {
-						eventCategory: 'Регистрация водителя'
-					});
+					try{
+						ga('send', 'event', {
+							eventCategory: 'Регистрация водителя'
+						});
+					}catch (err){}
 					
 					window.open('<?php echo ISSET($_GET["gruz"])?("../gruz?id=".$_GET["gruz"]):"../poisk"?>', '_self', false);
 				}

@@ -206,7 +206,7 @@
 		
 		$.ajax({
 			type: "POST",
-			url: '../api/user/login',
+			url: '../api/v1/user/login',
             data: {
 				"email": email,
 				"password": password

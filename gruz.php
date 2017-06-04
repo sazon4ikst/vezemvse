@@ -875,7 +875,7 @@
 				
 				$.ajax({
 					type: "POST",
-					url: '../api/offer/set_offer_status',
+					url: '../api/v1/offer/set_offer_status',
 					data: {
 						"freight_id": freight_id,
 						"offer_id": offer_id,
@@ -913,7 +913,7 @@
 				
 				$.ajax({
 					type: "POST",
-					url: '../api/offer/set_offer_status',
+					url: '../api/v1/offer/set_offer_status',
 					data: {
 						"freight_id": freight_id,
 						"offer_id": offer_id,
@@ -991,7 +991,7 @@
 				
 				$.ajax({
 					type: "POST",
-					url: '../api/message/send_message',
+					url: '../api/v1/message/send_message',
 					data: {
 						"message": message,
 						"freight_id": freight_id,
@@ -1040,7 +1040,7 @@
 				
 				$.ajax({
 					type: "POST",
-					url: '../api/freight/set_freight_status',
+					url: '../api/v1/freight/set_freight_status',
 					data: {
 						"freight_id": freight_id,
 						"status": status
@@ -1075,7 +1075,7 @@
 					if (raw_price != null){
 						$.ajax({
 							type: "POST",
-							url: '../api/offer/update_offer_price',
+							url: '../api/v1/offer/update_offer_price',
 							data: {
 								"freight_id": freight_id,
 								"offer_id": offer_id,
@@ -1125,7 +1125,7 @@
 						}
 						$.ajax({
 							type: "POST",
-							url: '../api/message/get_messages',
+							url: '../api/v1/message/get_messages',
 							data: {
 								"offer_id": offer_id,
 								"user_id": user_id,

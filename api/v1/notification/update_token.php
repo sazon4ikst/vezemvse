@@ -1,6 +1,6 @@
 <?php
 
-require "../../util/connectDB.php";
+require "../../../util/connectDB.php";
 
 $participant_google_token = ISSET($_POST["participant_google_token"]) ? $_POST["participant_google_token"] : null;
 

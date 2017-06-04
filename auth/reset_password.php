@@ -217,7 +217,7 @@
 		
 		$.ajax({
 			type: "POST",
-			url: '../api/user/reset_password',
+			url: '../api/v1/user/reset_password',
             data: {
 				"email": email,
 				"password": password

@@ -2,7 +2,7 @@
 
 session_start();
 
-require "../../util/connectDB.php";
+require "../../../util/connectDB.php";
 
 $email = ISSET($_POST["email"]) ? $_POST["email"] : null;
 $password = ISSET($_POST["password"]) ? $_POST["password"] : null;
@@ -21,14 +21,9 @@ $email = mysqli_real_escape_string($con, $email);
 $user_query = mysqli_query($con, "SELECT user_id, name, email, password, type FROM user WHERE email='$email'") or die (mysqli_error($con));
 $user_result = mysqli_fetch_assoc($user_query);
 
-if (!$user_result) {
-	die(json_encode(array("error"=>"Такой пользователь не существует.")));
+if (!$user_result or !password_verify($password, $user_result["password"])) {
+	die(json_encode(array("error"=>"Неправильный адрес или пароль.")));
 }
-
-// Encrypt the password
-$password = password_hash($password, PASSWORD_DEFAULT);
-
-mysqli_query($con, "UPDATE user SET password='$password' WHERE email='$email'");
 
 $_SESSION['user_id']= $user_result["user_id"];
 $_SESSION['name']= $user_result["name"];

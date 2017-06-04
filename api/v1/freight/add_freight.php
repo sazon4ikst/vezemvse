@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require "../../util/connectDB.php";
+require "../../../util/connectDB.php";
 
 $user_id = ISSET($_POST["user_id"]) ? $_POST["user_id"] : null;
 $title = ISSET($_POST["title"]) ? $_POST["title"] : null;
@@ -99,6 +99,9 @@ $distance = mysqli_real_escape_string($con, $distance);
 
 mysqli_query($con, "INSERT INTO freight(user_id, posted_time, start_time, title, description, address_from, address_to, distance, weight, volume, price) VALUES ('$user_id', '$posted_time', '$start_time', '$title', '$description', '$address_from', '$address_to', '$distance', '$weight', '$volume', '$price')") or die (mysqli_error($con));
 $freight_id = mysqli_insert_id($con);
+
+get_lat_long($con, $freight_id, $address_from, $address_to);
+
 echo json_encode(array("freight_id" => $freight_id));
 
 // Send email about the new job to all drivers
@@ -107,7 +110,15 @@ $headers .= "Reply-To: info@gurugruza.com.ua\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-$drivers_query = mysqli_query($con, "SELECT name, email FROM user WHERE type='0' OR type='2'") or die(mysqli_error($con));
+$drivers_query = mysqli_query($con, "SELECT name, email, (
+		  6373 * acos (
+		  cos ( radians( '".$GLOBALS["lat_from"]."' ) )
+		  * cos( radians( X(city_point) ) )
+		  * cos( radians( Y(city_point) ) - radians( '".$GLOBALS["long_from"]."' ) )
+		  + sin ( radians( '".$GLOBALS["lat_from"]."' ) )
+		  * sin( radians( X(city_point) ) )
+		)
+	) AS distance FROM user WHERE (type='0' OR type='2') AND email<>'dmytro@sheiko.net' AND email<>'post_man@ukr.net' AND email<>'andzej@bigmir.net' HAVING distance<150") or die(mysqli_error($con));
 while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
 	$email = $drivers_result["email"];
 	$driver_name = $drivers_result["name"];	
@@ -119,6 +130,39 @@ while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
 	@mail($email, "=?UTF-8?B?".base64_encode("Новый заказ – ".$title)."?=", $message, $headers);
 }
 
+@mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Новый заказ – ".$title."(".time().")")."?=", $message, $headers);
+
+function get_lat_long($con, $freight_id, $address_from, $address_to){
+    $address_from = str_replace(" ", "+", $address_from);
+	
+	$address_from = urlencode($address_from);	
+
+    $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address_from&sensor=false&key=AIzaSyBL5UB6urkL0ni5h-_R9WqLBIJxWdgZl2w");
+    $json = json_decode($json);
+
+    $lat_from = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+    $long_from = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};	
+	
+
+    $address_to = str_replace(" ", "+", $address_to);
+	
+	$address_to = urlencode($address_to);	
+
+    $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address_to&sensor=false&key=AIzaSyBL5UB6urkL0ni5h-_R9WqLBIJxWdgZl2w");
+    $json = json_decode($json);
+
+    $lat_to = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+    $long_to = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+	
+	if (empty($lat_to) or empty($long_to) or empty($lat_from) or empty($long_from)) die("error");
+	
+	mysqli_query($con, "UPDATE freight SET address_from_point=POINT($lat_from, $long_from), address_to_point=POINT($lat_to, $long_to) WHERE freight_id='$freight_id'") or die (mysqli_error($con));
+
+	$GLOBALS['lat_from'] = $lat_from;
+	$GLOBALS['long_from'] = $long_from;
+	$GLOBALS['lat_to'] = $lat_to;
+	$GLOBALS['long_to'] = $long_to;
+}
 
 // Отправить СМС диспетчеру
 

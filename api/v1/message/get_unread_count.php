@@ -1,5 +1,5 @@
 <?php
-require "../../util/connectDB.php";
+require "../../../util/connectDB.php";
 
 $user_id = isset($_POST['user_id']) ? $_POST["user_id"] : null;
 if (empty($user_id)){
