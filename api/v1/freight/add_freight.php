@@ -100,7 +100,7 @@ $distance = mysqli_real_escape_string($con, $distance);
 mysqli_query($con, "INSERT INTO freight(user_id, posted_time, start_time, title, description, address_from, address_to, distance, weight, volume, price) VALUES ('$user_id', '$posted_time', '$start_time', '$title', '$description', '$address_from', '$address_to', '$distance', '$weight', '$volume', '$price')") or die (mysqli_error($con));
 $freight_id = mysqli_insert_id($con);
 
-get_lat_long($con, $freight_id, $address_from, $address_to);
+@get_lat_long($con, $freight_id, $address_from, $address_to);
 
 echo json_encode(array("freight_id" => $freight_id));
 
@@ -109,6 +109,8 @@ $headers = "From: "."=?UTF-8?B?".base64_encode("Гуру Груза")."?="."<inf
 $headers .= "Reply-To: info@gurugruza.com.ua\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+@mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Новый заказ – ".$title."(".time().")")."?=", $message, $headers);
 
 $drivers_query = mysqli_query($con, "SELECT name, email, (
 		  6373 * acos (
@@ -129,8 +131,6 @@ while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
 	
 	@mail($email, "=?UTF-8?B?".base64_encode("Новый заказ – ".$title)."?=", $message, $headers);
 }
-
-@mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Новый заказ – ".$title."(".time().")")."?=", $message, $headers);
 
 function get_lat_long($con, $freight_id, $address_from, $address_to){
     $address_from = str_replace(" ", "+", $address_from);
@@ -154,14 +154,19 @@ function get_lat_long($con, $freight_id, $address_from, $address_to){
     $lat_to = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
     $long_to = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
 	
-	if (empty($lat_to) or empty($long_to) or empty($lat_from) or empty($long_from)) die("error");
-	
-	mysqli_query($con, "UPDATE freight SET address_from_point=POINT($lat_from, $long_from), address_to_point=POINT($lat_to, $long_to) WHERE freight_id='$freight_id'") or die (mysqli_error($con));
-
-	$GLOBALS['lat_from'] = $lat_from;
-	$GLOBALS['long_from'] = $long_from;
-	$GLOBALS['lat_to'] = $lat_to;
-	$GLOBALS['long_to'] = $long_to;
+	if (!(empty($lat_to) or empty($long_to) or empty($lat_from) or empty($long_from))){
+		mysqli_query($con, "UPDATE freight SET address_from_point=POINT($lat_from, $long_from), address_to_point=POINT($lat_to, $long_to) WHERE freight_id='$freight_id'") or die (mysqli_error($con));
+		
+		$GLOBALS['lat_from'] = $lat_from;
+		$GLOBALS['long_from'] = $long_from;
+		$GLOBALS['lat_to'] = $lat_to;
+		$GLOBALS['long_to'] = $long_to;
+	} else {
+		$GLOBALS['lat_from'] = 0;
+		$GLOBALS['long_from'] = 0;
+		$GLOBALS['lat_to'] = 0;
+		$GLOBALS['long_to'] = 0;
+	}
 }
 
 // Отправить СМС диспетчеру

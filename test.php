@@ -3,7 +3,7 @@
 require("util/connectDB.php");
 global $con;
 				
-/*$freight_query = mysqli_query($con, "SELECT freight_id, address_from, address_to FROM freight") or die (mysqli_error($con));
+$freight_query = mysqli_query($con, "SELECT freight_id, address_from, address_to FROM freight") or die (mysqli_error($con));
 while ($freight_result = mysqli_fetch_assoc($freight_query)){			
 	$freight_id = $freight_result["freight_id"];
 	$address_from = $freight_result["address_from"];
@@ -11,7 +11,7 @@ while ($freight_result = mysqli_fetch_assoc($freight_query)){
 	
 	echo $address_from."<br><br>";
 	get_lat_long($con, $freight_id, $address_from, $address_to);
-}*/
+}
 
 /*$users_query = mysqli_query($con, "SELECT user_id, city FROM user WHERE type='0'") or die (mysqli_error($con));
 while ($users_result = mysqli_fetch_assoc($users_query)){			
@@ -22,7 +22,7 @@ while ($users_result = mysqli_fetch_assoc($users_query)){
 	get_lat_long_city($con, $freight_id, $address);
 }*/
 
-$freight_query = mysqli_query($con, "SELECT freight_id, X(address_from_point) AS city_point_lat, Y(address_from_point) AS city_point_long FROM freight") or die (mysqli_error($con));
+/*$freight_query = mysqli_query($con, "SELECT freight_id, X(address_from_point) AS city_point_lat, Y(address_from_point) AS city_point_long FROM freight") or die (mysqli_error($con));
 if ($freight_result = mysqli_fetch_assoc($freight_query)){			
 	$freight_id = $freight_result["freight_id"];
 	$city_point_lat = $freight_result["city_point_lat"];
@@ -43,7 +43,7 @@ if ($freight_result = mysqli_fetch_assoc($freight_query)){
 		
 		echo "distance = ".$distance."<br><br>";
 	}
-}
+}*/
 
 
 
@@ -73,10 +73,11 @@ function get_lat_long($con, $freight_id, $address_from, $address_to){
     $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
     $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
 	
-	if (empty($lat) or empty($long) or empty($lat_from) or empty($long_from)) die("error");
-	
-	
-	mysqli_query($con, "UPDATE freight SET address_from_point=POINT($lat_from, $long_from), address_to_point=POINT($lat, $long) WHERE freight_id='$freight_id'") or die (mysqli_error($con));
+	if (!(empty($lat) or empty($long) or empty($lat_from) or empty($long_from))) {	
+		//mysqli_query($con, "UPDATE freight SET address_from_point=POINT($lat_from, $long_from), address_to_point=POINT($lat, $long) WHERE freight_id='$freight_id'") or die (mysqli_error($con));
+	} else {
+		echo "error for freight id = ".$freight_id;
+	}
 }
 	
 function get_lat_long_city($con, $user_id, $address){
@@ -94,7 +95,11 @@ function get_lat_long_city($con, $user_id, $address){
 	if (empty($lat) or empty($long)) die("error");
 	
 	
-	mysqli_query($con, "UPDATE user SET city_point=POINT($lat, $long) WHERE user_id='$user_id'") or die (mysqli_error($con));
+	if (!(empty($lat) or empty($long))) {	
+		//mysqli_query($con, "UPDATE user SET city_point=POINT($lat, $long) WHERE user_id='$user_id'") or die (mysqli_error($con));
+	} else {
+		echo "error for user id = ".$user_id;
+	}
 }	
 	
 ?>
