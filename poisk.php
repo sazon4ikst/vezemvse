@@ -230,7 +230,7 @@
 										  * sin( radians( X(address_from_point) ) )
 										)
 									) AS distance_from,";
-									$having_from = "HAVING distance_from < 150";
+									$having_from = "HAVING distance_from < 100";
 									
 									$search = true;
 								}
@@ -247,7 +247,7 @@
 										  * sin( radians( X(address_to_point) ) )
 										)
 									) AS distance_to,";
-									$having_to = (empty($having_from)?"HAVING":" AND ")." distance_to < 150";
+									$having_to = (empty($having_from)?"HAVING":" AND ")." distance_to < 100";
 									
 									$search = true;
 								}
