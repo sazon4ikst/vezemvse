@@ -397,8 +397,7 @@
 			
 			function initAutocomplete() {
 				var options = {
-					types: ['(regions)'],
-					componentRestrictions: {country: "ua"}
+					types: ['(regions)']
 				};
 				
 				var input_from = document.getElementById('address_from');
