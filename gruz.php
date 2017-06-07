@@ -788,10 +788,12 @@
 			}
 			
 			function calcRoute() {
+			  var address_to = "<?php echo $freight_result["address_to"] ?>";
+			  address_to = address_to.replace(", ул. Богодаровка", "");
 			
 			  var request = {
 				origin: "<?php echo $freight_result["address_from"] ?>",
-				destination: "<?php echo $freight_result["address_to"] ?>",
+				destination: address_to,
 				optimizeWaypoints: true,
 				travelMode: google.maps.DirectionsTravelMode.DRIVING
 			  };

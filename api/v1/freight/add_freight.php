@@ -110,8 +110,6 @@ $headers .= "Reply-To: info@gurugruza.com.ua\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-@mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Новый заказ – ".$title."(".time().")")."?=", $message, $headers);
-
 $drivers_query = mysqli_query($con, "SELECT name, email, (
 		  6373 * acos (
 		  cos ( radians( '".$GLOBALS["lat_from"]."' ) )
@@ -131,6 +129,8 @@ while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
 	
 	@mail($email, "=?UTF-8?B?".base64_encode("Новый заказ – ".$title)."?=", $message, $headers);
 }
+
+@mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Новый заказ – ".$title." (".time().")")."?=", $message, $headers);
 
 function get_lat_long($con, $freight_id, $address_from, $address_to){
     $address_from = str_replace(" ", "+", $address_from);

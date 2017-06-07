@@ -8247,5 +8247,80 @@ body {
     display: inline-block;
     line-height: 40px
 }
+.orders_search {
+	background: #d5ecf7;
+	margin-bottom: 40px;
+	-webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.29);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.29);
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.29);
+    transition: all .1s ease-in-out;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+	border-radius: 2px;
+	padding: 20px 20px 25px 20px;
+}
+.orders_search_title {
+	font-size: 13px;
+	font-weight: 600;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #303030;
+	margin-bottom: 8px;
+}
+.orders_search input {
+    width: 100%;
+    padding: 7px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.orders_search select {
+    width: 55px;
+    padding: 7px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+	background: #ffffff;
+	height: 38px;
+}
+#orders_search_block_from {
+	width: 250px;
+	margin-left: 5px;
+}
+#orders_search_block_to {
+	width: 250px;
+	margin-left: 40px;
+}
+#orders_search_block_weight {
+	margin-left: 40px;
+}
+#search_button {
+	float: right;
+	margin-top: 0;
+	width: 230px;
+	height: 60px;
+}
 
-/*# sourceMappingURL=main.css.map*/
+@media (max-width: 767px) {
+	#orders_search_block_from {
+		width: 100%;
+		margin-left: 0;
+	}
+	#orders_search_block_to {
+		width: 100%;
+		margin-left: 0;
+		margin-top: 15px;
+	}
+	#orders_search_block_weight {
+		margin-left: 0;
+		margin-top: 15px;
+	}
+	#search_button {
+		margin-bottom: 0;		
+		width: 170px;
+		height: 37px;
+		font-size: 13px;
+		margin-top: 39px;
+	}
+}

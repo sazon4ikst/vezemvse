@@ -1,6 +1,14 @@
 <?php
 	session_start();
 	$session_user_id = @$_SESSION['user_id'];
+	$search_address_from = @$_SESSION['search_address_from'];
+	$search_address_to = @$_SESSION['search_address_to'];
+	$search_from_lat = @$_SESSION['search_from_lat'];
+	$search_from_lng = @$_SESSION['search_from_lng'];
+	$search_to_lat = @$_SESSION['search_to_lat'];
+	$search_to_lng = @$_SESSION['search_to_lng'];
+	$search_weight_min = @$_SESSION['search_weight_min'];
+	$search_weight_max = @$_SESSION['search_weight_max'];
 	
 	require("util/connectDB.php");
 	global $con;
@@ -63,7 +71,7 @@
 
 			@media (max-width: 767px) {
 				#content_body {
-					padding: 45px 0 10px 0;
+					padding: 10px 0 10px 0;
 				}
 			}
 
@@ -116,12 +124,164 @@
 				<div class="container">
 					<div class="row">
 						<div class="span12">
+							<div class="orders_search">
+								<div id="orders_search_block_from" style="display:inline-block">
+									<p class="orders_search_title">Откуда</p>
+									<input id="address_from" placeholder="Область загрузки" value="<?php echo $search_address_from ?>"></input>
+								</div>
+								<div id="orders_search_block_to" style="display:inline-block">
+									<p class="orders_search_title">Куда</p>
+									<input id="address_to" placeholder="Область разгрузки" value="<?php echo $search_address_to ?>"></input>
+								</div>
+								<div id="orders_search_block_weight" style="display:inline-block">
+									<p class="orders_search_title">Масса</p>
+									<select id="weight_min">
+										<option selected>0</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+										<option>9</option>
+										<option>10</option>
+										<option>11</option>
+										<option>12</option>
+										<option>13</option>
+										<option>14</option>
+										<option>15</option>
+										<option>16</option>
+										<option>17</option>
+										<option>18</option>
+										<option>19</option>
+										<option>20</option>
+										<option>21</option>
+										<option>22</option>
+										<option>23</option>
+										<option>24</option>
+										<option>25</option>
+										<option>26</option>
+										<option>27</option>
+										<option>28</option>
+										<option>29</option>
+									</select>
+									<script>
+										$("#weight_min option").each(function() {
+											this.selected = (this.text == <?php echo $search_weight_min ?>);
+										});
+									</script>
+									–
+									<select id="weight_max">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+										<option>9</option>
+										<option>10</option>
+										<option>11</option>
+										<option>12</option>
+										<option>13</option>
+										<option>14</option>
+										<option>15</option>
+										<option>16</option>
+										<option>17</option>
+										<option>18</option>
+										<option>19</option>
+										<option>20</option>
+										<option>21</option>
+										<option>22</option>
+										<option>23</option>
+										<option>24</option>
+										<option>25</option>
+										<option>26</option>
+										<option>27</option>
+										<option>28</option>
+										<option>29</option>
+										<option selected>30</option>
+									</select>
+									<script>
+										$("#weight_max option").each(function() {
+											this.selected = (this.text == <?php echo $search_weight_max ?>);
+										});
+									</script>
+									<font style="margin-left:2px">т</font>
+								</div>
+								<a id="search_button" class="inquiry__button vv-button vv-button--gold vv-button--big">Подобрать груз</a>
+							</div>
+							<?php
+							
+							
+								$distance_from_query = "";
+								$having_from = "";
+								$search = false;
+								if (!empty($search_from_lat) and !empty($search_from_lng)){
+									$distance_from_query = "(
+										  6373 * acos (
+										  cos ( radians( '".$search_from_lat."' ) )
+										  * cos( radians( X(address_from_point) ) )
+										  * cos( radians( Y(address_from_point) ) - radians( '".$search_from_lng."' ) )
+										  + sin ( radians( '".$search_from_lat."' ) )
+										  * sin( radians( X(address_from_point) ) )
+										)
+									) AS distance_from,";
+									$having_from = "HAVING distance_from < 150";
+									
+									$search = true;
+								}
+								
+								$distance_to_query = "";
+								$having_to = "";
+								if (!empty($search_to_lat) and !empty($search_to_lng)){
+									$distance_to_query = "(
+										  6373 * acos (
+										  cos ( radians( '".$search_to_lat."' ) )
+										  * cos( radians( X(address_to_point) ) )
+										  * cos( radians( Y(address_to_point) ) - radians( '".$search_to_lng."' ) )
+										  + sin ( radians( '".$search_to_lat."' ) )
+										  * sin( radians( X(address_to_point) ) )
+										)
+									) AS distance_to,";
+									$having_to = (empty($having_from)?"HAVING":" AND ")." distance_to < 150";
+									
+									$search = true;
+								}
+								$where_weight_min = "";
+								if (!empty($search_weight_min)) {
+									$where_weight_min = "AND (weight>=".($search_weight_min*1000)." OR weight IS NULL OR weight='')";
+									
+									if ($search_weight_min != "0"){
+										$search = true;
+									}
+								}
+								$where_weight_max = "";
+								if (!empty($search_weight_max)) {
+									$where_weight_max = "AND (weight<=".($search_weight_max*1000)." OR weight IS NULL OR weight='')";
+
+									if ($search_weight_max != "30"){
+										$search = true;
+									}						
+								}
+							
+								$freight_query = mysqli_query($con, "SELECT $distance_from_query $distance_to_query user_id, freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid ORDER BY price ASC LIMIT 1) AS last_offer, (SELECT status FROM offer WHERE offer.freight_id=freightid ORDER BY status ASC LIMIT 1) AS offer_status FROM freight WHERE fake='0' $where_weight_min $where_weight_max $having_from $having_to ORDER BY posted_time DESC") or die (mysqli_error($con));
+							
+							?>
 							<div class="orders_title" style="font-weight:400">
-								Последние добавленные заказы</span>
+								<?php if (mysqli_num_rows($freight_query) == 0) {
+									echo "Заказов не найдено :(";
+								} else if ($search) {
+									echo "Найденные заказы";
+								} else {
+									echo "Последние добавленные заказы";
+								} ?></span>
 							</div>
 							<div class="orders_inner" style="padding:0">
 							<?php
-								$freight_query = mysqli_query($con, "SELECT user_id, freight_id AS freightid, title, address_from, address_to, distance, weight, volume, price, start_time, status, (SELECT price FROM offer WHERE offer.freight_id=freightid ORDER BY price ASC LIMIT 1) AS last_offer, (SELECT status FROM offer WHERE offer.freight_id=freightid ORDER BY status ASC LIMIT 1) AS offer_status FROM freight WHERE fake='0' ORDER BY posted_time DESC") or die (mysqli_error($con));
 								while ($freight_result = mysqli_fetch_assoc($freight_query)){?>
 								<div class="orders_inner_item">
 									<a href="gruz?id=<?php echo $freight_result["freightid"] ?>" class="orders_inner_item_link"></a>
@@ -226,5 +386,86 @@
 		<script type="text/javascript" src="assets/cache/201722/support_dialog.min.js" charset="UTF-8"></script>
 		<script type='text/javascript' src="util/jivosite.js"></script>
 		<script type="text/javascript" src="assets/cache/201722/drawer.js" charset="UTF-8"></script>
-	</body>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL5UB6urkL0ni5h-_R9WqLBIJxWdgZl2w&libraries=places&callback=initAutocomplete&language=ru&region=ua" async defer></script>
+		<script>
+			var search_from_lat = "<?php echo $search_from_lat ?>";
+			var search_from_lng = "<?php echo $search_from_lng ?>";
+			var search_to_lat = "<?php echo $search_to_lat ?>";
+			var search_to_lng = "<?php echo $search_to_lng ?>";
+			var weight_min = "<?php echo $search_weight_min ?>";
+			var weight_max = "<?php echo $search_weight_max ?>";
+			
+			function initAutocomplete() {
+				var options = {
+					types: ['(regions)'],
+					componentRestrictions: {country: "ua"}
+				};
+				
+				var input_from = document.getElementById('address_from');
+				var autocomplete_from = new google.maps.places.Autocomplete(input_from, options);
+				var input_to = document.getElementById('address_to');
+				var autocomplete_to = new google.maps.places.Autocomplete(input_to, options);
+				google.maps.event.addListener(autocomplete_from, 'place_changed', function() {
+					result = autocomplete_from.getPlace();
+					if (typeof result.address_components !== 'undefined') {
+						search_from_lat = result.geometry.location.lat();
+						search_from_lng = result.geometry.location.lng();
+					} else {
+						search_from_lat = null;
+						search_from_lng = null;
+					}
+				});
+				google.maps.event.addListener(autocomplete_to, 'place_changed', function() {
+					result = autocomplete_to.getPlace();
+					if (typeof result.address_components !== 'undefined') {
+						search_to_lat = result.geometry.location.lat();
+						search_to_lng = result.geometry.location.lng();						
+					} else {
+						search_to_lat = null;
+						search_to_lng = null;
+					}
+				});
+				$("#address_from").on('input', function() {
+					search_from_lat = null;
+					search_from_lng = null;
+				});
+				$("#address_to").on('input', function() {
+					search_to_lat = null;
+					search_to_lng = null;
+				});
+			}
+			
+			$("#search_button").click(function(){
+				if (parseInt($("#weight_max").val()) < parseInt($("#weight_min").val())){
+					alert("Выбран неправильный вес.");
+					return;
+				}
+				
+				var button = $(this);
+				
+				button.html("Подождите...");
+				
+				$.ajax({
+					type: "POST",
+					url: '../api/v1/search/save_search',
+					data: {
+						"address_from": $("#address_from").val(),
+						"address_to": $("#address_to").val(),
+						"from_lat": search_from_lat,
+						"from_lng": search_from_lng,
+						"to_lat": search_to_lat,
+						"to_lng": search_to_lng,
+						"weight_min": $("#weight_min").val(),
+						"weight_max": $("#weight_max").val(),
+					},
+					success: function(data){					
+						location.reload();
+					},
+					error: function(data){
+						alert("Произошла ошибка.");
+					}
+				});
+			});
+		</script>
+		</body>
 </html>

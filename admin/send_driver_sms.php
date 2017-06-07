@@ -2,7 +2,7 @@
 
 require "../util/connectDB.php";
 
-$freights_query = mysqli_query($con, "SELECT freight_id, title, address_from, address_to FROM freight ORDER BY freight_id DESC") or die (mysqli_error($con));
+$freights_query = mysqli_query($con, "SELECT freight_id, title, address_from, address_to FROM freight WHERE fake=0 ORDER BY freight_id DESC") or die (mysqli_error($con));
 ?>
 
 <form method="get">
@@ -21,6 +21,7 @@ $freights_query = mysqli_query($con, "SELECT freight_id, title, address_from, ad
 	</select>
 	
 	<h3>Область</h3>
+	<p><input type="radio" name="area" value='Волынская'>Волынская</input></p>
 	<p><input type="radio" name="area" value='Киевская' checked>Киевская</input></p>
 	<p><input type="radio" name="area" value='Одесская'>Одесская</input></p>
 	<p><input type="radio" name="area" value='Черкасская'>Черкасская</input></p>
@@ -36,6 +37,7 @@ $freights_query = mysqli_query($con, "SELECT freight_id, title, address_from, ad
 	<p><input type="radio" name="area" value='Сумская'>Сумская</input></p>
 	<p><input type="radio" name="area" value='Харьковская'>Харьковская</input></p>
 	<p><input type="radio" name="area" value='Херсонская'>Херсонская</input></p>
+	<p><input type="radio" name="area" value='Хмельницкая'>Хмельницкая</input></p>
 	<p><input type="radio" name="area" value='Винницкие компании'>Винницкие компании</input></p>
 	<p><input type="radio" name="area" value='Тест (Я)'>Тест (Я)</input></p>
 	
@@ -59,7 +61,15 @@ $price = $freight_result["price"];
 $address_from = $freight_result["address_from"];
 $address_to = $freight_result["address_to"];
 
-if ($area == "Одесская"){
+if ($area == "Волынская"){
+	$driver_phones = array(
+		"0673511424",
+		"09924О616З",
+		"067З511424",
+		"0673532711",
+		"0965403852",
+	);
+} else if ($area == "Одесская"){
 	$driver_phones = array(
 		"0969781615",
 		"0968991479",
@@ -76,6 +86,8 @@ if ($area == "Одесская"){
 		"0503954999",
 		"0679804455",
 		"0678575633",
+		// Только из базы данных
+		"0932471487"
 	);
 } else if ($area == "Черкасская"){
 	$driver_phones = array(
@@ -148,9 +160,9 @@ if ($area == "Одесская"){
 		"0935442985",
 		"0686525410",
 		"0506822499",
-		"0504623375",
+		// "0504623375", отказался от рассылки
 		"0668177858",
-		"0968242478",
+		// "0968242478", отказался от рассылки
 		"0630456383",
 		"0963330712",
 		"0932369567",
@@ -163,6 +175,7 @@ if ($area == "Одесская"){
 		"0672468537",
 		"0672324402",
 		"0953017185",
+		"0674521928",
 	);
 } else if ($area == "Запорожская"){
 	$driver_phones = array(
@@ -299,6 +312,9 @@ if ($area == "Одесская"){
 		"0938165209",
 		"0661705629",
 		"0961842145",
+		
+		// Только из базы данных
+		"0682589336"
 	);
 } else if ($area == "Николаевская"){
 	$driver_phones = array(
@@ -536,7 +552,23 @@ if ($area == "Одесская"){
 		"(050)7649829",
 		
 	);
-} 
+} else if ($area == "Хмельницкая"){
+	$driver_phones = array(
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",		
+	);
+}
 
 include 'sms/config.php';
 include 'sms/Addressbook.php';
