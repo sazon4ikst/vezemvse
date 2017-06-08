@@ -13,6 +13,7 @@ if(isset($_SESSION['user_id'])){
 				</div>
 
                 <span class="toolbar__name">Здравствуйте, '.$_SESSION['name'].'</span>
+				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='account/main' style='text-decoration:none'>Личный кабинет<font style='color:#e84e3c; padding-bottom:4px; padding-left:2px; margin-top:-4px; font-size:25px; float:right'>•</font></a>":"").'
 				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='poisk' style='text-decoration:none'>Поиск грузов</a>":"").'
 				'.($type=="1"?"<a class='toolbar__cabinet toolbar__link' href='booking' style='text-decoration:none'>Разместить запрос</a>":"").'
                 <a class="toolbar__cabinet toolbar__link" href="/zaprosy" style="text-decoration:none">'.($type=="0"?"Мои предложения":"Мои запросы").'</a>
@@ -23,8 +24,8 @@ if(isset($_SESSION['user_id'])){
 	';
 	
 	?>	
-	<script src="./assets/scripts/util/jquery.min.js"></script>
-	<script src = "./assets/scripts/util/jquery.jrumble.1.3.js"></script>
+	<script src="<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>/assets/scripts/util/jquery.min.js"></script>
+	<script src = "<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>/assets/scripts/util/jquery.jrumble.1.3.js"></script>
 	<script>
 		var message_shaked = false;
 	
@@ -39,7 +40,7 @@ if(isset($_SESSION['user_id'])){
 			var user_id = "<?php echo $session_user_id ?>";
 			$.ajax({
 				type: "POST",
-				url: "api/v1/message/get_unread_count",
+				url: "<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>api/v1/message/get_unread_count",
 				data: {
 					"user_id": user_id
 				},

@@ -55,6 +55,7 @@ if (empty($user_id)){
 		$message = ob_get_clean();
 
 		mail($email, "=?UTF-8?B?".base64_encode("Спасибо за регистрацию на нашем сайте")."?=", $message, $headers);
+		$message = null;
 		
 		$_SESSION['name'] = $full_name;
 	} else {		
@@ -128,9 +129,18 @@ while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
 	$message = ob_get_clean();
 	
 	@mail($email, "=?UTF-8?B?".base64_encode("Новый заказ – ".$title)."?=", $message, $headers);
+	$message = null;
 }
 
+$email = "dmytro@sheiko.net";
+$driver_name = "Дмитрий";	
+
+ob_start();
+require("new_freight_email.html");
+$message = ob_get_clean();
+
 @mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Новый заказ – ".$title." (".time().")")."?=", $message, $headers);
+$message = null;
 
 function get_lat_long($con, $freight_id, $address_from, $address_to){
     $address_from = str_replace(" ", "+", $address_from);
@@ -168,6 +178,8 @@ function get_lat_long($con, $freight_id, $address_from, $address_to){
 		$GLOBALS['long_to'] = 0;
 	}
 }
+
+return;
 
 // Отправить СМС диспетчеру
 

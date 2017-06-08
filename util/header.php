@@ -1,20 +1,20 @@
-<script src="./assets/scripts/util/jquery.min.js"></script>
+<script src="<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>/assets/scripts/util/jquery.min.js"></script>
 <header class="layout__header _fixed">
    <div class="layout__drawer-button x-drawer-button"></div>
    <div class="layout__header-row _viewport_mobile">
       <div class="layout__title header_mobile">
-		<a href="/"><img class="layout__logo" src="assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" /></a>
+		<a href="/"><img class="layout__logo" src="<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" /></a>
       </div>
    </div>
    <div class="layout__header-row _viewport_desktop">
       <div class="header">
 	  
-         <?php require("./util/session_header.php") ?>
+         <?php require("session_header.php") ?>
          <div class="header__content">
             <div class="header__item header__title">
                <a href="/">
-               <img class="header__title-logo" src="assets/images/home_v4/logo-white.png" alt="Сайт грузоперевозок «Везет Всем»">
-               <img class="header__title-logo _blue" src="assets/images/home_v4/logo-blue.png" alt="Сайт грузоперевозок «Везет Всем»">
+               <img class="header__title-logo" src="<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>assets/images/home_v4/logo-white.png" alt="Сайт грузоперевозок «Везет Всем»">
+               <img class="header__title-logo _blue" src="<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>assets/images/home_v4/logo-blue.png" alt="Сайт грузоперевозок «Везет Всем»">
                </a>
                <a class="header__title-link" href="#">Онлайн-сервис перевозок</a>
             </div>

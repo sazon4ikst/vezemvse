@@ -837,7 +837,7 @@
 				$("#add_button_text").text("Подождите...");
 				$.ajax({
 					type: "POST",
-					url: "api/offer/add_offer",
+					url: "../api/v1/offer/add_offer",
 					data: {
 						"freight_id": freight_id,
 						"user_id": user_id,
@@ -1154,6 +1154,15 @@
 						});
 					}					
 				});
+			}
+			
+			if ("<?php echo $type ?>"!="1"){
+				try{						
+					ga('send', 'event', {
+						eventCategory: 'Заказ',
+						eventAction: 'Просмотр',							
+					});
+				} catch(err){}
 			}
 		</script>
 		<?php
