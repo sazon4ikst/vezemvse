@@ -55,7 +55,7 @@
 		<?php } else { ?>
 		<?php if ($type=="0") {
 				echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="poisk" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Поиск груза</a>';
-				echo '<a class="header__link header__register" href="/zaprosy" style="color:#333; margin:20px 10px 0 10px; display:block">Мои предложения</a>';
+				echo '<a class="header__link header__register" href="zaprosy" style="color:#333; margin:20px 10px 0 10px; display:block">Мои ставки</a>';
 			}  else {
 				echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="zaprosy" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Мои запросы</a>';
 			}

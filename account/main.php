@@ -39,51 +39,38 @@
 		<title>Личный кабинет - онлайн-аукцион сайт грузоперевозок по Украине «Гуру Груза»</title>
 		<link type="text/css" rel="stylesheet" href="../listing/assets/main.css" media="screen" />
 		<link type="text/css" rel="stylesheet" href="../assets/cache/201722/home_v42017222331.min.css" media="screen" />
+		<link type="text/css" rel="stylesheet" href="../assets/cache/201722/common.min.css" media="screen" />
+		<link type="text/css" rel="stylesheet" href="https://yandex.st/bootstrap/2.3.2/css/bootstrap-responsive.min.css" media="screen" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 		<link rel="stylesheet" href="../booking/assets/main.css">
-		<link type="text/css" rel="stylesheet" href="../assets/styles/pages/landing/v2/landing_for_transit.css" media="screen" />
-		<link type="text/css" rel="stylesheet" href="../assets/styles/pages/landing/v2/landing_for_transit_v2.css" media="screen" />
-		<link type="text/css" rel="stylesheet" href="../assets/styles/pages/landing/v2/landing_for_transit_v3.css" media="screen" />
+		<link type="text/css" rel="stylesheet" href="../assets/styles/pages/account/carrier/common.css" media="screen" />
+		<link type="text/css" rel="stylesheet" href="../assets/styles/pages/account/carrier/main.css" media="screen" />
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300&amp;subset=latin,cyrillic" media="screen" />
+		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&amp;subset=latin,cyrillic,latin-ext" media="screen" />
 		
 		<style type="text/css" data-ymaps="css-modules">
-			.container {
-				width: 1250px;
-			}
-
-			@media (max-width: 767px) {
-				.container {
-					width: 100%;
-				}
-			}
-			
 			#content_body {
 				padding: 30px 0 40px 0;
 			}
 
 			@media (max-width: 767px) {
 				#content_body {
-					padding: 10px 0 10px 0;
+					padding: 30px 0 10px 0;
 				}
-			}
-
-			@media (max-width: 767px) {
-				.torg_green {
-					display: none;
+				.vv-alert--red {
+					background: #F7DDD9 !important;
+					padding: 20px;
 				}
 			}
 			
-			.torg_green_phone {
-				display: none !important;
-				font-size:12px !important;
-				color: #00b911 !important;
+			select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+				padding: 4px 6px !important;
 			}
-
-			@media (max-width: 767px) {
-				.torg_green_phone {
-					display: block !important;
-				}
+			
+			.atp-menu li {
+				padding-left: 20px !important;
 			}
 		</style>
 
@@ -109,10 +96,107 @@
 	</script>
 	<?php } ?>
 	</head>
-	<body style="background:#f9f8f3">
+	<body style="background:#f9f8f3; padding:0">
 		<?php require("../util/support_dialog.html") ?>
 		<div id="content_body" style="min-height:calc(100% + 70px); position:relative;">
 			<?php require("../util/header.php") ?>
+			
+			
+			<section id="content">
+    <div class="sub-content">
+    <div class="container" style="padding:0">
+    <div class="row">
+                <div class="span12 dop">
+            <div class="tac">Личный кабинет</div>
+        </div>
+    </div>
+</div></div>
+<div class="sub-content x-transport">
+    <div class="container" style="padding:0">
+        <div class="row rff3">
+            <div class="span3 lk3">
+    <ul class="atp-menu" style="-webkit-padding-start:0">
+        <li class="x-account-menu-main active pustoi1"><a href="main">Основные данные</a></li>
+        <li class="x-account-menu-transport"><a href="transport">Мой транспорт</a></li>
+    </ul>
+</div>
+
+            <div class="span9 dop2" style="margin-bottom:40px; padding-top:10px; padding-right:40px">
+                    <div class="tail_default ocen_tail x-detail-account-main-tip" data-id="814090" style="display:none;">
+        <span class="close">Close</span>
+        <div>
+            <p>Здесь указаны Ваши основные данные – имя и фамилия, e-mail, контактный телефон. Также на этой странице Вы можете изменить свой пароль для входа на «Везёт Всем».</p>
+        </div>
+        <div class="button">
+            <button class="prodoljit_tail"></button>
+        </div>
+    </div>
+                <div class="atpd">
+                    <strong>Имя:</strong>
+
+                    <div class="pustoi1">Дмитрий</div>
+                </div>
+                <div class="atpd">
+                    <strong>Фамилия:</strong>
+
+                    <div class="pustoi1">Шейко</div>
+                </div>
+                <div class="atpd">
+                    <strong>Электронная почта:</strong>
+
+                    <div class="pustoi1">dmytro@sheiko.net</div>
+                </div>
+                <div class="atpd">
+                    <strong>Основной телефон:</strong>
+
+                    <div class="pustoi1">
+                                                +380950252903                    </div>
+                </div>
+                <div class="rfz3 dn r4">
+                    <div class="w240">
+                        <div class="rfl dn"></div>
+                        <h1 style="font-weight: bold; font-family: 'PT Sans', sans-serif !important;">Смена пароля</h1>
+
+                        <div class="rfr dn"></div>
+                    </div>
+                </div>
+                <form method="POST">
+                    <div class="f2">
+                        <div class="pustoi1 x-account-old-password">
+                            <div class="pustoi6 x-account-error-message"></div>
+                            <span>Старый пароль:</span>
+                            <div class="pustoi8">
+                                <input type="password" name="oldPassword">
+                            </div>
+
+                            <div class="pustoi2"><a href="/auth/forgot_password">Я забыл пароль</a></div>
+                        </div>
+                        <div class="pustoi4 x-account-password">
+                            <div class="pustoi6 x-account-error-message"></div>
+                            <span>Новый пароль:</span>
+                            <div class="pustoi8">
+                                <input type="password" name="password">
+                            </div>
+
+                            <div class="pustoi3"></div>
+                        </div>
+                    </div>
+                    <div class="linia7"></div>
+                    <div class="save-changes">
+                        <button type="submit" class="activ-tel ml190 x-account-change-pass-button">Сохранить изменения</button>
+                    </div>
+                    <div id="x-account-success-save" class="hover2 dn ha" style="display: none;">
+                    	<div class="hover-img2">
+                            <div class="triangle"><div class="hover-img2__triangle-figure"></div></div>
+                            <div class="hover-img__text">Изменения внесены</div>
+                        </div>
+                    </div>                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
 			<footer>
 				<article class="footer" style="padding:20px">
 					<div class="vv-container">

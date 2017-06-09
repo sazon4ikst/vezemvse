@@ -1,0 +1,24 @@
+.atpd strong {font-size: 17px;display: inline-block;width: 180px;margin: 15px 0 15px 0;}
+.atpd div.pustoi1 {display: inline-block;font-size: 17px;}
+.rfz3{ margin:0 15px 0 0;position: relative;}
+.rfz3>div{margin:0 auto;text-align:center;}
+.rfz3 .rfl,.rfz3 .rfr{height: 13px;position: absolute;top: 16px;z-index: 1;width: 100%;}
+.rfz3 .rfl{ background: url(/assets/styles/images/v3/rfr2.png) no-repeat left;}
+.rfz3 .rfr{ background: url(/assets/styles/images/v3/rfl2.png) no-repeat right ;}
+.rfz3> div> h1{font-size:35px;padding: 0 10px 0 10px;position:relative;z-index:3;width:auto !important;display:inline-block;}
+.f2 .pustoi1 span, .f2 .pustoi4 span {font-weight: bold;font-size: 18px;display: inline-block;width: 180px;line-height: 50px;}
+.f2 .pustoi8 {background:url(/assets/styles/images/v3/lk/lk_fon_knopok.png) repeat-x bottom;width: 184px;height: 40px;padding:10px 14px 0 11px;border: none;display: inline-block;border-radius:7px;}
+.f2 .pustoi1 input, .f2 .pustoi4 input {width: 187px;height: 30px;padding: 0;border: none;display: inline-block;box-shadow: none;line-height: 30px; text-indent:5px;-webkit-box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.75);box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.75);}
+.f2 .pustoi1 div.pustoi2 a {color: #7094cc !important;text-decoration: none !important;}
+.f2 .pustoi1 div.pustoi2, .f2 .pustoi4 div.pustoi3 {display: inline-block;color: #7094cc;font-size: 18px;border-bottom: dotted 1px #7094cc;margin-left: 15px;cursor: pointer;line-height: 15px; padding-bottom:2px;}
+.f2 .pustoi1 div.pustoi2 {height: 15px;vertical-align: middle;}
+.f2 .pustoi1,.f2 .pustoi4 {margin: 15px 0 15px 0;}
+.linia7 {background: url(/assets/styles/images/v3/border10.png) repeat-x bottom;margin: 0 10px 0 -20px;padding: 0 0 0 10px;width: 100%;height: 2px;}
+.save-changes{background:url(/assets/styles/images/v3/lk/lk_fon_knopok.png) repeat-x bottom;border-radius:7px;width: 313px;height: 70px;margin:15px 0 0 185px; display:inline-block;}
+.save-changes button{background: url(/assets/styles/images/v3/lk/save_changes.png) repeat-x bottom;width: 295px;height: 54px;border: none;font-size: 19px;color: #344727 !important;margin:8px 0 0 9px;display: inline-block;text-align: center;border-radius:7px;}
+.atpd .pustoi1 .flag{ margin:3px 0 0 0 !important;}
+.f2 .pustoi1 div.pustoi6, .f2 .pustoi4 div.pustoi6 {display: none;}
+.off-v4 div.pustoi6 {display: block !important;color: #fc795b;font-size: 18px;}
+.sel_os4 .dd .ddTitle span.ddTitleText .flag{ vertical-align:top;}
+.dop2 .atpd .pustoi1 .flag{ vertical-align:top;}

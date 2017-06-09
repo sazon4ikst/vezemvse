@@ -1,0 +1,524 @@
+#content {
+    font-family: 'PT Sans';
+}
+
+.rff3 {
+    background: #f7f7f7 url(/assets/styles/images/v3/lk/linia2.png) repeat-y;
+    margin-bottom: 30px;
+}
+
+.rfz3 {
+    position: relative;
+}
+
+.rfz3 > div {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.rfz3 .rfl, .rfz3 .rfr {
+    height: 13px;
+    position: absolute;
+    top: 16px;
+    z-index: 1;
+    width: 100%;
+}
+
+.rfz3 .rfl {
+    background: url(/assets/styles/images/v3/rfr2.png) no-repeat left;
+}
+
+.rfz3 .rfr {
+    background: url(/assets/styles/images/v3/rfl2.png) no-repeat right;
+}
+
+.rfz3 > div > h1 {
+    position: relative;
+    z-index: 3;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    font-size: 32px;
+    background: #fff;
+}
+
+.lk3 {
+    padding-bottom: 20px;
+}
+
+.dop2 {
+    min-height: 505px;
+    margin-left: 0;
+    padding: 0 0 20px 30px;
+    background: #fff;
+}
+
+.dop div {
+    font-size: 35px;
+    line-height: normal;
+    font-weight: bold;
+    margin: 0 20px 30px 20px;
+    text-align: center;
+}
+
+.atp-menu {
+    margin: 0;
+}
+
+.atp-menu a {
+    text-decoration: none;
+    color: #333;
+}
+
+.atp-menu li {
+    list-style: none;
+    font-size: 16px;
+    padding: 12px 0 13px 15px;
+    cursor: pointer;
+    background: url(/assets/styles/images/v3/border10.png) repeat-x bottom;
+}
+
+.atp-menu li.pustoi1 {
+    background: url(/assets/styles/images/v3/li.png) repeat-y left bottom;
+}
+
+.atp-menu li.menu-routes a,
+.atp-menu li a span {
+    color: #333;
+}
+
+.atp-menu a:hover,
+.atp-menu li a.activ,
+.atp-menu li.pustoi1 a,
+.atp-menu li.menu-routes a:hover,
+.atp-menu li.menu-routes a span:hover {
+    color: #fc795b;
+    text-decoration: none;
+}
+
+.atp-menu li.menu-routes.no-routes.pustoi1 a,
+.atp-menu li.menu-routes.no-routes a:hover,
+.atp-menu li.menu-routes.no-routes a span:hover,
+.atp-menu li.menu-routes.no-routes a.activ {
+    color: #ffffff ;
+}
+
+.atp-menu li.no-routes {
+    background: #fc795b;
+}
+
+.atp-menu li.no-routes a {
+    color: #000000;
+}
+
+.atp-menu a.blocked {
+    color: gray !important;
+}
+
+.menu-routes-new {
+    position: relative;
+}
+
+.lk-help-links {
+    font-size: 18px;
+    color: #000000;
+    padding: 10px 0px 0px 15px;
+}
+
+.lk-help-links span {
+    font-weight: bold;
+}
+
+.lk-help-links ul {
+    margin-top: 11px;
+    padding-right: 15px;
+}
+
+.lk-help-links ul li {
+    margin-bottom: 11px;
+}
+
+.lk-help-links a, .lk-sep-links {
+    text-decoration: underline;
+    color: #5E95CF;
+}
+
+.lk-pro {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.breaker {
+    clear: both;
+    font-size: 0px;
+    line-height: 0px;
+    overflow: hidden;
+}
+
+.ocen_tail {
+    font-size: 18px;
+    position: fixed;
+    left: 50%;
+    margin-left: -300px;
+    padding: 18px;
+    top: 30%;
+    width: 560px;
+    z-index: 10;
+}
+
+.ocen_tail .tail_ul_wr {
+    border-top: #ffffff 1px solid;
+    margin-top: 12px;
+    padding-top: 12px;
+}
+
+.ocen_tail .tail_ul_wr ul {
+    list-style: none;
+    margin: 10px 0 0 0;
+    padding: 0;
+}
+
+.ocen_tail .tail_ul_wr ul li {
+    background: url(/assets/styles/images/new_detail/ptich_ocen.png) no-repeat left center;
+    padding: 3px 0 3px 35px;
+}
+
+.prodoljit_tail {
+    background: url(/assets/styles/images/new_detail/prodoljit_tail.png) no-repeat left top;
+    border: medium none;
+    cursor: pointer;
+    display: inline-block;
+    height: 54px;
+    width: 160px;
+}
+
+.ocen_tail .button {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.tail_default {
+    background: url("/assets/styles/images/new_detail/tail_bg.png") repeat scroll left top transparent;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 7px 10px;
+    position: absolute;
+    text-align: left;
+}
+
+.tail_default p {
+    font-size: 18px;
+}
+
+.ocen_tail .close {
+    background: url("/assets/styles/images/new_detail/close_tail.png") no-repeat scroll left top transparent;
+    cursor: pointer;
+    font-size: 0;
+    height: 15px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 15px;
+}
+
+.ocen_tail .close:hover {
+    background-position: left bottom;
+}
+
+.blok-shag {
+    background: url(/assets/styles/images/v3/atp-fon.png) repeat-x;
+    height: 92px;
+    margin: 28px 10px 0 0;
+}
+
+.chag1, .chag2, .chag3 {
+    width: 395px;
+    height: 76px;
+    display: inline-block;
+    background: url(/assets/styles/images/v3/atp.png);
+}
+
+.chag1 {
+    background-position: 0 -83px;
+    margin: 7px 0 0 10px;
+}
+
+.chag2 {
+    background-position: 0 0;
+    margin: 7px 0 0 -23px;
+}
+
+.chag3 {
+    background-position: 0 -168px;
+    margin: 7px 0 0 -23px;
+}
+
+.chag1 > div, .chag2 > div, .chag3 > div {
+    background: url(/assets/styles/images/v3/atp.png);
+    background-position: -416px 0;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    font-size: 25px;
+    color: #fff;
+    float: left;
+}
+
+.chag1 > div {
+    margin: 20px 0 0 20px;
+}
+
+.chag2 > div, .chag3 > div {
+    margin: 20px 0 0 60px;
+}
+
+.chag1 > p, .chag2 > p, .chag3 > p {
+    color: #333333;
+    font-size: 25px;
+    float: left;
+    margin: 20px 0 0 5px;
+}
+
+.shag-activ > div, .shag-activ2 > div {
+    color: #92c46d;
+    background-position: -416px -45px;
+}
+
+.shag-activ > p, .shag-activ2 > p {
+    color: #3a4e2c;
+}
+
+.mt0 {
+    margin-top: 0;
+}
+
+.shag-activ2 {
+    background-position: 0 -255px;
+}
+
+.chag3 > p > a {
+    color: #7194cc;
+}
+
+.sravni-kupi > a {
+    color: #7094cc !important;
+    border-bottom: 1px solid #7094cc;
+}
+
+.sravni-kupi > a:hover {
+    border-bottom: none
+}
+
+.sravni-kupi-discount {
+    color: #6bae5e;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.flag {
+    position: relative;
+    margin: 0 5px 0 0 !important;
+}
+
+.ddTitleText .flag {
+    vertical-align: top !important;
+}
+
+.need-pro {
+    color: #fc795b;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.need-pro a {
+    color: #5E95CF;
+    text-decoration: underline;
+}
+
+/*banner*/
+.sravni-kupi.banner .background {
+    background: #fff;
+    border: 1px solid #ccc;
+    width: 95%;
+    margin: 20px auto;
+    border-radius: 4px;
+    box-shadow: 2px 2px 7px rgba(51, 51, 51, .4);
+    font-family: "Helvetica", Open Sans, Calibri, Arial;
+    font-size: 22pt;
+    padding: 10px 20px;
+}
+
+.sravni-kupi.banner .green {
+    font-weight: bold;
+    color: #92c46d;
+}
+
+.sravni-kupi.banner .text {
+    display: inline-block;
+}
+
+.sravni-kupi.banner .button {
+    display: inline-block;
+}
+
+.sravni-kupi.banner .button {
+    width: 280px;
+    height: 40px;
+    background: linear-gradient(to bottom, #a2cc82, #7da85e);
+    display: block;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #344727;
+    line-height: 40px;
+    font-size: 16px;
+    text-align: center;
+    float: right;
+    margin-top: 15px;
+    box-shadow: 0 1px 1px rgba(51, 51, 51, .6);
+}
+
+.sravni-kupi.banner .button:hover {
+    background: linear-gradient(to bottom, #abd18f, #8ab16e);
+}
+
+.sravni-kupi.banner .button:active {
+    background: linear-gradient(to bottom, #97bc7a, #759c5a);
+    box-shadow: inset 0 1px 2px rgba(51, 51, 51, .3);
+    line-height: 39px;
+
+}
+
+.clear {
+    clear: both;
+}
+
+/*banner end*/
+/*--------------podskaska----------------------*/
+.hover2 {
+    display: inline-block;
+    vertical-align: top;
+    margin: 25px 0 0 0;
+}
+
+.hover-img2 {
+    background: #a1cc82;
+    margin-left: 10px;
+    position: absolute;
+    border-radius: 4px;
+    color: #333333;
+    height: 50px;
+    display: inline-block;
+    line-height: 50px;
+    font-size: 18px;
+}
+
+.hover-img2 .triangle {
+    position: absolute;
+    top: 18px;
+    left: -7px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    float: left;
+}
+
+.hover-img2__triangle-figure {
+    position: absolute;
+    margin: 0 auto;
+    width: 15px;
+    height: 15px;
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    transform: rotate(-45deg);
+    background: #a1cc82;
+}
+
+.hover-img__text {
+    margin: 0 10px;
+    font-size: 18px;
+    width:170px;
+}
+
+/*--------------podskaska end----------------------*/
+
+.sehr {
+    text-decoration: none;
+    height: 50px;
+    display: block;
+    text-align: center;
+    line-height: 50px;
+    color: #344727 !important;
+    font-size: 19px;
+    border: none;
+    background: #8ecd7f;
+    background: linear-gradient(to top, #66a959, #8ecd7f);
+    border-radius: 5px;
+    -webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .75);
+    -moz-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .75);
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .75);
+    min-width: 220px;
+}
+
+.sehr:hover {
+    text-decoration: none;
+    background: #66a959;
+    background: linear-gradient(to top, #80b46d, #a7d893);
+}
+
+.atp-menu li.menu-routes a {
+    display: block;
+    font-size: 16px;
+}
+
+.warning-debt {
+    font-weight: bold;
+    border: 3px solid #e8ada7;
+    font-size: 25px;
+    line-height: 30px   ;
+    margin: 15px 0;
+    padding: 10px 8px;
+    color: #e8ada7;
+}
+
+@media (min-width: 979px) and (max-width: 1200px) {
+
+    .rff3 {
+        margin-left: 0;
+        background: #f7f7f7;
+    }
+
+    .lk3 {
+        margin-left: 0;
+    }
+
+}
+
+.lc-naw {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 30px 10px 0;
+}
+
+.lc-naw span {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.lcl1,.lcl2,.lcl3,.lcl4{ background:url(/assets/styles/images/v3/lk/sel5.png); width:15px; height:11px; margin:6px 0 0 0;}
+.lcl1{ background-position:-72px -683px;}
+.lcl2{ background-position:-88px -683px;}
+.lcl3{ background-position:-102px -683px;}
+.lcl4{ background-position:-122px -683px;}
+.lclo{display: none !important;}
+.lc-naw a{color:#7194cc;text-decoration:underline;font-size:18px;margin:0 2px 0 2px;display:inline-block;min-width:10px;font-family: Helvetica;}
+.cla{color:#333333 !important;font-weight:bold;text-decoration:none !important;}
