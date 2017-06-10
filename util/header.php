@@ -1,10 +1,39 @@
+<?php
+
+
+$session_user_id = @$_SESSION['user_id'];
+$type = @$_SESSION['type'];
+
+$updated_truck = null;
+if (ISSET($session_user_id)){
+	require (substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../")."util/connectDB.php";
+	
+	$session_user_query = mysqli_query($con, "SELECT type, updated_truck FROM user WHERE user_id='$session_user_id'");
+	$session_user_result = mysqli_fetch_assoc($session_user_query);
+	if ($session_user_result){
+		$updated_truck = $session_user_result["updated_truck"];
+	}
+	$truck_query = mysqli_query($con, "SELECT truck_id FROM truck WHERE user_id='$session_user_id'") or die (mysqli_error($con));
+	$truck_result = mysqli_fetch_assoc($truck_query);
+	if ($truck_result) {
+		$updated_truck = 1;
+	}
+	if ($session_user_result["type"]!=="0"){
+		$updated_truck = 1;
+	}
+}
+
+?>
+
 <script src="<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>/assets/scripts/util/jquery.min.js"></script>
 <header class="layout__header _fixed">
    <div class="layout__drawer-button x-drawer-button"></div>
    <div class="layout__header-row _viewport_mobile">
       <div class="layout__title header_mobile">
 		<a href="/"><img class="layout__logo" src="<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" /></a>
-      </div>
+		
+			<?php if ($updated_truck == "0"){ ?><font id='account_counter' style='position:absolute; right:30px; top: 5px; color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:middle; margin-bottom:1px; padding-top:2px; font-size:10px; line-height:11px; font-weight:600; display:inline-block; margin-left:5px;     font-family: Arial, Helvetica, sans-serif;'>1</font><?php } ?>
+	  </div>
    </div>
    <div class="layout__header-row _viewport_desktop">
       <div class="header">
@@ -55,11 +84,12 @@
 		<?php } else { ?>
 		<?php if ($type=="0") {
 				echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="poisk" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Поиск груза</a>';
-				echo '<a class="header__link header__register" href="zaprosy" style="color:#333; margin:20px 10px 0 10px; display:block">Мои ставки</a>';
+				echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'account/main" style="color:#333; margin:20px 10px 0 10px; display:inline-block">Личный кабинет</a>'.($updated_truck == "0" ? '<font id="account_counter_drawer" style="color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:bottom; margin-bottom:1px; padding-top:2px; font-size:10px; line-height:11px; font-weight:600; display:inline-block">1</font>':'').'<br>';
+				echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'zaprosy" style="color:#333; margin:20px 10px 0 10px; display:block">Мои ставки</a>';
 			}  else {
-				echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="zaprosy" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Мои запросы</a>';
+				echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'zaprosy" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Мои запросы</a>';
 			}
-			echo '<a class="header__link header__register" href="/auth/logout" style="color:#333; margin:20px 10px 20px 10px; display:block">Выйти</a>';
+			echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'auth/logout" style="color:#333; margin:20px 10px 20px 10px; display:block">Выйти</a>';
 		} ?>
 		
 		<div class="drawer__support" style="padding-left:10px;">

@@ -83,7 +83,10 @@
 			}
 			@media (max-width: 767px) {
 				#forgot_password {
-					margin-left: 0px;
+					display:block;
+					margin-top: 20px;
+					margin-left: 0;
+					border-bottom: none !important;
 				}
 			}
 			
@@ -93,6 +96,25 @@
 			
 			.atp-menu li {
 				padding-left: 20px !important;
+			}
+			
+			@media (max-width: 767px) {
+				.save-changes {
+					margin-left:0 !important;
+					width: 100% !important;
+				}
+				#save_button {
+					width: calc(100% - 18px) !important;
+				}
+				.rff3 {
+					width: 100%;
+				}
+				.row {
+					width: 100%;
+				}
+				#account_counter_menu {
+					padding-top:2px !important;
+				}
 			}
 		</style>
 
@@ -137,11 +159,11 @@
     <div class="container" style="padding:0">
         <div class="row rff3">
             <div class="span3 lk3" style="margin-left:0">
-    <ul class="atp-menu" style="-webkit-padding-start:0">
-        <li class="x-account-menu-main active pustoi1"><a href="main" style="width:100%; display:block">Основные данные</a></li>
-        <li class="x-account-menu-transport"><a href="transport" style="width:100%; display:block">Мой транспорт</a></li>
-    </ul>
-</div>
+				<ul class="atp-menu" style="-webkit-padding-start:0">
+					<li class="x-account-menu-main active pustoi1"><a href="main" style="width:100%; display:block">Основные данные</a></li>
+					<li class="x-account-menu-transport"><a href="transport" style="width:100%; display:block">Мой транспорт<?php if ($updated_truck == "0"){ ?><font id='account_counter_menu' style='color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:middle; margin-bottom:1px; padding-top:0.5px; font-size:10px; line-height:11px; font-weight:600; display:inline-block; margin-left:5px;     font-family: Arial, Helvetica, sans-serif;'>1</font><?php } ?></a></li>
+				</ul>
+			</div>
 
             <div class="span9 dop2" style="margin-bottom:40px; padding-top:10px; padding-right:40px">
                     <div class="tail_default ocen_tail x-detail-account-main-tip" data-id="814090" style="display:none;">
@@ -253,6 +275,11 @@
 				}
 			});
 		});
+		
+		$("#account_counter").hide();
+		$("#account_counter_drawer").hide();
+		$("#account_counter_header").hide();
+		
 	</script>
 			<footer>
 				<article class="footer" style="padding:20px">

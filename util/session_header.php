@@ -1,19 +1,17 @@
 <?php
 
 if(isset($_SESSION['user_id'])){	
-	$session_user_id = @$_SESSION['user_id'];
-	$type = @$_SESSION['type'];
 	
 	echo '
 	<div class="toolbar" style="padding:0">
 		<div class="toolbar">
 			<div class="toolbar__content">
 				<div class="toolbar__messages toolbar__link " style="margin-right:25px; margin-bottom:2px">
-					<div id="unread_count" style="margin-left:5px; border-radius: 10px; background-color: #e84e3c; height:14px; padding: 2px 4px 1px; position: absolute; bottom: 10px; right: -10px; line-height: 1; font-size: 10px; display:none"></div>
+					<div id="unread_count" style="margin-left:5px; border-radius: 10px; background-color: #F44336; height:14px; padding: 2px 4px 1px; position: absolute; bottom: 10px; right: -10px; line-height: 1; font-size: 10px; display:none; font-weight:600"></div>
 				</div>
 
                 <span class="toolbar__name">Здравствуйте, '.$_SESSION['name'].'</span>
-				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='".(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../")."account/main' style='text-decoration:none'>Личный кабинет<font style='color:#e84e3c; padding-bottom:4px; padding-left:2px; margin-top:-4px; font-size:25px; float:right'>•</font></a>":"").'
+				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='".(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../")."account/main' style='text-decoration:none'>Личный кабинет<font id='account_counter_header' style='color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:middle; margin-bottom:1px; padding-top:0.5px; font-size:10px; line-height:11px; font-weight:600; margin-left:5px; display:".(($updated_truck or basename($_SERVER['PHP_SELF'])=="transport.php")?"none":"inline-block")."'>1</font></a>":"").'
 				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='".(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../")."poisk' style='text-decoration:none'>Поиск грузов</a>":"").'
 				'.($type=="1"?"<a class='toolbar__cabinet toolbar__link' href='".(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../")."booking' style='text-decoration:none'>Разместить запрос</a>":"").'
                 <a class="toolbar__cabinet toolbar__link" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'/zaprosy" style="text-decoration:none">'.($type=="0"?"Мои ставки":"Мои запросы").'</a>

@@ -109,6 +109,31 @@
 			.atp-menu li {
 				padding-left: 20px !important;
 			}
+			
+			#description {
+				width:calc(100% - 250px);
+			}
+			.my-transport {
+				padding-right:40px;
+			}
+			
+			@media (max-width: 767px) {
+				.rff3 {
+					width: 100%;
+				}
+				.row {
+					width: 100%;
+				}			
+				#description {
+					width: 100%;
+				}
+				.model_block {
+					width: 100%;
+				}
+				#account_counter_menu {
+					padding-top:2px !important;
+				}
+			}
 		</style>
 
 	<?php
@@ -154,16 +179,16 @@
             <div class="span3 lk3" style="margin-left:0">
     <ul class="atp-menu" style="-webkit-padding-start:0">
         <li class="x-account-menu-main"><a href="main" style="width:100%; display:block">Основные данные</a></li>
-        <li class="x-account-menu-transport active pustoi1"><a href="transport" style="width:100%; display:block">Мой транспорт</a></li>
+        <li class="x-account-menu-transport active pustoi1"><a href="transport" style="width:100%; display:block">Мой транспорт<?php if ($updated_truck == "0"){ ?><font id='account_counter_menu' style='color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:middle; margin-bottom:1px; padding-top:0.5px; font-size:10px; line-height:11px; font-weight:600; display:inline-block; margin-left:5px;     font-family: Arial, Helvetica, sans-serif;'>1</font><?php } ?></a></li>
     </ul>
 </div>
 
-            <div class="span9 dop2 my-transport" style="margin-bottom:40px; padding-top:30px; padding-right:40px">
+            <div class="span9 dop2 my-transport" style="margin-bottom:40px; padding-top:30px">
 
                 <div id="account-add-transport-title" class="rfz3 dn r5">
     <div class="w240">
         <div class="rfl dn"></div>
-        <h1 style="font-weight: bold; font-family: 'PT Sans', sans-serif !important;">
+        <h1 id="transport_title" style="font-weight: bold; font-family: 'PT Sans', sans-serif !important;">
                             Параметры ТС
                     </h1>
 
@@ -343,7 +368,7 @@
 												</script>
 											</div>
 
-        <div class="x-model_id transport-block x-carOnly ">
+        <div class="x-model_id transport-block x-carOnly model_block">
             <p class="transport-label _required">Модель автомобиля</p>
             <div class="transport-weightWrapper">
                 <input id="model" style="width: 320px;" class="x-transport-param transport-input transport-greyBorder x-transport-capacity" type="text" name="entity[weight]" value="<?php echo $model ?>">
@@ -444,7 +469,7 @@
 
         <div class="x-description transport-block">
             <p class="transport-label _top">Комментарий</p>
-            <textarea id="description" style="width:calc(100% - 250px)" class="x-transport-param transport-textarea transport-greyBorder" name="entity[description]" placeholder="Особенности погрузки, разгрузки, перевозки на этой машине"><?php echo $description ?></textarea>
+            <textarea id="description" class="x-transport-param transport-textarea transport-greyBorder" name="entity[description]" placeholder="Особенности погрузки, разгрузки, перевозки на этой машине"><?php echo $description ?></textarea>
         </div>
     </div>
 
@@ -501,7 +526,9 @@
 					"description": description,
 				},
 				dataType: "json",
-				success: function(data){
+				success: function(data){		
+					$("#account_counter").hide();
+					$("#account_counter_menu").hide();
 					alert("Спасибо, Ваш транспорт успешно сохранён.");
 					location.reload();
 				},
@@ -538,12 +565,17 @@
 				url: '../api/v1/user/set_no_truck',
 				dataType: "json",
 				success: function(data){
+					$("#account_counter").hide();
+					$("#account_counter_menu").hide();
 				},
 				error: function(data){
 					alert("Ошибка сервера. Пожалуйста напишите в поддержку.");
 				}
 			});
 		});
+		
+		$("#account_counter").hide();
+		$("#account_counter_drawer").hide();
 	</script>
 			<footer>
 				<article class="footer" style="padding:20px">
