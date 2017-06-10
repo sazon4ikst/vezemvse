@@ -509,6 +509,8 @@
 				return;
 			}
 			
+			weight = weight;
+			
 			$(".transport-addButton").html("Подождите...");
 			
 			$.ajax({

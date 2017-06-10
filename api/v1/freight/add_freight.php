@@ -111,7 +111,7 @@ $headers .= "Reply-To: info@gurugruza.com.ua\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-$drivers_query = mysqli_query($con, "SELECT name, email, (
+$drivers_query = mysqli_query($con, "SELECT user_id, name, email, (
 		  6373 * acos (
 		  cos ( radians( '".$GLOBALS["lat_from"]."' ) )
 		  * cos( radians( X(city_point) ) )
@@ -119,10 +119,18 @@ $drivers_query = mysqli_query($con, "SELECT name, email, (
 		  + sin ( radians( '".$GLOBALS["lat_from"]."' ) )
 		  * sin( radians( X(city_point) ) )
 		)
-	) AS distance FROM user WHERE (type='0' OR type='2') AND email<>'dmytro@sheiko.net' AND email<>'post_man@ukr.net' AND email<>'andzej@bigmir.net' HAVING distance<150") or die(mysqli_error($con));
+	) AS distance FROM user WHERE (type='0' OR type='2') AND email<>'dmytro@sheiko.net' AND email<>'post_man@ukr.net' AND email<>'andzej@bigmir.net' HAVING distance<9999900") or die(mysqli_error($con));
 while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
+	$user_id = $drivers_result["user_id"];
 	$email = $drivers_result["email"];
-	$driver_name = $drivers_result["name"];	
+	$driver_name = $drivers_result["name"];
+	
+	$truck_query = mysqli_query($con, "SELECT weight, volume FROM truck WHERE user_id='$user_id'") or die(mysqli_error($con));
+	if ($truck_result = mysqli_fetch_assoc($truck_query)){
+		if ($truck_result["weight"]*1000 < $weight or (!empty($truck_result["volume"]) and $truck_result["volume"] < $volume)){
+			continue;
+		}
+	}
 
 	ob_start();
 	require("new_freight_email.html");
