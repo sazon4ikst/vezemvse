@@ -9,10 +9,24 @@
 	$type = null;
 	if ($session_user_id != null){
 		// Get user type
-		$session_user_query = mysqli_query($con, "SELECT type FROM user WHERE user_id='$session_user_id'");
+		$session_user_query = mysqli_query($con, "SELECT type, name, email, phone FROM user WHERE user_id='$session_user_id'");
 		$session_user_result = mysqli_fetch_assoc($session_user_query);
 		$type = $session_user_result["type"];
-	}	
+		$name = $session_user_result["name"];
+		$email = $session_user_result["email"];
+		$phone = $session_user_result["phone"];
+		
+		if ($type !== "0"){
+			returnToMain();
+		}
+	} else {
+		returnToMain();
+	}
+	
+	function returnToMain(){
+		header('Location: /');
+		die();
+	}
 ?>
 
 <html>
@@ -62,6 +76,14 @@
 				.vv-alert--red {
 					background: #F7DDD9 !important;
 					padding: 20px;
+				}
+			}
+			#forgot_password {
+				margin-left: 30px;
+			}
+			@media (max-width: 767px) {
+				#forgot_password {
+					margin-left: 0px;
 				}
 			}
 			
@@ -114,10 +136,10 @@
 <div class="sub-content x-transport">
     <div class="container" style="padding:0">
         <div class="row rff3">
-            <div class="span3 lk3">
+            <div class="span3 lk3" style="margin-left:0">
     <ul class="atp-menu" style="-webkit-padding-start:0">
-        <li class="x-account-menu-main active pustoi1"><a href="main">Основные данные</a></li>
-        <li class="x-account-menu-transport"><a href="transport">Мой транспорт</a></li>
+        <li class="x-account-menu-main active pustoi1"><a href="main" style="width:100%; display:block">Основные данные</a></li>
+        <li class="x-account-menu-transport"><a href="transport" style="width:100%; display:block">Мой транспорт</a></li>
     </ul>
 </div>
 
@@ -132,25 +154,19 @@
         </div>
     </div>
                 <div class="atpd">
-                    <strong>Имя:</strong>
+                    <strong>Профиль:</strong>
 
-                    <div class="pustoi1">Дмитрий</div>
-                </div>
-                <div class="atpd">
-                    <strong>Фамилия:</strong>
-
-                    <div class="pustoi1">Шейко</div>
+                    <div class="pustoi1"><?php echo $name ?></div>
                 </div>
                 <div class="atpd">
                     <strong>Электронная почта:</strong>
 
-                    <div class="pustoi1">dmytro@sheiko.net</div>
+                    <div class="pustoi1"><?php echo $email ?></div>
                 </div>
                 <div class="atpd">
                     <strong>Основной телефон:</strong>
 
-                    <div class="pustoi1">
-                                                +380950252903                    </div>
+                    <div class="pustoi1"><?php echo $phone ?></div>
                 </div>
                 <div class="rfz3 dn r4">
                     <div class="w240">
@@ -160,22 +176,22 @@
                         <div class="rfr dn"></div>
                     </div>
                 </div>
-                <form method="POST">
+                <form >
                     <div class="f2">
                         <div class="pustoi1 x-account-old-password">
                             <div class="pustoi6 x-account-error-message"></div>
                             <span>Старый пароль:</span>
-                            <div class="pustoi8">
-                                <input type="password" name="oldPassword">
+                            <div class="pustoi8" style="height:50px; width:210px">
+                                <input type="password" id="password" style="padding:0">
                             </div>
 
-                            <div class="pustoi2"><a href="/auth/forgot_password">Я забыл пароль</a></div>
+                            <div class="pustoi2" id="forgot_password"><a href="/auth/reset_password">Я забыл пароль</a></div>
                         </div>
                         <div class="pustoi4 x-account-password">
                             <div class="pustoi6 x-account-error-message"></div>
                             <span>Новый пароль:</span>
-                            <div class="pustoi8">
-                                <input type="password" name="password">
+                            <div class="pustoi8" style="height:50px; width:210px">
+                                <input type="password" id="new_password" style="padding:0">
                             </div>
 
                             <div class="pustoi3"></div>
@@ -183,7 +199,7 @@
                     </div>
                     <div class="linia7"></div>
                     <div class="save-changes">
-                        <button type="submit" class="activ-tel ml190 x-account-change-pass-button">Сохранить изменения</button>
+                        <button type="submit" class="activ-tel ml190 x-account-change-pass-button" id="save_button">Сохранить изменения</button>
                     </div>
                     <div id="x-account-success-save" class="hover2 dn ha" style="display: none;">
                     	<div class="hover-img2">
@@ -197,6 +213,47 @@
     </div>
 </div>
 </section>
+	<script>
+		$("#save_button").click(function(ev){
+			ev.preventDefault();
+			
+			var password = $("#password").val();
+			var new_password = $("#new_password").val();
+			
+			if (!password || !new_password){
+				alert("Пожалуйста заполните все поля.");
+				return;
+			} else if (new_password.length < 6){				
+				alert("Введите не менее 6 символов для нового пароля.");
+				return;
+			}
+			
+			$("#save_button").html("Подождите...");		
+			
+			$.ajax({
+				type: "POST",
+				url: '../api/v1/user/update_password',
+				data: {
+					"password": password,
+					"new_password": new_password
+				},
+				dataType: "json",
+				success: function(data){
+					if ('error' in data){
+						alert(data["error"]);
+						$("#save_button").html("Сохранить изменения");
+					} else {
+						alert("Ваш пароль успешно обновлён.");
+						location.reload();
+					}
+				},
+				error: function(data){
+					alert("Ошибка сервера. Пожалуйста напишите в поддержку.");
+					$("#save_button").html("Сохранить изменения");
+				}
+			});
+		});
+	</script>
 			<footer>
 				<article class="footer" style="padding:20px">
 					<div class="vv-container">

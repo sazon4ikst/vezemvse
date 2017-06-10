@@ -13,11 +13,11 @@ if(isset($_SESSION['user_id'])){
 				</div>
 
                 <span class="toolbar__name">Здравствуйте, '.$_SESSION['name'].'</span>
-				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='account/main' style='text-decoration:none'>Личный кабинет<font style='color:#e84e3c; padding-bottom:4px; padding-left:2px; margin-top:-4px; font-size:25px; float:right'>•</font></a>":"").'
-				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='poisk' style='text-decoration:none'>Поиск грузов</a>":"").'
-				'.($type=="1"?"<a class='toolbar__cabinet toolbar__link' href='booking' style='text-decoration:none'>Разместить запрос</a>":"").'
-                <a class="toolbar__cabinet toolbar__link" href="/zaprosy" style="text-decoration:none">'.($type=="0"?"Мои ставки":"Мои запросы").'</a>
-                <a class="toolbar__logout toolbar__link" href="/auth/logout" style="text-decoration:none">Выйти<svg class="toolbar__logout-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-296 385 24 23"><path d="M-279 400v4c0 1.7-1.3 3-3 3h-10c-1.7 0-3-1.1-3-3v-15c0-1.7 1.3-3 3-3h10c1.7 0 3 1.3 3 3v4h-2v-4c0-.5-.5-1-1-1h-10c-.6 0-1 .4-1 1v15c0 .6.5 1 1 1h10c.5 0 1-.5 1-1v-4h2z"></path><path d="M-273 396.5l-5-3.5v2.5h-10v2h10v2.5"></path></svg></a>
+				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='".(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../")."account/main' style='text-decoration:none'>Личный кабинет<font style='color:#e84e3c; padding-bottom:4px; padding-left:2px; margin-top:-4px; font-size:25px; float:right'>•</font></a>":"").'
+				'.($type=="0"?"<a class='toolbar__cabinet toolbar__link' href='".(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../")."poisk' style='text-decoration:none'>Поиск грузов</a>":"").'
+				'.($type=="1"?"<a class='toolbar__cabinet toolbar__link' href='".(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../")."booking' style='text-decoration:none'>Разместить запрос</a>":"").'
+                <a class="toolbar__cabinet toolbar__link" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'/zaprosy" style="text-decoration:none">'.($type=="0"?"Мои ставки":"Мои запросы").'</a>
+                <a class="toolbar__logout toolbar__link" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'/auth/logout" style="text-decoration:none">Выйти<svg class="toolbar__logout-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-296 385 24 23"><path d="M-279 400v4c0 1.7-1.3 3-3 3h-10c-1.7 0-3-1.1-3-3v-15c0-1.7 1.3-3 3-3h10c1.7 0 3 1.3 3 3v4h-2v-4c0-.5-.5-1-1-1h-10c-.6 0-1 .4-1 1v15c0 .6.5 1 1 1h10c.5 0 1-.5 1-1v-4h2z"></path><path d="M-273 396.5l-5-3.5v2.5h-10v2h10v2.5"></path></svg></a>
 			</div>
 		</div>
 	</div>

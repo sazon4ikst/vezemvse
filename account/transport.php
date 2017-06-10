@@ -9,10 +9,47 @@
 	$type = null;
 	if ($session_user_id != null){
 		// Get user type
-		$session_user_query = mysqli_query($con, "SELECT type FROM user WHERE user_id='$session_user_id'");
+		$session_user_query = mysqli_query($con, "SELECT type, updated_truck FROM user WHERE user_id='$session_user_id'");
 		$session_user_result = mysqli_fetch_assoc($session_user_query);
 		$type = $session_user_result["type"];
-	}	
+		$updated_truck = $session_user_result["updated_truck"];
+		
+		if ($type !== "0"){
+			returnToMain();
+		}
+	} else {
+		returnToMain();
+	}
+	
+	function returnToMain(){
+		header('Location: /');
+		die();
+	}
+
+	$truck_query = mysqli_query($con, "SELECT make, model, type, weight, length, width, height, volume, description FROM truck WHERE user_id='$session_user_id'") or die (mysqli_error($con));
+	$truck_result = mysqli_fetch_assoc($truck_query);
+	if ($truck_result) {
+		$updated_truck = 1;
+		$make = $truck_result["make"];
+		$model = $truck_result["model"];
+		$truck_type = $truck_result["type"];
+		$weight = $truck_result["weight"];
+		$length = $truck_result["length"];
+		$width = $truck_result["width"];
+		$height = $truck_result["height"];
+		$volume = $truck_result["volume"];
+		$description = $truck_result["description"];
+	} else {		
+		$make = "";
+		$model = "";
+		$truck_type = "";
+		$weight = "";
+		$length = "";
+		$width = "";
+		$height = "";
+		$volume = "";
+		$description = "";
+	}
 ?>
 
 <html>
@@ -114,10 +151,10 @@
 <div class="sub-content x-transport">
     <div class="container" style="padding:0">
         <div class="row rff3">
-            <div class="span3 lk3">
+            <div class="span3 lk3" style="margin-left:0">
     <ul class="atp-menu" style="-webkit-padding-start:0">
-        <li class="x-account-menu-main"><a href="main">Основные данные</a></li>
-        <li class="x-account-menu-transport active pustoi1"><a href="transport">Мой транспорт</a></li>
+        <li class="x-account-menu-main"><a href="main" style="width:100%; display:block">Основные данные</a></li>
+        <li class="x-account-menu-transport active pustoi1"><a href="transport" style="width:100%; display:block">Мой транспорт</a></li>
     </ul>
 </div>
 
@@ -133,15 +170,16 @@
         <div class="rfr dn"></div>
     </div>
 </div>
-
+<?php if ($updated_truck == "0") { ?>
 	<div class="my-transport__alert vv-alerts">
         <div class="vv-alert vv-alert--red">
             <p>Обратите внимание! Чтобы ускорить выбор вашего предложения и стать привлекательнее для заказчиков, необходимо добавить свой транспорт и указать его характеристики.</p>
-            <button class="my-transport__alert-button vv-button vv-button--blue x-is-no-transport">У меня нет транспорта</button>
+            <button id="no_truck_button" class="my-transport__alert-button vv-button vv-button--blue x-is-no-transport">У меня нет транспорта</button>
         </div>
 	</div>
-
-<form method="POST" class="transport x-transport" novalidate="">
+<?php } ?>
+	
+<form class="transport x-transport" novalidate="">
 
     <div id="x-files"></div>
 
@@ -151,8 +189,8 @@
 
         <div class="x-name transport-block x-carOnly ">
             <p class="transport-label _required">Марка автомобиля</p>
-            <select class="transport-select x-transport-param transport-greyBorder x-carBrand x-multiselect" name="entity[name]">
-                                                            <option value="0">---- Выберите марку автомобиля ----</option>
+            <select id="make" class="transport-select x-transport-param transport-greyBorder x-carBrand x-multiselect" name="entity[name]">
+                                                            <option value="">- Выберите марку автомобиля -</option>
                                                             <option value="Alke">Alke</option>															
                                                                                 <option value="Asia">Asia</option>
                                                                                 <option value="ASTRA">ASTRA</option>
@@ -297,31 +335,33 @@
                                                                                 <option value="УАЗ">УАЗ</option>
                                                                                 <option value="Урал">Урал</option>
                                                                                 <option value="ЯРОВИТ МОТОРС">ЯРОВИТ МОТОРС</option>
-                                                </select></div>
+                                                </select>												
+												<script>
+													$("#make option").each(function() {
+														this.selected = (this.text == "<?php echo $make ?>");
+													});
+												</script>
+											</div>
 
         <div class="x-model_id transport-block x-carOnly ">
             <p class="transport-label _required">Модель автомобиля</p>
-            <select class="x-transport-param transport-select transport-greyBorder x-carModel x-multiselect" name="entity[model_id]" disabled="" style="display: none;">
-                            </select><div class="btn-group"><button type="button" class="multiselect dropdown-toggle transport-select transport-greyBorder transport-multiselect disabled" data-toggle="dropdown" disabled="" title="Не выбрано"><span class="multiselect-selected-text">Не выбрано</span> <b class="caret"></b></button><ul class="multiselect-container dropdown-menu"></ul></div>
-        </div>
-
-        <div class="x-modification_id transport-block x-passengerOnly x-passenger_car_brand _hidden">
-            <p class="transport-label _required">Марка / Модель</p>
-            <input class="x-transport-param transport-greyBorder transport-input _bigwidth" type="text" name="entity[passenger_car_brand]" value="">
-        </div>
+            <div class="transport-weightWrapper">
+                <input id="model" style="width: 320px;" class="x-transport-param transport-input transport-greyBorder x-transport-capacity" type="text" name="entity[weight]" value="<?php echo $model ?>">
+            </div>
+		</div>
 
         <div class="x-weight x-account-weight transport-block ">
             <p class="transport-label _required">Грузоподъемность до</p>
             <div class="transport-weightWrapper">
-                <input class="x-transport-param transport-input transport-greyBorder x-transport-capacity" type="text" name="entity[weight]" value="">
+                <input id="weight" class="x-transport-param transport-input transport-greyBorder x-transport-capacity" type="number" min="0" name="entity[weight]" value="<?php echo $weight ?>">
                 <span class="transport-unitOfMeasurement">тонн</span>
             </div>
         </div>
 
         <div class="x-type_id x-trunk-types transport-block  x-carOnly x-railwayOnly x-passengerOnly">
             <p class="transport-label">Тип кузова</p>
-            <select class="x-transport-param transport-select transport-greyBorder x-multiselect x-body-type" name="entity[type_id]">
-                                    <option value="0">---- Выберите тип кузова ----</option>
+            <select id="type" class="x-transport-param transport-select transport-greyBorder x-multiselect x-body-type" name="entity[type_id]">
+                                    <option value="">- Выберите тип кузова -</option>
                                     <option value="7">«Катюша»</option>
                                     <option value="8">Автобус</option>
                                     <option value="9">Автовоз</option>
@@ -358,49 +398,43 @@
                                     <option value="46">Шасси</option>
                                     <option value="56">Щеповоз</option>
                                     <option value="41">Эвакуатор</option>
-                            </select>
+                            </select>											
+							<script>
+								$("#type option").each(function() {
+									this.selected = (this.value == "<?php echo $truck_type ?>");
+								});
+							</script>
 		</div>
 
-        <div class="transport-block x-conniks_quantity x-truck-conniks  _hidden x-carOnly" style="display: none;">
-            <label class="transport-label">
-                <span>Есть коники</span>
-                <input class="transport-conniks-input" type="checkbox" name="entity[has_conniks]">
-            </label>
-            <div class="transport-conniks-wrapper">
-                <input class="transport-input transport-greyBorder disabled x-conniks-quantity" id="transport-conniks-quantity" type="number" maxlength="3" min="1" max="100" disabled="disabled" name="entity[conniks_quantity]" value="1">
-                <label class="transport-conniks-label" for="transport-conniks-quantity">штук</label>
-            </div>
-        </div>
-
         <div class="x-account-properties transport-block ">
-            <p class="transport-label _required">Максимальные габариты груза</p>
+            <p class="transport-label">Максимальные габариты груза</p>
             <div class="transport-dimensionsWrapper">
                 <div class="x-length transport-inputWithLabel x-group-error">
                     <label for="transport-length" class="transport-inputLabel" style="display:block">
                         Длина
                     </label>
-                    <input class="x-transport-param transport-input transport-greyBorder x-transport-length _tiny" id="transport-length" type="text" name="entity[length]" value="">
+                    <input class="x-transport-param transport-input transport-greyBorder x-transport-length _tiny" id="length" type="number" min="0" name="entity[length]" value="<?php echo !empty($length) ? $length : "" ?>">
                     <span class="transport-unitOfMeasurement">м</span>
                 </div>
                 <div class="x-width transport-inputWithLabel x-group-error">
                     <label for="transport-width" class="transport-inputLabel" style="display:block">
                         Ширина
                     </label>
-                    <input class="x-transport-param transport-input transport-greyBorder x-transport-width _tiny" id="transport-width" type="text" name="entity[width]" value="">
+                    <input class="x-transport-param transport-input transport-greyBorder x-transport-width _tiny" id="width" type="number" min="0" name="entity[width]" value="<?php echo !empty($width) ? $width : "" ?>">
                     <span class="transport-unitOfMeasurement">м</span>
                 </div>
                 <div class="x-height transport-inputWithLabel x-group-error">
                     <label for="transport-height" class="transport-inputLabel" style="display:block">
                         Высота
                     </label>
-                    <input class="x-transport-param transport-input transport-greyBorder x-transport-height _tiny" id="transport-height" type="text" name="entity[height]" value="">
+                    <input class="x-transport-param transport-input transport-greyBorder x-transport-height _tiny" id="height" type="number" min="0" name="entity[height]" value="<?php echo !empty($height) ? $height : "" ?>">
                     <span class="transport-unitOfMeasurement">м</span>
                 </div>
                 <div class="x-volume transport-inputWithLabel">
                     <label for="transport-volume" class="transport-inputLabel" style="display:block">
                         Объём
                     </label>
-                    <input class="x-transport-param transport-input transport-greyBorder x-transport-volume" id="transport-volume" type="text" name="entity[volume]" value="">
+                    <input class="x-transport-param transport-input transport-greyBorder x-transport-volume" id="volume" type="number" min="0" name="entity[volume]" value="<?php echo !empty($volume) ? $volume : "" ?>">
                     <span class="transport-unitOfMeasurement">м<sup>3</sup></span>
                 </div>
             </div>
@@ -410,28 +444,107 @@
 
         <div class="x-description transport-block">
             <p class="transport-label _top">Комментарий</p>
-            <textarea style="width:calc(100% - 250px)" class="x-transport-param transport-textarea transport-greyBorder" name="entity[description]" placeholder="Особенности погрузки, разгрузки, перевозки на этой машине"></textarea>
+            <textarea id="description" style="width:calc(100% - 250px)" class="x-transport-param transport-textarea transport-greyBorder" name="entity[description]" placeholder="Особенности погрузки, разгрузки, перевозки на этой машине"><?php echo $description ?></textarea>
         </div>
-
-        <div class="x-profileTransport-trailers">
-                    </div>
-
-        <button type="button" class="vv-button vv-button--blue-gradient vv-button--small x-account-add-trailer-button _hidden">+ Добавить полуприцеп</button>
-
     </div>
 
     
             <button type="button" class="x-account-add-transport-button transport-addButton">
-            Добавить ТС
+            Сохранить
         </button>
-    
-    <input type="hidden" class="x-trailer-order-number" name="trailer_order_number" value="0">
 </form>
             </div>
         </div>
     </div>
 </div>
 </section>
+	<script>
+		$(".transport-addButton").click(function(){
+			var make = $("#make").val();
+			var model = $("#model").val();
+			var weight = $("#weight").val();
+			var type = $("#type").val();
+			var length = $("#length").val();
+			var width = $("#width").val();
+			var height = $("#height").val();
+			var volume = $("#volume").val();
+			var description = $("#description").val();
+			
+			if (!make || make == ""){
+				alert("Пожалуйста укажите марку автомобиля.");
+				return;
+			} else if (!model){
+				alert("Пожалуйста укажите модель автомобиля.");
+				return;
+			} else if (!weight){
+				alert("Пожалуйста укажите грузоподъемность.");
+				return;
+			} else if (length == "0" || width == "0" || height == "0" || volume == "0"){
+				alert("Неверное значение числа.");
+				return;
+			}
+			
+			$(".transport-addButton").html("Подождите...");
+			
+			$.ajax({
+				type: "POST",
+				url: '../api/v1/user/update_truck',
+				data: {
+					"make": make,
+					"model": model,
+					"weight": weight,
+					"type": type,
+					"length": length,
+					"width": width,
+					"height": height,
+					"volume": volume,
+					"description": description,
+				},
+				dataType: "json",
+				success: function(data){
+					alert("Спасибо, Ваш транспорт успешно сохранён.");
+					location.reload();
+				},
+				error: function(data){
+					alert("Ошибка сервера. Пожалуйста напишите в поддержку.");
+					$(".transport-addButton").html("Сохранить");
+				}
+			});
+		});
+		
+		$("#length").on("input", function(){
+			calculateVolume();
+		});
+		$("#width").on("input", function(){
+			calculateVolume();
+		});
+		$("#height").on("input", function(){
+			calculateVolume();
+		});
+		function calculateVolume(){
+			var volume = $("#length").val();
+			var width = $("#width").val();
+			var height = $("#height").val();
+			
+			if (!volume || !width || !height) return;
+			
+			$("#volume").val(Math.round(volume*width*height*2)/2);
+		}
+		
+		$("#no_truck_button").click(function(){
+			$("#no_truck_button").parent().parent().hide();
+			$.ajax({
+				type: "POST",
+				url: '../api/v1/user/set_no_truck',
+				dataType: "json",
+				success: function(data){
+				},
+				error: function(data){
+					alert("Ошибка сервера. Пожалуйста напишите в поддержку.");
+				}
+			});
+		});
+	</script>
 			<footer>
 				<article class="footer" style="padding:20px">
 					<div class="vv-container">
