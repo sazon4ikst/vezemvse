@@ -119,7 +119,7 @@ $drivers_query = mysqli_query($con, "SELECT user_id, name, email, (
 		  + sin ( radians( '".$GLOBALS["lat_from"]."' ) )
 		  * sin( radians( X(city_point) ) )
 		)
-	) AS distance FROM user WHERE (type='0' OR type='2') AND email<>'dmytro@sheiko.net' AND email<>'post_man@ukr.net' AND email<>'andzej@bigmir.net' HAVING distance<9999900") or die(mysqli_error($con));
+	) AS distance FROM user WHERE (type='0' OR type='2') AND disabled_email_notifications=0 HAVING distance<150") or die(mysqli_error($con));
 while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
 	$user_id = $drivers_result["user_id"];
 	$email = $drivers_result["email"];
@@ -127,7 +127,7 @@ while ($drivers_result = mysqli_fetch_assoc($drivers_query)){
 	
 	$truck_query = mysqli_query($con, "SELECT weight, volume FROM truck WHERE user_id='$user_id'") or die(mysqli_error($con));
 	if ($truck_result = mysqli_fetch_assoc($truck_query)){
-		if ($truck_result["weight"]*1000 < $weight or (!empty($truck_result["volume"]) and $truck_result["volume"] < $volume)){
+		if ((!empty($truck_result["weight"]) and $truck_result["weight"]*1000 < $weight) or (!empty($truck_result["volume"]) and $truck_result["volume"] < $volume)){
 			continue;
 		}
 	}

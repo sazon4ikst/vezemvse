@@ -38,6 +38,12 @@ $truck_result = mysqli_fetch_assoc($truck_query);
 if (!$truck_result) {
 	// Create new truck
 	mysqli_query($con, "INSERT INTO truck(user_id, make, model, type, weight, length, width, height, volume, description) VALUES('$user_id', '$make', '$model', '$type', '$weight', '$length', '$width', '$height', '$volume', '$description')") or die (mysqli_error($con));
+	
+	$headers = "From: "."=?UTF-8?B?".base64_encode("Гуру Груза")."?="."<info@gurugruza.com.ua>\r\n";
+	$headers .= "Reply-To: info@gurugruza.com.ua\r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+	$headers .= "Content-Type: text/html; charset=UTF-8\r\n";	
+	@mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Водитель добавил свой транспорт (".time().")")."?=", $make.", ".$model, $headers);
 } else {
 	mysqli_query($con, "UPDATE truck SET make='$make', model='$model', type='$type', weight='$weight', length='$length', width='$width', height='$height', volume='$volume', description='$description' WHERE user_id='$user_id'") or die (mysqli_error($con));
 }

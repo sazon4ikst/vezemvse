@@ -22,7 +22,7 @@
 	}
 	
 	function returnToMain(){
-		header('Location: /');
+		header('Location: /auth/login');
 		die();
 	}
 
