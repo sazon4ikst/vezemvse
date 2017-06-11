@@ -119,6 +119,9 @@ if (isset($_GET["zakaz"])){
 						if ($session_user_result["type"]!=="0"){
 							$updated_truck = 1;
 						}
+						
+						// Set last seen
+						mysqli_query($con, "UPDATE user SET last_seen=NOW() WHERE user_id='$session_user_id'") or die (mysqli_error($con));
 					}
 
 					?>

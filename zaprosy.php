@@ -107,7 +107,7 @@
 					<div class="row">
 						<div class="span12">
 							<div class="orders_title" style="font-weight:400">
-								<?php echo $type=="0"?"Мои предложения":"Мои запросы" ?></span>
+								<?php echo $type=="0"?"Мои ставки":"Мои запросы" ?></span>
 							</div>
 							<div class="orders_inner" style="padding:0">
 							<?php
