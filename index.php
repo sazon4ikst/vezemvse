@@ -168,8 +168,8 @@ if (isset($_GET["zakaz"])){
 			  <div class="layout__title header_mobile">
 				<a href="/"><img class="layout__logo" src="<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>assets/images/home_v4/logo-mobile.png" alt="Везет Всем — онлайн-сервис грузоперевозок" /></a>
 				
-					<?php if ($updated_truck == "0"){ ?><font id='account_counter_menu' style='position:absolute; right:30px; top: 5px; color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:middle; margin-bottom:1px; padding-top:2px; font-size:10px; line-height:11px; font-weight:600; display:inline-block; margin-left:5px;     font-family: Arial, Helvetica, sans-serif;'>1</font><?php } ?>
-			  </div>
+					<font id='account_counter' style='display:<?php echo $updated_truck=="0" ? "block" : "none" ?> !important; position:absolute; right:30px; top: 5px; color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:middle; margin-bottom:1px; padding-top:1px; font-size:10px; line-height:11px; font-weight:600; display:inline-block; margin-left:5px;     font-family: Arial, Helvetica, sans-serif;'>1</font>
+	  </div>
 		   </div>
 			<div class="layout__header-row _viewport_desktop">
 				<div class="header">
@@ -229,6 +229,7 @@ if (isset($_GET["zakaz"])){
 				</div>
 			</div>
 		</header>
+
 <div class="layout__drawer x-drawer">
 	<div class="drawer__close"></div>
 	<div class="drawer">
@@ -244,13 +245,15 @@ if (isset($_GET["zakaz"])){
 			<a href="/auth/login" class="header__link header__register" style="color:#333; margin:0 10px 20px 10px; display:block">Войти</a>
 		<?php } else { ?>
 		<?php if ($type=="0") {
-				echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="poisk" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Поиск груза</a>';
-				echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'account/main" style="color:#333; margin:20px 10px 0 10px; display:inline-block">Личный кабинет</a>'.($updated_truck == "0" ? '<font id="account_counter_drawer" style="color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:bottom; margin-bottom:1px; padding-top:2px; font-size:10px; line-height:11px; font-weight:600; display:inline-block">1</font>':'').'<br>';
-				echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'zaprosy" style="color:#333; margin:20px 10px 0 10px; display:block">Мои ставки</a>';
+				echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'poisk" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Поиск груза</a>';
+				echo '<div id="drawer_new_messages" style="display:none"><a id="drawer_new_messages_link" class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'zaprosy" style="color:#333; margin:20px 10px 0 10px; display:inline-block; text-decoration:underline">Новые сообщения</a><font id="messages_counter_drawer" style="color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:bottom; margin-bottom:1px; padding-top:1px; font-size:10px; line-height:11px; font-weight:600; display:inline-block">1</font></div>';
+				echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'account/main" style="color:#333; margin:20px 10px 0 10px; display:inline-block; text-decoration:underline">Личный кабинет</a>'.($updated_truck == "0" ? '<font id="account_counter_drawer" style="color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:bottom; margin-bottom:1px; padding-top:1px; font-size:10px; line-height:11px; font-weight:600; display:inline-block">1</font>':'').'<br>';
+				echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'zaprosy" style="color:#333; margin:20px 10px 0 10px; display:block; text-decoration:underline">Мои ставки</a>';
 			}  else {
 				echo '<a class="vv-button vv-button--gold vv-button--medium drawer__action" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'zaprosy" style="margin:10px 10px 0 10px; width:calc(100% - 20px); height:auto; padding:15px 0 15px 0">Мои запросы</a>';
+				echo '<div id="drawer_new_messages" style="display:none"><a id="drawer_new_messages_link" class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'zaprosy" style="color:#333; margin:20px 10px 0 10px; display:inline-block; text-decoration:underline">Новые сообщения</a><font id="messages_counter_drawer" style="color:#fff; background:#F44336; border-radius:10px; width:14px; height:14px; text-align:center; vertical-align:bottom; margin-bottom:1px; padding-top:1px; font-size:10px; line-height:11px; font-weight:600; display:inline-block">1</font></div>';
 			}
-			echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'auth/logout" style="color:#333; margin:20px 10px 20px 10px; display:block">Выйти</a>';
+			echo '<a class="header__link header__register" href="'.(substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../").'auth/logout" style="color:#333; margin:20px 10px 20px 10px; display:block; text-decoration:underline">Выйти</a>';
 		} ?>
 		
 		<div class="drawer__support" style="padding-left:10px;">

@@ -52,8 +52,15 @@ if(isset($_SESSION['user_id'])){
 						$('#unread_count').parent().css('cursor', 'pointer');
 
 						$('#unread_count').parent().click(function() {
-							window.location.href = "./gruz?id="+messages[0]["freight_id"]+"&open_offer="+messages[0]["offer_id"];
-						});													
+							window.location.href = "<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>gruz?id="+messages[0]["freight_id"]+"&open_offer="+messages[0]["offer_id"];
+						});
+
+						$('#drawer_new_messages').show();
+						$('#messages_counter_drawer').html(unread_count);
+						$('#drawer_new_messages_link').attr("href", "<?php echo substr_count($_SERVER['REQUEST_URI'], "/")==1?"":"../" ?>gruz?id="+messages[0]["freight_id"]+"&open_offer="+messages[0]["offer_id"]);
+						
+						$('#account_counter').show();
+						$('#account_counter').html(unread_count+<?php echo $updated_truck == "0" ? 1 : 0 ?>);
 						
 						if (!message_shaked){
 							message_shaked = true;		
@@ -73,7 +80,13 @@ if(isset($_SESSION['user_id'])){
 							}, 2000);
 						}
 					} else {
-						$("#unread_count").hide();
+						$("#unread_count").hide();						
+						$('#drawer_new_messages').hide();
+						
+						var updated_truck = <?php echo $updated_truck ?>;
+						if (updated_truck == "1"){
+							$('#account_counter').hide();
+						}
 					}
 				},
 				error: function(){

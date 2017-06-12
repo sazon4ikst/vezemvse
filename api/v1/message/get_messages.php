@@ -16,6 +16,7 @@ $offer_id = mysqli_real_escape_string($con, $offer_id);
 
 if ($mark_seen == true){
 	mysqli_query($con, "UPDATE message SET seen='1' WHERE offer_id='$offer_id' AND user_id<>'$user_id'") or die(mysqli_error($con));
+	mysqli_query($con, "UPDATE offer SET seen='1' WHERE offer_id='$offer_id' AND user_id<>'$user_id'") or die(mysqli_error($con));
 }
 
 $messages = array();

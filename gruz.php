@@ -612,6 +612,12 @@
 																<?php echo $user_result["name"] ?>                             </span>
 															</div>
 															<br>
+															<?php															
+															$truck_query = mysqli_query($con, "SELECT make, model FROM truck WHERE user_id='$user_id'");
+															if ($truck_result = mysqli_fetch_assoc($truck_query)){
+																?>
+																<div style="padding-top:5px"><span class="bold">Транспорт:</span> <?php echo $truck_result["make"]." ".$truck_result["model"] ?> <br></div>
+															<?php } ?>															
 															<div style="padding-top:5px"><span class="bold">Дата регистрации:</span> <?php echo date("d.m.Y", strtotime($user_result["time"])) ?> <br></div>
 															</span>
 													</div>

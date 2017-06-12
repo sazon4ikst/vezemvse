@@ -16,15 +16,20 @@ $messages = array();
 while ($my_freights_result = mysqli_fetch_assoc($my_freights_query)){
 	$freight_id = $my_freights_result["freight_id"];
 	
-	$offers_query = mysqli_query($con, "SELECT offer_id FROM offer WHERE freight_id='$freight_id'") or die(mysqli_error($con));
+	$offers_query = mysqli_query($con, "SELECT offer_id, seen FROM offer WHERE freight_id='$freight_id'") or die(mysqli_error($con));
 	while ($offers_result = mysqli_fetch_assoc($offers_query)){
 		$offer_id = $offers_result["offer_id"];
+		$seen = $offers_result["seen"];
+	
+		if ($seen == "0"){		
+			array_push($messages, array("message"=>"Новое предложение", "offer_id"=>$offer_id, "freight_id"=>$freight_id));
+		}
 		
 		$unread_messages_query = mysqli_query($con, "SELECT message FROM message WHERE offer_id='$offer_id' AND user_id<>'$user_id' AND seen=0") or die(mysqli_error($con));
 		while ($unread_messages_result = mysqli_fetch_assoc($unread_messages_query)){
 			$message = $unread_messages_result["message"];
 			
-			array_push($messages, array("message"=>$message, "offer_id"=>$offer_id));
+			array_push($messages, array("message"=>$message, "freight_id"=>$freight_id, "offer_id"=>$offer_id));
 		}
 	}
 }
