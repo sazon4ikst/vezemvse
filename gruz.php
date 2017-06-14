@@ -94,11 +94,17 @@
 				.gruz_mobile_padding {
 					padding: 0 15px;
 				}
+				.wr_row {
+					height: auto !important;
+				}
 			}
 			
 			.gruz_info {
 				padding:12px 25px !important;
 				min-height:300px;
+			}
+			.wr_row {
+				height: 270px;
 			}
 
 			@media (max-width: 767px) {
@@ -193,12 +199,22 @@
 			
 			.details_button {
 				width: 280px;
-				margin:30px; 
+				margin: 30px; 
+			}
+			.action_buttons {
+				width: 280px;
+				margin: 30px;
 			}
 			@media (max-width: 767px) {
 				.details_button {
 					width: calc(100% - 20px);
-					margin: 0 0 20px 0;
+					margin: 0 0 20px 0 !important;
+				}
+				.action_buttons {					
+					width: calc(100% - 20px) !important;
+					margin: 10px 0 -20px 0 !important;
+					padding: 0;
+					position: static !important;
 				}
 			}
 			
@@ -279,6 +295,12 @@
 			}
 			.driver_selected_text {
 				margin-left:20px; 
+			}
+			.accept_button {
+				width: 135px; 
+			}
+			.decline_button {
+				width: 135px; 
 			}
 			@media (max-width: 767px) {
 				.driver_selected {
@@ -411,7 +433,7 @@
 													</span>
 												</div>
 												<div class="in_col column column-1024 gruz_info" style="overflow-x:hidden; overflow-y:auto; background:#dfeaf5">
-													<div class="wr_row" style="font-family: 'Roboto', Helvetica, Arial, sans-serif; height:270px">
+													<div class="wr_row" style="font-family: 'Roboto', Helvetica, Arial, sans-serif">
 														<div class="row row_top" style="padding-bottom:10px;">
 															<p style="color:#333"><b class="name" style="width:auto; color:#333; font-weight:500">Заказчик:</b> <span class="date" style="margin-left:3px; font-weight:normal"><?php echo $owner_name; echo ($type=="2") ? " (☎ ".str_replace("+38", "", $owner_phone).")" : "" ?></span></p>
 															<?php if (!empty($freight_result["price"])){ ?>
@@ -573,11 +595,11 @@
 												<div class="detail-main__block-controls" style="width: 650px;">
 												
 													<?php if ($offers_result["status"] == "1" and !$already_accepted and $session_user_id == $freight_owner_id and $freight_status=="0"){ ?>
-														<div style="width:280px; position:absolute; bottom:50px; right:0; margin:30px">
-															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="accept_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; display:inline-block; padding-left:0; padding-right:0">
+														<div class="action_buttons" style="position:absolute; bottom:50px; right:0;">
+															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="accept_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="display:inline-block; padding-left:0; padding-right:0">
 																Согласиться
 															</div>
-															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="decline_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="width:135px; margin-left:5px; background:#f44336; display:inline-block; padding-left:0; padding-right:0">
+															<div offer_id="<?php echo $offers_result["offer_id"] ?>" class="decline_button vv-button vv-button--green detail-main__accept x-sugg-detail-button" style="margin-left:5px; background:#f44336; display:inline-block; padding-left:0; padding-right:0">
 																Отклонить
 															</div>
 														</div>
@@ -620,6 +642,38 @@
 															<?php } ?>															
 															<div style="padding-top:5px"><span class="bold">Дата регистрации:</span> <?php echo date("d.m.Y", strtotime($user_result["time"])) ?> <br></div>
 															</span>
+															<?php if (!empty($type) and $type == "1"){ ?>
+															<div class="rate_col">
+																<div class="wr_border">
+																	<div class="ureven_nad">
+																		<p class="title">Уровень надежности
+
+																			<span class="tail_wr"><img alt="" src="/assets/styles/images/v3/otkloneno.svg" class="otkloneno-img">
+																				<span class="tail"><span class="bold">Уровень надежности перевозчика</span> — процентная
+																					шкала, складывающаяся из нескольких составляющих.
+																					Чем выше уровень надежности, тем больше доверия к
+																					перевозчику.
+																				</span>
+																			</span>
+																		</p>
+																		<span class="ureven ur-100" style="margin-top:-10px"></span>
+																	</div>
+																</div>
+																<div class="wr_border">
+																	<div class="raeting_wr">
+																		<p class="title">Рейтинг
+
+																			<span class="tail_wr"><img alt="" src="/assets/styles/images/v3/otkloneno.svg" class="otkloneno-img">
+																				<span class="tail tail150"><span class="bold">Рейтинг перевозчика</span> — складывается из истории
+																					сделок перевозчика и отзывов заказчиков об его услугах.
+																				</span>
+																			</span>
+																		</p>
+																		<span class="rating stars5"></span>
+																	</div>
+																</div>
+															</div>
+															<?php } ?>
 													</div>
 												</div>
 											</div>

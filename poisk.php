@@ -91,6 +91,14 @@
 				.torg_green_phone {
 					display: block !important;
 				}
+				.title {
+					font-weight: 600 !important;					
+					font-size: 16px;
+				}
+				.date {
+					font-weight: 400 !important;
+					color: #666 !important;
+				}
 			}
 		</style>
 
@@ -303,7 +311,7 @@
 										<tbody>
 											<tr>
 												<td>
-													<span>														
+													<span class="date">														
 													<?php if ($freight_result["start_time"]!=null){
 															$date = new DateTime("@".$freight_result["start_time"]);
 															echo $date->format('d.m');
@@ -313,7 +321,7 @@
 													?></span>
 												</td>
 												<td>
-													<span><?php echo $freight_result["title"] ?></span>
+													<span class="title"><?php echo $freight_result["title"] ?></span>
 												</td>
 												<td>
 													<span><?php echo str_replace(", город Киев", "", $freight_result["address_from"]) ?> </span>                        
@@ -434,7 +442,14 @@
 				});
 			}
 			
-			$("#search_button").click(function(){
+			$("#search_button").click(function(){				
+				try{						
+					ga('send', 'event', {
+						eventCategory: 'Заказ',
+						eventAction: 'Фильтр',							
+					});
+				} catch(err){}
+				
 				if (parseInt($("#weight_max").val()) < parseInt($("#weight_min").val())){
 					alert("Выбран неправильный вес.");
 					return;
