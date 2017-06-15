@@ -1,4 +1,7 @@
 <?php
+
+phpinfo();
+die();
 	session_start();
 	$session_user_id = @$_SESSION['user_id'];
 	

@@ -64,9 +64,9 @@ $message = ob_get_clean();
 @mail("dmytro@sheiko.net", "=?UTF-8?B?".base64_encode("Вам пришло новое сообщение")."?=", $message, $headers);
 
 // Send sms
-$google_token_query = mysqli_query($con, "SELECT google_token FROM notification WHERE id='1'") or die(mysqli_error($con));
-$google_token_result = mysqli_fetch_assoc($google_token_query);
-$google_token = $google_token_result["google_token"];
+//$google_token_query = mysqli_query($con, "SELECT google_token FROM notification WHERE id='1'") or die(mysqli_error($con));
+//$google_token_result = mysqli_fetch_assoc($google_token_query);
+//$google_token = $google_token_result["google_token"];
 
 //sendNotificationSms($google_token, $phone, $name);
 
@@ -78,7 +78,7 @@ function sendNotificationSms($google_token, $phone, $name){
 	
 	$recipients = array();
 	array_push($recipients, $phone);
-	$data = array("message"=>$name." отправил Вам новое сообщение. Подробности: http://gurugruza.com.ua.\n\n(Не отвечайте на это уведомление.)", "recipients"=>$recipients);
+	$data = array("message"=>$name." отправил Вам новое сообщение. Подробности: https://gurugruza.com.ua.\n\n(Не отвечайте на это уведомление.)", "recipients"=>$recipients);
 
     // Set POST request body
     $post = array(
@@ -111,7 +111,8 @@ function sendNotificationSms($google_token, $phone, $name){
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
 
     // Actually send the request    
-    curl_exec($ch);
+    $result = curl_exec($ch);
+	var_dump($result);
 
     // Close curl handle
     curl_close($ch);
