@@ -18,6 +18,8 @@ $start_time = ISSET($_POST["time"]) ? $_POST["time"] : null;
 $distance = ISSET($_POST["distance"]) ? $_POST["distance"] : null;
 $description = ISSET($_POST["description"]) ? $_POST["description"] : null;
 $registered = ISSET($_POST["registered"]) ? $_POST["registered"] : "false";
+$calculated = intval(ISSET($_POST["calculated"]) ? $_POST["calculated"] : "0");
+
 $posted_time = time();
 
 if (empty($title) or empty($address_from) or empty($address_to)){
@@ -97,8 +99,9 @@ $posted_time = mysqli_real_escape_string($con, $posted_time);
 $start_time = mysqli_real_escape_string($con, $start_time);
 $description = mysqli_real_escape_string($con, $description);
 $distance = mysqli_real_escape_string($con, $distance);
+$calculated = mysqli_real_escape_string($con, $calculated);
 
-mysqli_query($con, "INSERT INTO freight(user_id, posted_time, start_time, title, description, address_from, address_to, distance, weight, volume, price) VALUES ('$user_id', '$posted_time', '$start_time', '$title', '$description', '$address_from', '$address_to', '$distance', '$weight', '$volume', '$price')") or die (mysqli_error($con));
+mysqli_query($con, "INSERT INTO freight(user_id, posted_time, start_time, title, description, address_from, address_to, distance, weight, volume, price, calculated) VALUES ('$user_id', '$posted_time', '$start_time', '$title', '$description', '$address_from', '$address_to', '$distance', '$weight', '$volume', '$price', '$calculated')") or die (mysqli_error($con));
 $freight_id = mysqli_insert_id($con);
 
 @get_lat_long($con, $freight_id, $address_from, $address_to);

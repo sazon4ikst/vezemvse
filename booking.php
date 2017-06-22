@@ -1293,7 +1293,7 @@
 							<div class="InputControl" style="margin-top:20px">
 								<label class="InputControl-label InputControl-label--normal" for="name">Желаемый бюджет</label>
 								<div>
-									<input type="number" value="" label="Желаемый бюджет" id="price" placeholder="грн" class="InputControl-control InputControl-control--left" style="max-width: 450px">
+									<input type="number" value="<?php echo ISSET($_GET["price"]) ? $_GET["price"] : "" ?>" label="Желаемый бюджет" id="price" placeholder="грн" class="InputControl-control InputControl-control--left" style="max-width: 450px">
 								</div>
 							</div>					
 							<div class="InputControl" style="margin-top:20px">
@@ -1740,6 +1740,7 @@
 					"password": password,
 					"time": time,
 					"registered": registered,
+					"calculated": "<?php echo ISSET($_GET["price"]) ? 1 : 0 ?>"
 				},
 				dataType: "json",
 				success: function(data){
@@ -1808,6 +1809,9 @@
 			});
 			
 			directionsService = new google.maps.DirectionsService()
+			
+			$("#address_from").val("<?php echo ISSET($_GET["address_from"]) ? $_GET["address_from"] : "" ?>");
+			$("#address_to").val("<?php echo ISSET($_GET["address_to"]) ? $_GET["address_to"] : "" ?>");
 		}
 			
 		function calcRoute() {			

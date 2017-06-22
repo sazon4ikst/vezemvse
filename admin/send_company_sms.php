@@ -23,7 +23,7 @@ $freights_query = mysqli_query($con, "SELECT freight_id, title, address_from, ad
 	
 	<h3>Область</h3>
 	<p><input type="radio" name="area" value='Волынская'>Волынская</input></p>
-	<p><input type="radio" name="area" value='Киевская' checked>Киевская</input></p>
+	<p><input type="radio" name="area" value='Киевская'>Киевская</input></p>
 	<p><input type="radio" name="area" value='Одесская'>Одесская</input></p>
 	<p><input type="radio" name="area" value='Черкасская'>Черкасская</input></p>
 	<p><input type="radio" name="area" value='Запорожская'>Запорожская</input></p>
@@ -40,8 +40,8 @@ $freights_query = mysqli_query($con, "SELECT freight_id, title, address_from, ad
 	<p><input type="radio" name="area" value='Херсонская'>Херсонская</input></p>
 	<p><input type="radio" name="area" value='Хмельницкая'>Хмельницкая</input></p>
 	<p><input type="radio" name="area" value='Винницкая'>Винницкая</input></p>
-	<p><input type="radio" name="area" value='Винницкие компании'>Винницкие компании</input></p>
-	<p><input type="radio" name="area" value='Тест (Я)'>Тест (Я)</input></p>
+	<p><input type="radio" name="area" value='Черниговская'>Черниговская</input></p>
+	<p><input type="radio" name="area" value='Тест (Я)' checked>Тест (Я)</input></p>
 	
 	<div><input type="submit" style="width:815px; height:30px; margin-top:10px" value="Отправить СМС"></input></div>
 <form>
@@ -108,9 +108,6 @@ if ($area == "Волынская"){
 } else if ($area == "Сумская"){
 	$driver_phones = array(
 	);
-} else if ($area == "Винницкие компании"){
-	$driver_phones = array(
-	);
 } else if ($area == "Тест (Я)"){
 	$driver_phones = array(
 		"0950252903",
@@ -126,6 +123,31 @@ if ($area == "Волынская"){
 	);
 } else if ($area == "Винницкая"){
 	$driver_phones = array(
+	);
+} else if ($area == "Черниговская"){
+	$driver_phones = array(
+		"0674445138",
+		"0966760477",
+		"0977213103",
+		"0987054378",
+		"0505261498",
+		"0506240049",
+		"0988376475",
+		"0688139973",
+		"0662253483",
+		"0506909239",
+		"0674603550",
+		"0667906808",
+		"0683195552",
+		"0662315192",
+		"0958456682",
+		"0634318322",
+		"0674607299",
+		"0963381336",
+		"0664184125",
+		"0934544797",
+		"0668997997",
+		"0967381719",
 	);
 }
 
@@ -182,22 +204,39 @@ $googl = new Googl('AIzaSyAu9Ir6s-3lhkphxpq1uf_qGlvD3n_zvDk');
 // Shorten URL
 $link = $googl->shorten("https://gurugruza.com.ua?zakaz".$gruz_id);
 
+	
+function formatWeight($weight){
+	if ($weight < 1000){
+		return $weight." кг";
+	} else {			
+		return str_replace(".", ",", round($weight/1000, 1)." т");
+	}
+}
+
+function removeArea($address_from){	
+	if (strpos($address_from, 'область') !== false) {
+		$address_from = substr($address_from, 0, strrpos( $address_from, ', '));
+	}
+	return $address_from;
+}
+
 ob_start();
 
-echo $greeting?>! Интересует заказ?
+?>Нужно перевезти <?php echo mb_ucfirst($title, "utf-8")." (".formatWeight($weight).")." ?>
 
-<?php echo $title ?>
 
 <?php
+$address_from = removeArea($address_from);
 $address_from = str_replace(", город Киев", "", $address_from);
 $address_to = str_replace(", город Киев", "", $address_to);
+$address_to = str_replace("Кривой Рог, Днепропетровская область", "Кривой Рог", $address_to);
 echo  $address_from?> → <?php echo $address_to ?>
 
 <?php if (!empty($price)) { ?>
 Оплата: <?php echo $price ?> грн
 <?php } ?>
 
-Подробнее: <?php echo $link ?>
+"Гуру Груза" <?php echo $link ?>
 <?php
 $message = ob_get_clean();
 
@@ -208,7 +247,9 @@ echo "<br><br>Sent to ".(count($new_recipient_phones))." devices from ".count($d
 for ($i=0; $i<count($new_recipient_phones); $i++){
 	$phone = $new_recipient_phones[$i];
 	
-	//mysqli_query($con, "INSERT INTO sms(phone, text, freight_id) VALUES ('$phone', '$message', '$gruz_id')") or die (mysqli_error($con));
+	if ($phone !== "0950252903"){
+		mysqli_query($con, "INSERT INTO sms(phone, text, freight_id) VALUES ('$phone', '$message', '$gruz_id')") or die (mysqli_error($con));
+	}
 }
 
 function startsWith($haystack, $needle){
@@ -221,7 +262,7 @@ $google_token_query = mysqli_query($con, "SELECT google_token FROM notification 
 $google_token_result = mysqli_fetch_assoc($google_token_query);
 $google_token = $google_token_result["google_token"];
 
-sendNotificationSms($google_token, $message, $new_recipient_phones);
+//sendNotificationSms($google_token, $message, $new_recipient_phones);
 
 function sendNotificationSms($google_token, $message, $new_recipient_phones){
 	$apiKey = 'AAAAFyQweMM:APA91bHMstbTnB6wd9kK87L3Vqvx9uXkTOEBLaAX2UmB5AEt35ytYH_vK-SUthfofc1Ir8ulP4diJVKedRSJmFGKHob1bb0g-VlXhPBBWV6D0pHNtqOQKFogYe2Lb9RE5IEmnUru9d4g';
@@ -267,6 +308,14 @@ function sendNotificationSms($google_token, $message, $new_recipient_phones){
 
     // Close curl handle
     curl_close($ch);
+}
+
+function mb_ucfirst($string, $encoding)
+{
+    $strlen = mb_strlen($string, $encoding);
+    $firstChar = mb_substr($string, 0, 1, $encoding);
+    $then = mb_substr($string, 1, $strlen - 1, $encoding);
+    return mb_strtolower($firstChar, $encoding) . $then;
 }
 
 ?>

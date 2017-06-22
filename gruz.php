@@ -11,7 +11,7 @@
 		$id = str_replace("/gruz/", "", $_SERVER['REQUEST_URI']);
 	}
 				
-	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, address_to, distance, weight, volume, price, posted_time, start_time, volume, weight, description, status FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
+	$freight_query = mysqli_query($con, "SELECT freight_id, user_id, title, address_from, address_to, address_from_corrected, address_to_corrected, distance, weight, volume, price, posted_time, start_time, volume, weight, description, status FROM freight WHERE freight_id='$id'") or die ("Груз не найден."."<br><br>".mysqli_error($con));
 	$freight_result = mysqli_fetch_assoc($freight_query);
 	if ($freight_result==null) die("Груз не найден");
 	$freight_owner_id = $freight_result["user_id"];
@@ -848,11 +848,10 @@
 			}
 			
 			function calcRoute() {
-			  var address_to = "<?php echo $freight_result["address_to"] ?>";
-			  address_to = address_to.replace(", ул. Богодаровка", "");
+			  var address_to = "<?php echo $freight_result["address_to_corrected"] != null ? $freight_result["address_to_corrected"] : $freight_result["address_to"] ?>";
 			
 			  var request = {
-				origin: "<?php echo $freight_result["address_from"] ?>",
+				origin: "<?php echo $freight_result["address_from_corrected"] != null ? $freight_result["address_from_corrected"] : $freight_result["address_from"] ?>",
 				destination: address_to,
 				optimizeWaypoints: true,
 				travelMode: google.maps.DirectionsTravelMode.DRIVING

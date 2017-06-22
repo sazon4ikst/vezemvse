@@ -102,7 +102,7 @@ $first_word = explode(' ', $title)[0];
 $last_char = mb_substr($first_word, -1);
 
 echo "<br><br><br>";
-echo $greeting.", ".my_ucfirst($owner_name, 'utf-8')."!<br><br>$driver_name предложил перевезти Ваш".(($last_char=="ы" or $last_char=="и")?"и":"")." ".$title." за $price грн.<br><br>Подробности и переписка: $link";
+echo /*$greeting.", ".my_ucfirst($owner_name, 'utf-8')."!<br><br>*/"$driver_name предложил перевезти Ваш".(($last_char=="ы" or $last_char=="и")?"и":"")." ".$title." за $price грн.<br><br>Подробности и переписка: $link";
 echo "<br><br><b>$owner_phone</b>";
 
 function my_ucfirst($string, $e ='utf-8') { 

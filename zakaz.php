@@ -45,6 +45,7 @@ if (isset($_GET["zakaz"])){
 	<title>Гуру Груза — грузоперевозки в Киеве, цены на грузовые перевозки по Киеву и области, организация перевозок грузов</title>
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,400,300&amp;subset=latin,cyrillic" media="screen" />
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300&amp;subset=latin,cyrillic" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/assets/styles/zakaz/main2.css">
 	<link type="text/css" rel="stylesheet" href="assets/cache/201722/home_v42017222331.min.css" media="screen" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<style type="text/css">
@@ -52,6 +53,38 @@ if (isset($_GET["zakaz"])){
 			.description__feature-button {
 				height:48px !important;
 			}
+		}
+		@media (max-width: 767px) {		
+			.home--intro-box {
+				width:calc(100% - 20px) !important;
+				padding-left:10px !important;
+				padding-right:10px !important;
+				margin-left:10px !important;
+				margin-right:10px !important;
+				margin-top: -10px !important;
+			}
+			.points-search--title {
+				line-height: 1.1em !important;
+				font-size: 26px !important;
+			}
+			.points-search--link {
+				float: none;
+				width: 100% !important;
+			}
+			#price {
+				padding-bottom: 20px;
+				margin-top: -8px;
+			}
+			.points-search--btn {
+				float: none;
+				width: 100% !important;
+			}
+		}
+		.points-search--link {
+			float: right !important;
+		}
+		.points-search--btn {
+			float: left !important;
 		}
 	</style>
 	<script type="application/ld+json">
@@ -131,26 +164,43 @@ if (isset($_GET["zakaz"])){
 			<source src="../assets/video/vv.mp4" type="video/mp4" />
 		</video>
 		<div class="billboard__video-fog"></div>
-		<div class="billboard__content">
-			<h1 class="billboard__title">
-       Найдём перевозчика<br/>
-       для доставки любого груза
-     </h1>
-			<div class="billboard__slogan">
-				<div class="billboard__subslogan">
-					Сравните цены и&nbsp;выберите лучшую
+		<div class="billboard__content" style="text-align: left;">
+		
+			<div class="home--intro-box" <?php echo ISSET($session_user_id) ? "style='margin-top:30px'" : "" ?>>
+				<div class="points-search">
+					<div class="points-search--title" style="color:#fff;"><?php echo ISSET($session_user_id) ? "Рассчитайте стоимость доставки" : "Рассчитайте стоимость доставки онлайн" ?></div>
+					<div class="points-search--line">
+						<div class="points-search--field">
+							<div class="form-field text point"><span draw-line="point" class="form-field--point">1</span>
+								<input id="address_from" type="text" placeholder="Введите адрес загрузки" class="form-field--input" autocomplete="off">
+							</div>
+						</div>
+						<div class="points-search--field">
+							<div class="form-field text point"><span draw-line="point" class="form-field--point" style="padding-left:1px">2</span>
+								<input id="address_to" type="text" placeholder="Введите адрес выгрузки" class="form-field--input" autocomplete="off">
+							</div>
+						</div>
+					</div>
+					<div class="points-search--field">
+						<div class="select-simple">
+							<div class="select-simple--in"><span class="select-simple--title">Грузовик 1,5 тонны, 12 м3 </span>
+								<img src="/assets/images/pages/zakaz/arrow.png" style="position: absolute; top: 12px; right: 10px; bottom: auto; left: auto; height:30px; width:auto" id="truck_type"/>
+							</div>
+							<ul class="select-simple--list">
+								<li data-value="1" class="is-active">Грузовик 1,5 тонны, 12 м3 </li>
+								<li data-value="2">Грузовик 3 тонны, 15 м3 </li>
+								<li data-value="3">Грузовик 5 тонн, 36 м3 </li>
+								<li data-value="4">Грузовик 7,5 тонн, 36 м3 </li>
+								<li data-value="5">Грузовик 10 тонн, 40 м3 </li>
+								<li data-value="6">Грузовик 22 тонны, 86 м3 </li>
+							</ul>
+						</div>
+					</div>
+					<div class="points-search--tools">
+						<div class="points-search--link"><a class="btn grey-link" style="color:#fff; font-size: 22px; display:none" id="price"></a></div>
+						<div class="points-search--btn"><a href="#" style="padding-top:15px; color: #000" class="btn primary block">Рассчитать</a></div>
+					</div>
 				</div>
-				<div class="billboard__subslogan">
-					Экономьте до&nbsp;72%
-					<br/>
-				</div>
-			</div>
-			<a class="billboard__button vv-button vv-button--gold vv-button--big" href="booking" onclick="yaCounter42689514.reachGoal('booking')">
-       Разместить запрос
-     </a>
-	 
-			<div style="color:#fff; padding-top:40px">
-				<a href="zakaz" style="color:#fff">Рассчитать стоимость доставки онлайн</a>
 			</div>
 		</div>
 
@@ -641,6 +691,152 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 </script>
 <!-- End Inspectlet Embed Code -->
 <script type='text/javascript' src="util/jivosite.js"></script>
+<script type='text/javascript' src="util/jQueryRotate.js"></script>
+<script>
+	$(".select-simple--in").click(function(){
+		$(".select-simple--list").toggle();
+		$(".billboard__arrow").hide();
+		var angle = parseInt($("#truck_type").getRotateAngle())+180;
+		$("#truck_type").rotate(angle);
+	});
+	
+		
+	var truck_type = 1;
+	$(".select-simple--list li").click(function(){
+		$(".select-simple--list li:nth-child("+truck_type+")").removeClass("is-active");
+		
+		var selected_type = $(this).index()+1;
+		
+		$(".select-simple--list li:nth-child("+selected_type+")").toggleClass("is-active");
+		
+		var text = $(".select-simple--list li:nth-child("+selected_type+")").html();
+		$(".select-simple--title").html(text);
+		
+		truck_type = selected_type;
+		
+		$(".select-simple--in").click();
+		
+		calcRoute();
+	});
+</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL5UB6urkL0ni5h-_R9WqLBIJxWdgZl2w&libraries=places&callback=initAutocomplete&language=ru&region=ua" async defer></script>
+	<script>		
+		var directionsService;
+			
+		function initAutocomplete() {
+			var input_from = document.getElementById('address_from');
+			var autocomplete_from = new google.maps.places.Autocomplete(input_from);
+			var input_to = document.getElementById('address_to');
+			var autocomplete_to = new google.maps.places.Autocomplete(input_to);
+			google.maps.event.addListener(autocomplete_from, 'place_changed', function() {
+				result = autocomplete_from.getPlace();
+				if(typeof result.address_components !== 'undefined') {
+					calcRoute();
+				}
+			});
+			google.maps.event.addListener(autocomplete_to, 'place_changed', function() {
+				result = autocomplete_to.getPlace();
+				if (typeof result.address_components !== 'undefined') {
+					calcRoute();
+				}
+			});
+			
+			directionsService = new google.maps.DirectionsService();
+		}
+		
+		$(".points-search--btn a").click(function(){	
+			var address_from = $("#address_from").val();
+			var address_to = $("#address_to").val();
+			
+			if (address_from=="" || address_to=="") {
+				alert("Пожалуйста укажите адрес загрузки и разгрузки");
+				return;
+			}
+			
+			calcRoute();
+		});
+			
+		function calcRoute() {			
+			var address_from = $("#address_from").val();
+			var address_to = $("#address_to").val();
+			
+			if (address_from=="" || address_to=="") {
+				$("#price").html("");
+				$(".points-search--btn a").html("Рассчитать");
+				$(".points-search--btn a").attr("href", "#");
+				$("#price").hide();
+				return;
+			}
+		
+			var request = {
+				// from: Blackpool to: Preston to: Blackburn
+				origin: address_from,
+				destination: address_to,
+				optimizeWaypoints: true,
+				travelMode: google.maps.DirectionsTravelMode.DRIVING
+			};
+			directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					computeTotalDistance(response);
+				} else {
+					$("#price").html("");
+					$(".points-search--btn a").html("Рассчитать");
+					$(".points-search--btn a").attr("href", "#");
+					$("#price").hide();
+				}
+			});
+		}
+		
+		$("#address_from").on('input', function(){
+			calcRoute();
+		});
+		
+		$("#address_to").on('input', function(){
+			calcRoute();
+		});
+		
+		$("#truck").change(function(){
+			calcRoute();
+		});
+			
+		function computeTotalDistance(result) {
+			var totalDist = 0;
+			var totalTime = 0;
+			var myroute = result.routes[0];
+			for (i = 0; i < myroute.legs.length; i++) {
+				totalDist += myroute.legs[i].distance.value;
+				totalTime += myroute.legs[i].duration.value;
+			}
+			
+			var km_price;
+			if (truck_type == 1){
+				km_price = 8.31;
+			} else if (truck_type == 2){
+				km_price = 9.73;
+			} else if (truck_type == 3){
+				km_price = 14.15;
+			} else if (truck_type == 4){
+				km_price = 15.50;
+			} else if (truck_type == 5){
+				km_price = 17.73;
+			} else if (truck_type == 6){
+				km_price = 25.21;
+			}
+			
+			totalDist = totalDist / 1000;
+			var discountDist = (totalDist-100) / 45;
+			var oprice = km_price*(totalDist);
+			var price = km_price*(totalDist - discountDist);
+			price = price+150;
+			price = Math.ceil(price / 50) * 50;
+			$("#price").html("К оплате: "+price+" грн");
+			$("#price").show();
+			$(".points-search--btn a").html("Заказать");
+			$(".points-search--btn a").attr("href", "/booking?address_from="+$("#address_from").val()+"&address_to="+$("#address_to").val()+"&price="+price);
+			
+			$(".billboard__arrow").hide();
+		}
+	</script>
 </body>
 
 </html>
