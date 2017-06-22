@@ -198,7 +198,7 @@ if (isset($_GET["zakaz"])){
 					</div>
 					<div class="points-search--tools">
 						<div class="points-search--link"><a class="btn grey-link" style="color:#fff; font-size: 22px; display:none" id="price"></a></div>
-						<div class="points-search--btn"><a href="#" style="padding-top:15px; color: #000" class="btn primary block">Рассчитать</a></div>
+						<div class="points-search--btn"><a href="#" style="padding-top:15px; color: #000" class="btn primary block" onclick="yaCounter42689514.reachGoal('booking')">Рассчитать</a></div>
 					</div>
 				</div>
 			</div>
@@ -798,7 +798,8 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 		$("#truck").change(function(){
 			calcRoute();
 		});
-			
+		
+		var calculated = false;
 		function computeTotalDistance(result) {
 			var totalDist = 0;
 			var totalTime = 0;
@@ -833,6 +834,16 @@ setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent
 			$("#price").show();
 			$(".points-search--btn a").html("Заказать");
 			$(".points-search--btn a").attr("href", "/booking?address_from="+$("#address_from").val()+"&address_to="+$("#address_to").val()+"&price="+price);
+			
+			if (!calculated) {
+				try{						
+					ga('send', 'event', {
+						eventCategory: 'Заказ',
+						eventAction: 'Стоимость',							
+					});
+				} catch(err){}
+				calculated = true;
+			}
 			
 			$(".billboard__arrow").hide();
 		}
