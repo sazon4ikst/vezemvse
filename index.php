@@ -150,7 +150,7 @@ if (isset($_GET["zakaz"])){
      </a>
 	 
 			<div style="color:#fff; padding-top:40px">
-				<a href="zakaz" style="color:#fff">Рассчитать стоимость доставки онлайн</a>
+				Вы перевозчик? <a href="kak_rabotat" style="color:#fff">Зарабатывайте с нами</a>
 			</div>
 		</div>
 
